@@ -38,15 +38,17 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userId = null;
 
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Hall $hallId = null;
+    
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Hall $hallId = null;
 
 
     #[ORM\PrePersist]
@@ -152,17 +154,6 @@ class Reservation
         return $this;
     }
 
-    public function getHallId(): ?Hall
-    {
-        return $this->hallId;
-    }
-
-    public function setHallId(?Hall $hallId): static
-    {
-        $this->hallId = $hallId;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -184,6 +175,18 @@ class Reservation
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getHallId(): ?Hall
+    {
+        return $this->hallId;
+    }
+
+    public function setHallId(?Hall $hallId): static
+    {
+        $this->hallId = $hallId;
 
         return $this;
     }

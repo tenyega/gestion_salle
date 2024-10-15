@@ -13,11 +13,11 @@ class HallErgonomy
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'hallErgonomy', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'hallErgonomies')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Hall $hallId = null;
 
-    #[ORM\OneToOne(inversedBy: 'hallErgonomy', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'hallErgonomies')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Ergonomy $ergonomyId = null;
 
@@ -31,7 +31,7 @@ class HallErgonomy
         return $this->hallId;
     }
 
-    public function setHallId(Hall $hallId): static
+    public function setHallId(?Hall $hallId): static
     {
         $this->hallId = $hallId;
 
@@ -43,7 +43,7 @@ class HallErgonomy
         return $this->ergonomyId;
     }
 
-    public function setErgonomyId(Ergonomy $ergonomyId): static
+    public function setErgonomyId(?Ergonomy $ergonomyId): static
     {
         $this->ergonomyId = $ergonomyId;
 

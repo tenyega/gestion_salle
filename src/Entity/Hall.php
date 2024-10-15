@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HallRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,17 +45,40 @@ class Hall
     #[ORM\JoinColumn(nullable: false)]
     private ?Address $addresseId = null;
 
-    #[ORM\OneToOne(mappedBy: 'hallId', cascade: ['persist', 'remove'])]
-    private ?HallEquipment $hallEquipment = null;
-
-    #[ORM\OneToOne(mappedBy: 'hallId', cascade: ['persist', 'remove'])]
-    private ?HallErgonomy $hallErgonomy = null;
-
-    #[ORM\OneToOne(mappedBy: 'hallId', cascade: ['persist', 'remove'])]
-    private ?HallImage $hallImage = null;
-
     #[ORM\Column(length: 255)]
     private ?string $mainImg = null;
+
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'hallId')]
+    private Collection $reservations;
+
+    /**
+     * @var Collection<int, HallEquipment>
+     */
+    #[ORM\OneToMany(targetEntity: HallEquipment::class, mappedBy: 'hallId', orphanRemoval: true)]
+    private Collection $hallEquipment;
+
+    /**
+     * @var Collection<int, HallErgonomy>
+     */
+    #[ORM\OneToMany(targetEntity: HallErgonomy::class, mappedBy: 'hallId', orphanRemoval: true)]
+    private Collection $hallErgonomies;
+
+    /**
+     * @var Collection<int, HallImage>
+     */
+    #[ORM\OneToMany(targetEntity: HallImage::class, mappedBy: 'hallId', orphanRemoval: true)]
+    private Collection $hallImages;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+        $this->hallEquipment = new ArrayCollection();
+        $this->hallErgonomies = new ArrayCollection();
+        $this->hallImages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -168,57 +193,6 @@ class Hall
         return $this;
     }
 
-    public function getHallEquipment(): ?HallEquipment
-    {
-        return $this->hallEquipment;
-    }
-
-    public function setHallEquipment(HallEquipment $hallEquipment): static
-    {
-        // set the owning side of the relation if necessary
-        if ($hallEquipment->getHallId() !== $this) {
-            $hallEquipment->setHallId($this);
-        }
-
-        $this->hallEquipment = $hallEquipment;
-
-        return $this;
-    }
-
-    public function getHallErgonomy(): ?HallErgonomy
-    {
-        return $this->hallErgonomy;
-    }
-
-    public function setHallErgonomy(HallErgonomy $hallErgonomy): static
-    {
-        // set the owning side of the relation if necessary
-        if ($hallErgonomy->getHallId() !== $this) {
-            $hallErgonomy->setHallId($this);
-        }
-
-        $this->hallErgonomy = $hallErgonomy;
-
-        return $this;
-    }
-
-    public function getHallImage(): ?HallImage
-    {
-        return $this->hallImage;
-    }
-
-    public function setHallImage(HallImage $hallImage): static
-    {
-        // set the owning side of the relation if necessary
-        if ($hallImage->getHallId() !== $this) {
-            $hallImage->setHallId($this);
-        }
-
-        $this->hallImage = $hallImage;
-
-        return $this;
-    }
-
     public function getMainImg(): ?string
     {
         return $this->mainImg;
@@ -227,6 +201,126 @@ class Hall
     public function setMainImg(string $mainImg): static
     {
         $this->mainImg = $mainImg;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getHallId() === $this) {
+                $reservation->setHallId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HallEquipment>
+     */
+    public function getHallEquipment(): Collection
+    {
+        return $this->hallEquipment;
+    }
+
+    public function addHallEquipment(HallEquipment $hallEquipment): static
+    {
+        if (!$this->hallEquipment->contains($hallEquipment)) {
+            $this->hallEquipment->add($hallEquipment);
+            $hallEquipment->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHallEquipment(HallEquipment $hallEquipment): static
+    {
+        if ($this->hallEquipment->removeElement($hallEquipment)) {
+            // set the owning side to null (unless already changed)
+            if ($hallEquipment->getHallId() === $this) {
+                $hallEquipment->setHallId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HallErgonomy>
+     */
+    public function getHallErgonomies(): Collection
+    {
+        return $this->hallErgonomies;
+    }
+
+    public function addHallErgonomy(HallErgonomy $hallErgonomy): static
+    {
+        if (!$this->hallErgonomies->contains($hallErgonomy)) {
+            $this->hallErgonomies->add($hallErgonomy);
+            $hallErgonomy->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHallErgonomy(HallErgonomy $hallErgonomy): static
+    {
+        if ($this->hallErgonomies->removeElement($hallErgonomy)) {
+            // set the owning side to null (unless already changed)
+            if ($hallErgonomy->getHallId() === $this) {
+                $hallErgonomy->setHallId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HallImage>
+     */
+    public function getHallImages(): Collection
+    {
+        return $this->hallImages;
+    }
+
+    public function addHallImage(HallImage $hallImage): static
+    {
+        if (!$this->hallImages->contains($hallImage)) {
+            $this->hallImages->add($hallImage);
+            $hallImage->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHallImage(HallImage $hallImage): static
+    {
+        if ($this->hallImages->removeElement($hallImage)) {
+            // set the owning side to null (unless already changed)
+            if ($hallImage->getHallId() === $this) {
+                $hallImage->setHallId(null);
+            }
+        }
 
         return $this;
     }

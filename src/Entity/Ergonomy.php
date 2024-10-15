@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ErgonomyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ErgonomyRepository::class)]
@@ -19,8 +21,16 @@ class Ergonomy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToOne(mappedBy: 'ergonomyId', cascade: ['persist', 'remove'])]
-    private ?HallErgonomy $hallErgonomy = null;
+    /**
+     * @var Collection<int, HallErgonomy>
+     */
+    #[ORM\OneToMany(targetEntity: HallErgonomy::class, mappedBy: 'ergonomyId', orphanRemoval: true)]
+    private Collection $hallErgonomies;
+
+    public function __construct()
+    {
+        $this->hallErgonomies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,20 +61,34 @@ class Ergonomy
         return $this;
     }
 
-    public function getHallErgonomy(): ?HallErgonomy
+    /**
+     * @return Collection<int, HallErgonomy>
+     */
+    public function getHallErgonomies(): Collection
     {
-        return $this->hallErgonomy;
+        return $this->hallErgonomies;
     }
 
-    public function setHallErgonomy(HallErgonomy $hallErgonomy): static
+    public function addHallErgonomy(HallErgonomy $hallErgonomy): static
     {
-        // set the owning side of the relation if necessary
-        if ($hallErgonomy->getErgonomyId() !== $this) {
+        if (!$this->hallErgonomies->contains($hallErgonomy)) {
+            $this->hallErgonomies->add($hallErgonomy);
             $hallErgonomy->setErgonomyId($this);
         }
 
-        $this->hallErgonomy = $hallErgonomy;
+        return $this;
+    }
+
+    public function removeHallErgonomy(HallErgonomy $hallErgonomy): static
+    {
+        if ($this->hallErgonomies->removeElement($hallErgonomy)) {
+            // set the owning side to null (unless already changed)
+            if ($hallErgonomy->getErgonomyId() === $this) {
+                $hallErgonomy->setErgonomyId(null);
+            }
+        }
 
         return $this;
     }
+
 }

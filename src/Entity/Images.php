@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ImagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImagesRepository::class)]
@@ -19,8 +21,16 @@ class Images
     #[ORM\Column(length: 255)]
     private ?string $img = null;
 
-    #[ORM\OneToOne(mappedBy: 'imgId', cascade: ['persist', 'remove'])]
-    private ?HallImage $hallImage = null;
+    /**
+     * @var Collection<int, HallImage>
+     */
+    #[ORM\OneToMany(targetEntity: HallImage::class, mappedBy: 'imgId', orphanRemoval: true)]
+    private Collection $hallImages;
+
+    public function __construct()
+    {
+        $this->hallImages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,19 +61,32 @@ class Images
         return $this;
     }
 
-    public function getHallImage(): ?HallImage
+    /**
+     * @return Collection<int, HallImage>
+     */
+    public function getHallImages(): Collection
     {
-        return $this->hallImage;
+        return $this->hallImages;
     }
 
-    public function setHallImage(HallImage $hallImage): static
+    public function addHallImage(HallImage $hallImage): static
     {
-        // set the owning side of the relation if necessary
-        if ($hallImage->getImgId() !== $this) {
+        if (!$this->hallImages->contains($hallImage)) {
+            $this->hallImages->add($hallImage);
             $hallImage->setImgId($this);
         }
 
-        $this->hallImage = $hallImage;
+        return $this;
+    }
+
+    public function removeHallImage(HallImage $hallImage): static
+    {
+        if ($this->hallImages->removeElement($hallImage)) {
+            // set the owning side to null (unless already changed)
+            if ($hallImage->getImgId() === $this) {
+                $hallImage->setImgId(null);
+            }
+        }
 
         return $this;
     }

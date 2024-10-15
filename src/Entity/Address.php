@@ -31,6 +31,8 @@ class Address
     #[ORM\OneToOne(mappedBy: 'addresseId', cascade: ['persist', 'remove'])]
     private ?Hall $hall = null;
 
+  
+
  
 
     public function getId(): ?int
@@ -114,6 +116,8 @@ class Address
 
         return $this;
     }
+
+    
 
    
 }

@@ -13,11 +13,11 @@ class HallEquipment
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'hallEquipment', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'hallEquipment')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Hall $hallId = null;
 
-    #[ORM\OneToOne(inversedBy: 'hallEquipment', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'hallEquipment')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Equipment $equipmentId = null;
 
@@ -31,7 +31,7 @@ class HallEquipment
         return $this->hallId;
     }
 
-    public function setHallId(Hall $hallId): static
+    public function setHallId(?Hall $hallId): static
     {
         $this->hallId = $hallId;
 
@@ -43,7 +43,7 @@ class HallEquipment
         return $this->equipmentId;
     }
 
-    public function setEquipmentId(Equipment $equipmentId): static
+    public function setEquipmentId(?Equipment $equipmentId): static
     {
         $this->equipmentId = $equipmentId;
 

@@ -49,8 +49,8 @@ description varchar 255 nullable
     	accessibility varchar255 not null
     	capacityMax integer not null
     	pricePerHour decimal not null (Precision 5, scale 2)
-    	openingTime Time not null
-    	closingTime Time not null
+    	openingTime time not null
+    	closingTime time not null
       	eventTypeId 121 with EventType(Hall.eventTypeId nullable?: No, eventType->getHall(): yes)
       	addresseId 121 with Address(Hall.addressId nullable?: No)
 		mainImg varchar255 not null
@@ -117,16 +117,15 @@ symfony console make:entity Images
 title varchar 120 not null
 img varchar255 not null
 
-symfony console make:entity Hall
-mainImg varchar 255 not null
-listImg M2M with Image (image.getHalls: yes)
 
 symfony console make:entity HallEquipment
-	hallId 121 with Hall (HallEquipment.hallId nullable?: No,  $hall->getHallEquipment()?: yes )
-	equipmentId 121 with equipment
+	hallId M21 with Hall (HallEquipment.hallId nullable?: No,  $hall->getHallEquipment()?: yes , orphanRemoval?: Yes)
+	equipmentId M21 with equipment
+
 symfony console make:entity HallErgonomy
-	hallId 121 with Hall
-	ergonomyId 121 with Ergonomy
+	hallId M21 with Hall
+	ergonomyId M21 with Ergonomy
+
 symfony console make:entity HallImage
-	hallId 121 with Hall
-	imgId 121 with Images
+	hallId M21 with Hall
+	imgId M21 with Images

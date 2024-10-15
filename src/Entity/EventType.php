@@ -22,6 +22,8 @@ class EventType
     #[ORM\OneToOne(mappedBy: 'eventTypeId', cascade: ['persist', 'remove'])]
     private ?Hall $hall = null;
 
+  
+
    
 
     public function getId(): ?int

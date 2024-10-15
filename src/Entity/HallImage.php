@@ -13,11 +13,11 @@ class HallImage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'hallImage', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'hallImages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Hall $hallId = null;
 
-    #[ORM\OneToOne(inversedBy: 'hallImage', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'hallImages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Images $imgId = null;
 
@@ -31,7 +31,7 @@ class HallImage
         return $this->hallId;
     }
 
-    public function setHallId(Hall $hallId): static
+    public function setHallId(?Hall $hallId): static
     {
         $this->hallId = $hallId;
 
@@ -43,7 +43,7 @@ class HallImage
         return $this->imgId;
     }
 
-    public function setImgId(Images $imgId): static
+    public function setImgId(?Images $imgId): static
     {
         $this->imgId = $imgId;
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EquipmentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
@@ -22,8 +24,18 @@ class Equipment
     #[ORM\Column(length: 180)]
     private ?string $type = null;
 
-    #[ORM\OneToOne(mappedBy: 'equipmentId', cascade: ['persist', 'remove'])]
-    private ?HallEquipment $hallEquipment = null;
+    /**
+     * @var Collection<int, HallEquipment>
+     */
+    #[ORM\OneToMany(targetEntity: HallEquipment::class, mappedBy: 'equipmentId', orphanRemoval: true)]
+    private Collection $hallEquipment;
+
+    public function __construct()
+    {
+        $this->hallEquipment = new ArrayCollection();
+    }
+
+ 
 
     public function getId(): ?int
     {
@@ -66,20 +78,35 @@ class Equipment
         return $this;
     }
 
-    public function getHallEquipment(): ?HallEquipment
+    /**
+     * @return Collection<int, HallEquipment>
+     */
+    public function getHallEquipment(): Collection
     {
         return $this->hallEquipment;
     }
 
-    public function setHallEquipment(HallEquipment $hallEquipment): static
+    public function addHallEquipment(HallEquipment $hallEquipment): static
     {
-        // set the owning side of the relation if necessary
-        if ($hallEquipment->getEquipmentId() !== $this) {
+        if (!$this->hallEquipment->contains($hallEquipment)) {
+            $this->hallEquipment->add($hallEquipment);
             $hallEquipment->setEquipmentId($this);
         }
 
-        $this->hallEquipment = $hallEquipment;
+        return $this;
+    }
+
+    public function removeHallEquipment(HallEquipment $hallEquipment): static
+    {
+        if ($this->hallEquipment->removeElement($hallEquipment)) {
+            // set the owning side to null (unless already changed)
+            if ($hallEquipment->getEquipmentId() === $this) {
+                $hallEquipment->setEquipmentId(null);
+            }
+        }
 
         return $this;
     }
+
+    
 }
