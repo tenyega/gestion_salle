@@ -95,6 +95,17 @@ LOADED THE FIXTURES
 
 
 
+app_hall_edit
+app_hall_show
+app_hall_show_all
+app_hall_delete
+
+
+app_ergonomy_edit
+app_ergonomy_delete
+
+
+app_equipment_edit
 
 CREATING SECURITY CONTROLLER AND REGISTRATION FORM
 	symfony console make:security:form-login 
