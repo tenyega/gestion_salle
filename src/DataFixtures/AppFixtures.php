@@ -10,6 +10,10 @@ use App\Entity\Equipment;
 use App\Entity\Ergonomy;
 use App\Entity\EventType;
 use App\Entity\Hall;
+use App\Entity\HallEquipment;
+use App\Entity\HallErgonomy;
+use App\Entity\HallImage;
+use App\Entity\Images;
 use App\Entity\Notification;
 use App\Entity\Reservation;
 use App\Entity\User;
@@ -34,6 +38,9 @@ class AppFixtures extends Fixture
         $addressArray = [];
         $userArray = [];
         $hallArray = [];
+        $equipmentArray = [];
+        $ergonomyArray = [];
+        $imgArray = [];
 
 
         //USER
@@ -97,7 +104,7 @@ class AppFixtures extends Fixture
             $equipment->setName($faker->unique()->word);
             $equipment->setDescription($faker->sentence);
             $equipment->setType($faker->unique()->word);
-
+            $equipmentArray[] = $equipment;
             $manager->persist($equipment);
         }
         $manager->flush();
@@ -106,6 +113,7 @@ class AppFixtures extends Fixture
             $ergonomy = new Ergonomy();
             $ergonomy->setName($faker->unique()->word);
             $ergonomy->setDescription($faker->sentence);
+            $ergonomyArray[] = $ergonomy;
             $manager->persist($ergonomy);
         }
         $manager->flush();
@@ -131,35 +139,40 @@ class AppFixtures extends Fixture
         $hall->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
         $hall->setEventTypeId($faker->randomElement($eventArray));
         $hall->setAddresseId($faker->randomElement($addressArray));
+        $hall->setMainImg($faker->imageUrl(640, 480, 'house', true));
+
         $hallArray[] = $hall;
         $manager->persist($hall);
 
 
-        $hall2 = new Hall();
-        $hall2->setName($faker->unique()->company);
-        $hall2->setArea($faker->randomNumber(2));
-        $hall2->setAccessibility($faker->sentence);
-        $hall2->setCapacityMax($faker->numberBetween(50, 500));
-        $hall2->setPricePerHour($faker->randomFloat(2, 20, 200));
-        $hall2->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
-        $hall2->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
-        $hall2->setEventTypeId($faker->randomElement($eventArray));
-        $hall2->setAddresseId($faker->randomElement($addressArray));
-        $hallArray[] = $hall2;
-        $manager->persist($hall2);
+        // $hall2 = new Hall();
+        // $hall2->setName($faker->unique()->company);
+        // $hall2->setArea($faker->randomNumber(2));
+        // $hall2->setAccessibility($faker->sentence);
+        // $hall2->setCapacityMax($faker->numberBetween(50, 500));
+        // $hall2->setPricePerHour($faker->randomFloat(2, 20, 200));
+        // $hall2->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
+        // $hall2->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
+        // $hall2->setEventTypeId($faker->randomElement($eventArray));
+        // $hall2->setAddresseId($faker->randomElement($addressArray));
+        // $hall2->setMainImg($faker->imageUrl(640, 480, 'house', true));
 
-        $hall3 = new Hall();
-        $hall3->setName($faker->unique()->company);
-        $hall3->setArea($faker->randomNumber(2));
-        $hall3->setAccessibility($faker->sentence);
-        $hall3->setCapacityMax($faker->numberBetween(50, 500));
-        $hall3->setPricePerHour($faker->randomFloat(2, 20, 200));
-        $hall3->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
-        $hall3->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
-        $hall3->setEventTypeId($faker->randomElement($eventArray));
-        $hall3->setAddresseId($faker->randomElement($addressArray));
-        $hallArray[] = $hall3;
-        $manager->persist($hall3);
+        // $hallArray[] = $hall2;
+        // $manager->persist($hall2);
+
+        // $hall3 = new Hall();
+        // $hall3->setName($faker->unique()->company);
+        // $hall3->setArea($faker->randomNumber(2));
+        // $hall3->setAccessibility($faker->sentence);
+        // $hall3->setCapacityMax($faker->numberBetween(50, 500));
+        // $hall3->setPricePerHour($faker->randomFloat(2, 20, 200));
+        // $hall3->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
+        // $hall3->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
+        // $hall3->setEventTypeId($faker->randomElement($eventArray));
+        // $hall3->setAddresseId($faker->randomElement($addressArray));
+        // $hall3->setMainImg($faker->imageUrl(640, 480, 'house', true));
+        // $hallArray[] = $hall3;
+        // $manager->persist($hall3);
 
 
         $manager->flush();
@@ -196,6 +209,37 @@ class AppFixtures extends Fixture
             $manager->persist($reservation);
         }
 
+
+        //IMAGES
+        for ($i = 0; $i < 15; $i++) {
+            $images = new Images();
+            $images->setTitle($faker->title())
+                ->setImg($faker->imageUrl(640, 480, 'house', true));
+            $imgArray[]= $images;
+            $manager->persist($images);
+        }
+
+        //INTERMIDIATE hall_equipment
+      
+            $hallEquipment = new HallEquipment();
+            $hallEquipment->setHallId($faker->randomElement($hallArray))
+                ->setEquipmentId($faker->randomElement($equipmentArray));
+            $manager->persist($hallEquipment);
+       
+
+        //INTERMIDIATE hall_ergonomy
+            $hallErgonomy = new HallErgonomy();
+            $hallErgonomy->setHallId($faker->randomElement($hallArray))
+                ->setErgonomyId($faker->randomElement($ergonomyArray));
+            $manager->persist($hallErgonomy);
+
+
+
+        //INTERMIDIATE hall_image
+            $hallImage = new HallImage();
+            $hallImage->setHallId($faker->randomElement($hallArray))
+                ->setImgId($faker->randomElement($imgArray));
+            $manager->persist($hallImage);
         $manager->flush();
     }
 }

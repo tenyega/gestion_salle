@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\EquipmentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EquipmentRepository::class)]
@@ -24,16 +22,8 @@ class Equipment
     #[ORM\Column(length: 180)]
     private ?string $type = null;
 
-    /**
-     * @var Collection<int, Hall>
-     */
-    #[ORM\ManyToMany(targetEntity: Hall::class, mappedBy: 'listEquipment')]
-    private Collection $halls;
-
-    public function __construct()
-    {
-        $this->halls = new ArrayCollection();
-    }
+    #[ORM\OneToOne(mappedBy: 'equipmentId', cascade: ['persist', 'remove'])]
+    private ?HallEquipment $hallEquipment = null;
 
     public function getId(): ?int
     {
@@ -76,29 +66,19 @@ class Equipment
         return $this;
     }
 
-    /**
-     * @return Collection<int, Hall>
-     */
-    public function getHalls(): Collection
+    public function getHallEquipment(): ?HallEquipment
     {
-        return $this->halls;
+        return $this->hallEquipment;
     }
 
-    public function addHall(Hall $hall): static
+    public function setHallEquipment(HallEquipment $hallEquipment): static
     {
-        if (!$this->halls->contains($hall)) {
-            $this->halls->add($hall);
-            $hall->addListEquipment($this);
+        // set the owning side of the relation if necessary
+        if ($hallEquipment->getEquipmentId() !== $this) {
+            $hallEquipment->setEquipmentId($this);
         }
 
-        return $this;
-    }
-
-    public function removeHall(Hall $hall): static
-    {
-        if ($this->halls->removeElement($hall)) {
-            $hall->removeListEquipment($this);
-        }
+        $this->hallEquipment = $hallEquipment;
 
         return $this;
     }

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ErgonomyRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ErgonomyRepository::class)]
@@ -21,16 +19,8 @@ class Ergonomy
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    /**
-     * @var Collection<int, Hall>
-     */
-    #[ORM\ManyToMany(targetEntity: Hall::class, mappedBy: 'listErgonomy')]
-    private Collection $halls;
-
-    public function __construct()
-    {
-        $this->halls = new ArrayCollection();
-    }
+    #[ORM\OneToOne(mappedBy: 'ergonomyId', cascade: ['persist', 'remove'])]
+    private ?HallErgonomy $hallErgonomy = null;
 
     public function getId(): ?int
     {
@@ -61,29 +51,19 @@ class Ergonomy
         return $this;
     }
 
-    /**
-     * @return Collection<int, Hall>
-     */
-    public function getHalls(): Collection
+    public function getHallErgonomy(): ?HallErgonomy
     {
-        return $this->halls;
+        return $this->hallErgonomy;
     }
 
-    public function addHall(Hall $hall): static
+    public function setHallErgonomy(HallErgonomy $hallErgonomy): static
     {
-        if (!$this->halls->contains($hall)) {
-            $this->halls->add($hall);
-            $hall->addListErgonomy($this);
+        // set the owning side of the relation if necessary
+        if ($hallErgonomy->getErgonomyId() !== $this) {
+            $hallErgonomy->setErgonomyId($this);
         }
 
-        return $this;
-    }
-
-    public function removeHall(Hall $hall): static
-    {
-        if ($this->halls->removeElement($hall)) {
-            $hall->removeListErgonomy($this);
-        }
+        $this->hallErgonomy = $hallErgonomy;
 
         return $this;
     }

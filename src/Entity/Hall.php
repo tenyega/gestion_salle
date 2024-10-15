@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\HallRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -45,30 +43,17 @@ class Hall
     #[ORM\JoinColumn(nullable: false)]
     private ?Address $addresseId = null;
 
-    /**
-     * @var Collection<int, Equipment>
-     */
-    #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: 'halls')]
-    private Collection $listEquipment;
+    #[ORM\OneToOne(mappedBy: 'hallId', cascade: ['persist', 'remove'])]
+    private ?HallEquipment $hallEquipment = null;
 
-    /**
-     * @var Collection<int, Ergonomy>
-     */
-    #[ORM\ManyToMany(targetEntity: Ergonomy::class, inversedBy: 'halls')]
-    private Collection $listErgonomy;
+    #[ORM\OneToOne(mappedBy: 'hallId', cascade: ['persist', 'remove'])]
+    private ?HallErgonomy $hallErgonomy = null;
 
-    /**
-     * @var Collection<int, Reservation>
-     */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'hallId', orphanRemoval: false)]
-    private Collection $reservations;
+    #[ORM\OneToOne(mappedBy: 'hallId', cascade: ['persist', 'remove'])]
+    private ?HallImage $hallImage = null;
 
-    public function __construct()
-    {
-        $this->listEquipment = new ArrayCollection();
-        $this->listErgonomy = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-    }
+    #[ORM\Column(length: 255)]
+    private ?string $mainImg = null;
 
     public function getId(): ?int
     {
@@ -183,80 +168,65 @@ class Hall
         return $this;
     }
 
-    /**
-     * @return Collection<int, Equipment>
-     */
-    public function getListEquipment(): Collection
+    public function getHallEquipment(): ?HallEquipment
     {
-        return $this->listEquipment;
+        return $this->hallEquipment;
     }
 
-    public function addListEquipment(Equipment $listEquipment): static
+    public function setHallEquipment(HallEquipment $hallEquipment): static
     {
-        if (!$this->listEquipment->contains($listEquipment)) {
-            $this->listEquipment->add($listEquipment);
+        // set the owning side of the relation if necessary
+        if ($hallEquipment->getHallId() !== $this) {
+            $hallEquipment->setHallId($this);
         }
 
-        return $this;
-    }
-
-    public function removeListEquipment(Equipment $listEquipment): static
-    {
-        $this->listEquipment->removeElement($listEquipment);
+        $this->hallEquipment = $hallEquipment;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Ergonomy>
-     */
-    public function getListErgonomy(): Collection
+    public function getHallErgonomy(): ?HallErgonomy
     {
-        return $this->listErgonomy;
+        return $this->hallErgonomy;
     }
 
-    public function addListErgonomy(Ergonomy $listErgonomy): static
+    public function setHallErgonomy(HallErgonomy $hallErgonomy): static
     {
-        if (!$this->listErgonomy->contains($listErgonomy)) {
-            $this->listErgonomy->add($listErgonomy);
+        // set the owning side of the relation if necessary
+        if ($hallErgonomy->getHallId() !== $this) {
+            $hallErgonomy->setHallId($this);
         }
 
-        return $this;
-    }
-
-    public function removeListErgonomy(Ergonomy $listErgonomy): static
-    {
-        $this->listErgonomy->removeElement($listErgonomy);
+        $this->hallErgonomy = $hallErgonomy;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
+    public function getHallImage(): ?HallImage
     {
-        return $this->reservations;
+        return $this->hallImage;
     }
 
-    public function addReservation(Reservation $reservation): static
+    public function setHallImage(HallImage $hallImage): static
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setHallId($this);
+        // set the owning side of the relation if necessary
+        if ($hallImage->getHallId() !== $this) {
+            $hallImage->setHallId($this);
         }
 
+        $this->hallImage = $hallImage;
+
         return $this;
     }
 
-    public function removeReservation(Reservation $reservation): static
+    public function getMainImg(): ?string
     {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getHallId() === $this) {
-                $reservation->setHallId(null);
-            }
-        }
+        return $this->mainImg;
+    }
+
+    public function setMainImg(string $mainImg): static
+    {
+        $this->mainImg = $mainImg;
 
         return $this;
     }
