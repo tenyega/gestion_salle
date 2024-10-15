@@ -110,12 +110,20 @@ app_equipment_edit
 CREATING SECURITY CONTROLLER AND REGISTRATION FORM
 	symfony console make:security:form-login 
 		SecurityController with /logout and no phpUnit test
-	symfony console make:registration-form
-		 composer require symfonycasts/verify-email-bundle 
-
 
 INSTALLED UX ICON FROM SYMFONY 
 	composer require symfony/ux-twig-component
 	composer require symfony/ux-icon
+
+	symfony console make:controller Home
+
+
+	symfony console make:registration-form (UniqueEntity validation?: Yes, send Email?: Yes, include userid in verifcation link?: No, email?: hall4all@email.com,name?:  hall4all)
+		 composer require symfonycasts/verify-email-bundle 
+
+	To launch the server mailer 
+		symfony console messenger:consume async -vv
+
+
 
 
