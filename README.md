@@ -86,22 +86,6 @@ FIXTURES
 	composer require fakerphp/faker
 
 
-	EVENTYPE FIXTURES 
-		php bin/console make:fixture EventType
-	ADDRESS FIXTURES
-		php bin/console make:fixture Address
-	ERGONOMY FIXTURES
-		php bin/console make:fixture Ergonomy
-	EQUIPMENT FIXTURES
-		php bin/console make:fixture Equipment
-	NOTIFICATION FIXTURES
-		php bin/console make:fixture Notification
-	HALL FIXTURES
-		php bin/console make:fixture Hall
-	RESERVATION FIXTURES
-		php bin/console make:fixture Reservation
-	USER FIXTURES
-		php bin/console make:fixture User
 LOADED THE FIXTURES 
 	symfony console d:f:l
 
@@ -118,8 +102,6 @@ CREATING SECURITY CONTROLLER AND REGISTRATION FORM
 	symfony console make:registration-form
 		 composer require symfonycasts/verify-email-bundle 
 
-	 symfony console make:entity User
-		added is_verified
 
 INSTALLED UX ICON FROM SYMFONY 
 	composer require symfony/ux-twig-component
