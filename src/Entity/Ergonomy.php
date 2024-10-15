@@ -22,14 +22,14 @@ class Ergonomy
     private ?string $description = null;
 
     /**
-     * @var Collection<int, Hall>
+     * @var Collection<int, HallErgonomy>
      */
-    #[ORM\ManyToMany(targetEntity: Hall::class, mappedBy: 'listErgonomy')]
-    private Collection $halls;
+    #[ORM\OneToMany(targetEntity: HallErgonomy::class, mappedBy: 'ergonomyId', orphanRemoval: true)]
+    private Collection $hallErgonomies;
 
     public function __construct()
     {
-        $this->halls = new ArrayCollection();
+        $this->hallErgonomies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,29 +62,33 @@ class Ergonomy
     }
 
     /**
-     * @return Collection<int, Hall>
+     * @return Collection<int, HallErgonomy>
      */
-    public function getHalls(): Collection
+    public function getHallErgonomies(): Collection
     {
-        return $this->halls;
+        return $this->hallErgonomies;
     }
 
-    public function addHall(Hall $hall): static
+    public function addHallErgonomy(HallErgonomy $hallErgonomy): static
     {
-        if (!$this->halls->contains($hall)) {
-            $this->halls->add($hall);
-            $hall->addListErgonomy($this);
+        if (!$this->hallErgonomies->contains($hallErgonomy)) {
+            $this->hallErgonomies->add($hallErgonomy);
+            $hallErgonomy->setErgonomyId($this);
         }
 
         return $this;
     }
 
-    public function removeHall(Hall $hall): static
+    public function removeHallErgonomy(HallErgonomy $hallErgonomy): static
     {
-        if ($this->halls->removeElement($hall)) {
-            $hall->removeListErgonomy($this);
+        if ($this->hallErgonomies->removeElement($hallErgonomy)) {
+            // set the owning side to null (unless already changed)
+            if ($hallErgonomy->getErgonomyId() === $this) {
+                $hallErgonomy->setErgonomyId(null);
+            }
         }
 
         return $this;
     }
+
 }
