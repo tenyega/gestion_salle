@@ -60,7 +60,7 @@ class Hall
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'hallId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'hallId', orphanRemoval: false)]
     private Collection $reservations;
 
     public function __construct()

@@ -42,7 +42,7 @@ ENTITIES
 		message varchar255 not null
 		createdAt datetime_immutable not null
 		isRead boolean not null
-		userId M21 with User (Notification.userId allowed nullable?: No, OrphanRemoval?: yes)
+		userId M21 with User (Notification.userId allowed nullable?: No, OrphanRemoval?: no)
 
 
 	HALL
@@ -67,8 +67,8 @@ ENTITIES
 		endTime time not null
 		isConfirmed boolean not null
 		specialRequest varchar 255 nullable 
-		userId ManyToOne with User (Reservation.userId nullable?: No, OrphanRemoval? :yes)
-		hallId ManyToOne with Hall( Reservation.hallId nullable? : No, OrphanRemoval? : yes)
+		userId ManyToOne with User (Reservation.userId nullable?: No, OrphanRemoval? :no)
+		hallId ManyToOne with Hall( Reservation.hallId nullable? : No, OrphanRemoval? : no)
 		
 .env.local
 	database name db_hall_management
@@ -83,6 +83,23 @@ FIXTURES
 	composer require orm-fixtures --dev
 	composer require fakerphp/faker
 
+
+	EVENTYPE FIXTURES 
+		php bin/console make:fixture EventType
+	ADDRESS FIXTURES
+		php bin/console make:fixture Address
+	ERGONOMY FIXTURES
+		php bin/console make:fixture Ergonomy
+	EQUIPMENT FIXTURES
+		php bin/console make:fixture Equipment
+	NOTIFICATION FIXTURES
+		php bin/console make:fixture Notification
+	HALL FIXTURES
+		php bin/console make:fixture Hall
+	RESERVATION FIXTURES
+		php bin/console make:fixture Reservation
+	USER FIXTURES
+		php bin/console make:fixture User
 LOADED THE FIXTURES 
 	symfony console d:f:l
 

@@ -27,7 +27,7 @@ class Reservation
     private ?\DateTimeInterface $endTime = null;
 
     #[ORM\Column]
-    private ?bool $isConfirmed = null;
+    private ?bool $isConfirmed = false;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $specialRequest = null;

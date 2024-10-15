@@ -37,16 +37,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Notification>
      */
-    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'userId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'userId', orphanRemoval: false)]
     private Collection $notifications;
 
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'userId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'userId', orphanRemoval: false)]
     private Collection $reservations;
 
-    
+
 
     public function __construct()
     {
@@ -187,7 +187,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-  
-
 }
