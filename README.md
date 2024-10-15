@@ -69,6 +69,8 @@ ENTITIES
 		specialRequest varchar 255 nullable 
 		userId ManyToOne with User (Reservation.userId nullable?: No, OrphanRemoval? :no)
 		hallId ManyToOne with Hall( Reservation.hallId nullable? : No, OrphanRemoval? : no)
+		createdAt datetime_immutable  not null
+		updatedAt datetime_immutable  not null
 		
 .env.local
 	database name db_hall_management

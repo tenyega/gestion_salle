@@ -116,44 +116,46 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
         // HALL
-            $hall = new Hall();
-            $hall->setName($faker->unique()->company);
-            $hall->setArea($faker->randomNumber(2));
-            $hall->setAccessibility($faker->sentence);
-            $hall->setCapacityMax($faker->numberBetween(50, 500));
-            $hall->setPricePerHour($faker->randomFloat(2, 20, 200));
-            $hall->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
-            $hall->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
-            $hall->setEventTypeId($faker->randomElement($eventArray));  
-            $hall->setAddresseId($faker->randomElement($addressArray));  
-            $hallArray[] = $hall;
-            $manager->persist($hall);
 
-            $hall2 = new Hall();
-            $hall2->setName($faker->unique()->company);
-            $hall2->setArea($faker->randomNumber(2));
-            $hall2->setAccessibility($faker->sentence);
-            $hall2->setCapacityMax($faker->numberBetween(50, 500));
-            $hall2->setPricePerHour($faker->randomFloat(2, 20, 200));
-            $hall2->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
-            $hall2->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
-            $hall2->setEventTypeId($faker->randomElement($eventArray));  
-            $hall2->setAddresseId($faker->randomElement($addressArray));  
-            $hallArray[] = $hall2;
-            $manager->persist($hall2);
+        $hall = new Hall();
+        $hall->setName($faker->company);
+        $hall->setArea($faker->randomNumber(2));
+        $hall->setAccessibility($faker->sentence);
+        $hall->setCapacityMax($faker->numberBetween(50, 500));
+        $hall->setPricePerHour($faker->randomFloat(2, 20, 200));
+        $hall->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
+        $hall->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
+        $hall->setEventTypeId($faker->randomElement($eventArray));
+        $hall->setAddresseId($faker->randomElement($addressArray));
+        $hallArray[] = $hall;
+        $manager->persist($hall);
 
-            $hall3 = new Hall();
-            $hall3->setName($faker->unique()->company);
-            $hall3->setArea($faker->randomNumber(2));
-            $hall3->setAccessibility($faker->sentence);
-            $hall3->setCapacityMax($faker->numberBetween(50, 500));
-            $hall3->setPricePerHour($faker->randomFloat(2, 20, 200));
-            $hall3->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
-            $hall3->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
-            $hall3->setEventTypeId($faker->randomElement($eventArray));  
-            $hall3->setAddresseId($faker->randomElement($addressArray));  
-            $hallArray[] = $hall3;
-            $manager->persist($hall3);
+
+        $hall2 = new Hall();
+        $hall2->setName($faker->unique()->company);
+        $hall2->setArea($faker->randomNumber(2));
+        $hall2->setAccessibility($faker->sentence);
+        $hall2->setCapacityMax($faker->numberBetween(50, 500));
+        $hall2->setPricePerHour($faker->randomFloat(2, 20, 200));
+        $hall2->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
+        $hall2->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
+        $hall2->setEventTypeId($faker->randomElement($eventArray));
+        $hall2->setAddresseId($faker->randomElement($addressArray));
+        $hallArray[] = $hall2;
+        $manager->persist($hall2);
+
+        $hall3 = new Hall();
+        $hall3->setName($faker->unique()->company);
+        $hall3->setArea($faker->randomNumber(2));
+        $hall3->setAccessibility($faker->sentence);
+        $hall3->setCapacityMax($faker->numberBetween(50, 500));
+        $hall3->setPricePerHour($faker->randomFloat(2, 20, 200));
+        $hall3->setOpeningTime(\DateTime::createFromFormat('H:i:s', '05:30:00'));
+        $hall3->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
+        $hall3->setEventTypeId($faker->randomElement($eventArray));
+        $hall3->setAddresseId($faker->randomElement($addressArray));
+        $hallArray[] = $hall3;
+        $manager->persist($hall3);
 
 
         $manager->flush();
