@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Equipment;
+use App\Entity\Ergonomy;
 use App\Entity\Hall;
 use App\Entity\Reservation;
 use App\Entity\User;
@@ -44,5 +46,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Users', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Halls', 'fas fa-building', Hall::class);
         yield MenuItem::linkToCrud('Reservations', 'fas fa-calendar-alt', Reservation::class);
+        yield MenuItem::linkToCrud('Equipments', 'fas fa-tools', Equipment::class);
+        yield MenuItem::linkToCrud('Ergonomy', 'fas fa-chair', Ergonomy::class);
+
     }
+    
 }

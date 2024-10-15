@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -31,7 +32,9 @@ class ReservationCrudController extends AbstractCrudController
             DateTimeField::new('endDate'),
             TimeField::new('startTime'),
             TimeField::new('endTime'),
-            BooleanField::new('isConfirmed'),
+            BooleanField::new('isConfirmed')
+                ->setLabel('Confirmed')
+                ->setCustomOption('html', true),  // Enable raw HTML rendering
             TextareaField::new('specialRequest'),
             AssociationField::new('userId')
                 ->setLabel('User') // Set a label for the field
