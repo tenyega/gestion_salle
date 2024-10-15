@@ -40,7 +40,8 @@ class AppFixtures extends Fixture
         $user1 = new User();
         $user1->setEmail('user1@email.com')
             ->setPassword($this->hasher->hashPassword($user1, 'user1'))
-            ->setRoles(['Role_User']);
+            ->setRoles(['Role_User'])
+            ->isVerified(true);
         $userArray[] = $user1;
         $manager->persist($user1);
 
@@ -48,7 +49,8 @@ class AppFixtures extends Fixture
         $user2 = new User();
         $user2->setEmail('user2@email.com')
             ->setPassword($this->hasher->hashPassword($user2, 'user2'))
-            ->setRoles(['Role_User']);
+            ->setRoles(['Role_User'])
+            ->isVerified(false);
         $userArray[] = $user2;
 
         $manager->persist($user2);
@@ -58,7 +60,8 @@ class AppFixtures extends Fixture
         $user3 = new User();
         $user3->setEmail('user3@email.com')
             ->setPassword($this->hasher->hashPassword($user3, 'user2'))
-            ->setRoles(['Role_User']);
+            ->setRoles(['Role_User'])
+            ->isVerified(true);
         $userArray[] = $user3;
 
         $manager->persist($user3);
@@ -67,6 +70,7 @@ class AppFixtures extends Fixture
         $admin->setEmail('admin@email.com')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
             ->setRoles(['Role_Admin'])
+            ->isVerified(true)
         ;
         $manager->persist($admin);
         $manager->flush();
