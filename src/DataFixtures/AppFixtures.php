@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
         $addressArray = [];
         $userArray = [];
         $hallArray = [];
-      $equipmentArray = [];
+        $equipmentArray = [];
         $ergonomyArray = [];
         $imgArray = [];
 
@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
         //USER
         $user1 = new User();
         $user1->setEmail('user1@email.com')
-            ->setPassword($this->hasher->hashPassword($user1, 'user1')
+            ->setPassword($this->hasher->hashPassword($user1, 'user1'))
             ->setRoles(['Role_User'])
             ->isVerified(true);
 
@@ -58,7 +58,7 @@ class AppFixtures extends Fixture
         $user2 = new User();
         $user2->setEmail('user2@email.com')
             ->setPassword($this->hasher->hashPassword($user2, 'user2'))
-             ->setRoles(['Role_User'])
+            ->setRoles(['Role_User'])
             ->isVerified(false);
 
         $userArray[] = $user2;
@@ -70,7 +70,7 @@ class AppFixtures extends Fixture
         $user3 = new User();
         $user3->setEmail('user3@email.com')
             ->setPassword($this->hasher->hashPassword($user3, 'user2'))
-              ->setRoles(['Role_User'])
+            ->setRoles(['Role_User'])
             ->isVerified(true);
 
         $userArray[] = $user3;
@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
         $admin->setEmail('admin@email.com')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
             ->setRoles(['Role_Admin'])
-              ->isVerified(true)
+            ->isVerified(true)
         ;
         $manager->persist($admin);
         $manager->flush();
@@ -97,7 +97,7 @@ class AppFixtures extends Fixture
             $address->setCountry($faker->country);
             $address->setCity($faker->city);
             $address->setCodePostal($faker->postcode);
-           $addressArray[$i] = $address;
+            $addressArray[$i] = $address;
 
             $manager->persist($address);
         }
@@ -109,7 +109,7 @@ class AppFixtures extends Fixture
             $equipment->setName($faker->unique()->word);
             $equipment->setDescription($faker->sentence);
             $equipment->setType($faker->unique()->word);
-          $equipmentArray[] = $equipment;
+            $equipmentArray[] = $equipment;
             $manager->persist($equipment);
         }
         $manager->flush();
@@ -118,7 +118,7 @@ class AppFixtures extends Fixture
             $ergonomy = new Ergonomy();
             $ergonomy->setName($faker->unique()->word);
             $ergonomy->setDescription($faker->sentence);
-           $ergonomyArray[] = $ergonomy;
+            $ergonomyArray[] = $ergonomy;
             $manager->persist($ergonomy);
         }
         $manager->flush();

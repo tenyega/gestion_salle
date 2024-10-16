@@ -53,7 +53,7 @@ description varchar 255 nullable
     	closingTime time not null
       	eventTypeId 121 with EventType(Hall.eventTypeId nullable?: No, eventType->getHall(): yes)
       	addresseId 121 with Address(Hall.addressId nullable?: No)
-		mainImg varchar255 not null
+    	mainImg varchar255 not null
 
 
     RESERVATION
@@ -68,7 +68,6 @@ description varchar 255 nullable
     	hallId ManyToOne with Hall( Reservation.hallId nullable? : No, OrphanRemoval? : no)
     	createdAt datetime_immutable  not null
     	updatedAt datetime_immutable  not null
-
 
 .env.local
 database name db_hall_management
@@ -103,8 +102,30 @@ INSTALLED UX ICON FROM SYMFONY
 composer require symfony/ux-twig-component
 composer require symfony/ux-icon
 
-    symfony console make:controller Home
+ADMIN
+composer req easycorp/easyadmin-bundle
+symfony console make:admin:dashboard
+symfony console make:admin:crud
 
+CREATING HOME CONTROLLER
+
+## symfony console make:controller HomeController
+
+CREATING PROFILE CONTROLLER
+
+## symfony console make:controller ProfileController
+
+CREATING HALL CONTROLLER
+
+## symfony console make:controller HallController
+
+CREATING NOTIFICATION CONTROLLER
+
+## symfony console make:controller NotificationController
+
+CREATING RESERVATION CONTROLLER
+
+## symfony console make:controller ReservationController
 
     symfony console make:registration-form (UniqueEntity validation?: Yes, send Email?: Yes, include userid in verifcation link?: No, email?: hall4all@email.com,name?:  hall4all)
     	 composer require symfonycasts/verify-email-bundle
@@ -117,33 +138,18 @@ symfony console make:entity Images
 title varchar 120 not null
 img varchar255 not null
 
-
 symfony console make:entity HallEquipment
-	hallId M21 with Hall (HallEquipment.hallId nullable?: No,  $hall->getHallEquipment()?: yes , orphanRemoval?: Yes)
-	equipmentId M21 with equipment
+hallId M21 with Hall (HallEquipment.hallId nullable?: No, $hall->getHallEquipment()?: yes , orphanRemoval?: Yes)
+equipmentId M21 with equipment
 
 symfony console make:entity HallErgonomy
-	hallId M21 with Hall
-	ergonomyId M21 with Ergonomy
+hallId M21 with Hall
+ergonomyId M21 with Ergonomy
 
 symfony console make:entity HallImage
-	hallId M21 with Hall
-	imgId M21 with Images
-CREATING HALL CONTROLLER 
- ## symfony console make:controller HallController
+hallId M21 with Hall
+imgId M21 with Images
 
-CREATING NOTIFICATION CONTROLLER 
- ## symfony console make:controller HallController
-
-INSTALLED UX ICON FROM SYMFONY 
-	composer require symfony/ux-twig-component
-	composer require symfony/ux-icon
-ADMIN
-	composer req easycorp/easyadmin-bundle
-	symfony console make:admin:dashboard	
-	symfony console make:admin:crud 
-
-
-ERROR 
-	wrong relation with intermidiate tables from the intermidiate point its M21 with Hall and M21 with Ergonomy 
-	121 relation with EventType and Addresse which was blocking also the same problem of duplicate key entry. 
+ERROR
+wrong relation with intermidiate tables from the intermidiate point its M21 with Hall and M21 with Ergonomy
+121 relation with EventType and Addresse which was blocking also the same problem of duplicate key entry.
