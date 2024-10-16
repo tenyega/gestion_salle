@@ -1,20 +1,60 @@
+{# list des reservations #}
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReservationController!{% endblock %}
+{% block title %}My Reservations
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<pre>
+    {{ dump() }}
+</pre>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {# <h1>My Reservations</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/src/Controller/ReservationController.php</code></li>
-        <li>Your template at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/templates/reservation/index.html.twig</code></li>
-    </ul>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hall</th>
+                <th>Area</th>
+                <th>Capacity</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Confirmed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in reservations %}
+                <tr>
+                    <td>{{ reservation.hall.name }}</td>
+                    <td>{{ reservation.hall.hallImage }}</td>
+                    <td>{{ reservation.hall.area }}</td>
+                    <td>{{ reservation.hall.capacityMax }}</td>
+                    <td>{{ reservation.start_date|date('Y-m-d') }}</td>
+                    <td>{{ reservation.end_date|date('Y-m-d') }}</td>
+                    <td>{{ reservation.start_time|date('H:i') }}</td>
+                    <td>{{ reservation.end_time|date('H:i') }}</td>
+                    <td>{{ reservation.is_confirmed ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="btn btn-primary btn-sm">Show</a>
+                        <a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
+                        <form method="post" action="{{ path('app_reservation_delete', {id: reservation.id}) }}" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this reservation?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">No reservations found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reservation_new') }}" class="btn btn-success">Add New Reservation</a> #}
 {% endblock %}
+

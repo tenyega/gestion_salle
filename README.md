@@ -153,3 +153,11 @@ imgId M21 with Images
 ERROR
 wrong relation with intermidiate tables from the intermidiate point its M21 with Hall and M21 with Ergonomy
 121 relation with EventType and Addresse which was blocking also the same problem of duplicate key entry.
+
+## symfony console make:form reservation
+
+creation twig CRUD with form
+index.html.twig
+new.html.twig
+edit.html.twig
+delete.html.twig
