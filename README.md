@@ -102,6 +102,12 @@ CREATING SECURITY CONTROLLER AND REGISTRATION FORM
 	 symfony console make:entity User
 		added is_verified
 
+CREATING HALL CONTROLLER 
+ ## symfony console make:controller HallController
+
+CREATING NOTIFICATION CONTROLLER 
+ ## symfony console make:controller HallController
+
 INSTALLED UX ICON FROM SYMFONY 
 	composer require symfony/ux-twig-component
 	composer require symfony/ux-icon
