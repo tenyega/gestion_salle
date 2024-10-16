@@ -43,19 +43,26 @@ class ReservationType extends AbstractType
                 'class' => Hall::class,
                 'choice_label' => 'id',
             ])
-            // ->add('hall', EntityType::class, [
-            //     'class' => Hall::class,
-            //     'choice_label' => function (Hall $hall) {
-            //         return sprintf(
-            //             '%s (Area: ùs, Capacity: %d, Price per hour: $.2f)',
-            //             $hall->getName(),
-            //             $hall->getArea(),
-            //             $hall->getCapacityMax(),
-            //             $hall->getPricePerHour()
-
-            //         );
-            //     }
-            // ])
+            ->add('hall', EntityType::class, [
+                'class' => Hall::class,
+                'choice_label' => function (Hall $hall) {
+                    return sprintf(
+                        '%s (Area: ùs, Capacity: %d, Price per hour: $.2f)',
+                        $hall->getName(),
+                        $hall->getArea(),
+                        $hall->getMainImg(),
+                        $hall->getCapacityMax(),
+                        $hall->getPricePerHour(),
+                        $hall->getHallEquipment(),
+                        $hall->getHallErgonomies(),
+                        $hall->getEventTypeId()->getName(),
+                        $hall->getAddresseId()->getCity(),
+                        $hall->getOpeningTime()->format('H:i:s'),
+                        $hall->getClosingTime()->format('H:i:s'),
+                        $hall->getAccessibility(),
+                    );
+                }
+            ])
         ;
     }
 
