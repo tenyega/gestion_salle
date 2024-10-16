@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReservationController!{% endblock %}
+{% block title %}Add New Reservation{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Add New Reservation</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {# Lien pour revenir à la liste des réservations #}
+    <a href="{{ path('app_reservation_index') }}" class="mb-3 btn btn-secondary">Back to My Reservations</a>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/src/Controller/ReservationController.php</code></li>
-        <li>Your template at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/templates/reservation/index.html.twig</code></li>
-    </ul>
-</div>
+    {# Formulaire de nouvelle réservation #}
+    {{ form_start(form) }}
+    
+    <div class="form-group">
+        <label for="hall">Hall</label>
+        {{ form_widget(form.hall, { 'attr': {'class': 'form-control'} }) }}
+        <small class="form-text text-muted">
+            Choose the hall you want to reserve. 
+            Details of each hall (e.g., capacity, price) are provided in the options.
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="start_date">Start Date</label>
+        {{ form_widget(form.start_date, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        <label for="end_date">End Date</label>
+        {{ form_widget(form.end_date, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        <label for="start_time">Start Time</label>
+        {{ form_widget(form.start_time, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        <label for="end_time">End Time</label>
+        {{ form_widget(form.end_time, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <div class="form-group">
+        <label for="is_confirmed">Confirmed</label>
+        {{ form_widget(form.is_confirmed, { 'attr': {'class': 'form-control'} }) }}
+    </div>
+
+    <button type="submit" class="mt-3 btn btn-success">Submit Reservation</button>
+
+    {{ form_end(form) }}
+
 {% endblock %}

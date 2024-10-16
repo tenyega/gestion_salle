@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReservationController!{% endblock %}
+{% block title %}Reservation Details
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Reservation Details</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table">
+        <tr>
+            <td>{{ reservation.hallId.mainImg }}</td>
+        </tr>
+        <tr>
+            <td>{{ reservation.hallId.name }}</td>
+        </tr>
+        <tr>
+            <th>Area</th>
+            <td>{{ reservation.hallId.area }}</td>
+        </tr>
+        <tr>
+            <th>Capacity</th>
+            <td>{{ reservation.hallId.capacityMax }}</td>
+        </tr>
+        <tr>
+            <th>Equipement</th>
+            <td>{{ reservation.hallId.hallEquipment }}</td>
+        </tr>
+        <tr>
+            <th>Start Date</th>
+            <td>{{ reservation.startDate|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>End Date</th>
+            <td>{{ reservation.endDate|date('Y-m-d') }}</td>
+        </tr>
+        <tr>
+            <th>Start Time</th>
+            <td>{{ reservation.startTime|date('H:i') }}</td>
+        </tr>
+        <tr>
+            <th>End Time</th>
+            <td>{{ reservation.endTime|date('H:i') }}</td>
+        </tr>
+        <tr>
+            <th>Price per hour</th>
+            <td>{{ reservation.hallId.pricePerHour }}</td>
+        </tr>
+        <tr>
+            <th>Confirmed</th>
+            <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>
+        </tr>
+    </table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/src/Controller/ReservationController.php</code></li>
-        <li>Your template at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/templates/reservation/index.html.twig</code></li>
-    </ul>
-</div>
+    <a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="btn btn-primary">Edit</a>
+    <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary">Back to list</a>
 {% endblock %}
+

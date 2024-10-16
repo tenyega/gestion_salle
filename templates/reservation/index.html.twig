@@ -6,18 +6,21 @@
 {% endblock %}
 
 {% block body %}
-<pre>
+<a href="{{ path('app_reservation_new') }}" class="btn btn-success">Add New Reservation</a> 
+{# <pre>
     {{ dump() }}
-</pre>
+</pre> #}
 
-    {# <h1>My Reservations</h1>
+    <h1>My Reservations</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Hall</th>
+                <th>Image</th>
                 <th>Area</th>
                 <th>Capacity</th>
+                <th>Price per Hour</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Start Time</th>
@@ -29,15 +32,16 @@
         <tbody>
             {% for reservation in reservations %}
                 <tr>
-                    <td>{{ reservation.hall.name }}</td>
-                    <td>{{ reservation.hall.hallImage }}</td>
-                    <td>{{ reservation.hall.area }}</td>
-                    <td>{{ reservation.hall.capacityMax }}</td>
-                    <td>{{ reservation.start_date|date('Y-m-d') }}</td>
-                    <td>{{ reservation.end_date|date('Y-m-d') }}</td>
-                    <td>{{ reservation.start_time|date('H:i') }}</td>
-                    <td>{{ reservation.end_time|date('H:i') }}</td>
-                    <td>{{ reservation.is_confirmed ? 'Yes' : 'No' }}</td>
+                    <td>{{ reservation.hallId.name }}</td>
+                    <td>{{ reservation.hallId.mainImg }}</td>
+                    <td>{{ reservation.hallId.area }}</td>
+                    <td>{{ reservation.hallId.capacityMax }}</td>
+                     <td>{{ reservation.hallId.pricePerHour }}</td>
+                    <td>{{ reservation.startDate|date('Y-m-d') }}</td>
+                    <td>{{ reservation.endDate|date('Y-m-d') }}</td>
+                    <td>{{ reservation.startTime|date('H:i') }}</td>
+                    <td>{{ reservation.endTime|date('H:i') }}</td>
+                    <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>
                     <td>
                         <a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="btn btn-primary btn-sm">Show</a>
                         <a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
@@ -55,6 +59,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_reservation_new') }}" class="btn btn-success">Add New Reservation</a> #}
 {% endblock %}
 
