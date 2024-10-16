@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\NotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\NotificationRepository;
 
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
 #[ORM\HasLifecycleCallbacks]

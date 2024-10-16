@@ -129,8 +129,15 @@ symfony console make:entity HallErgonomy
 symfony console make:entity HallImage
 	hallId M21 with Hall
 	imgId M21 with Images
+CREATING HALL CONTROLLER 
+ ## symfony console make:controller HallController
 
+CREATING NOTIFICATION CONTROLLER 
+ ## symfony console make:controller HallController
 
+INSTALLED UX ICON FROM SYMFONY 
+	composer require symfony/ux-twig-component
+	composer require symfony/ux-icon
 ADMIN
 	composer req easycorp/easyadmin-bundle
 	symfony console make:admin:dashboard	

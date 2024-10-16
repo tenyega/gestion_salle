@@ -26,6 +26,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AppFixtures extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
+
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->hasher = $passwordHasher;
@@ -38,7 +39,7 @@ class AppFixtures extends Fixture
         $addressArray = [];
         $userArray = [];
         $hallArray = [];
-        $equipmentArray = [];
+      $equipmentArray = [];
         $ergonomyArray = [];
         $imgArray = [];
 
@@ -46,9 +47,10 @@ class AppFixtures extends Fixture
         //USER
         $user1 = new User();
         $user1->setEmail('user1@email.com')
-            ->setPassword($this->hasher->hashPassword($user1, 'user1'))
+            ->setPassword($this->hasher->hashPassword($user1, 'user1')
             ->setRoles(['Role_User'])
             ->isVerified(true);
+
         $userArray[] = $user1;
         $manager->persist($user1);
 
@@ -56,8 +58,9 @@ class AppFixtures extends Fixture
         $user2 = new User();
         $user2->setEmail('user2@email.com')
             ->setPassword($this->hasher->hashPassword($user2, 'user2'))
-            ->setRoles(['Role_User'])
+             ->setRoles(['Role_User'])
             ->isVerified(false);
+
         $userArray[] = $user2;
 
         $manager->persist($user2);
@@ -67,8 +70,9 @@ class AppFixtures extends Fixture
         $user3 = new User();
         $user3->setEmail('user3@email.com')
             ->setPassword($this->hasher->hashPassword($user3, 'user2'))
-            ->setRoles(['Role_User'])
+              ->setRoles(['Role_User'])
             ->isVerified(true);
+
         $userArray[] = $user3;
 
         $manager->persist($user3);
@@ -77,7 +81,7 @@ class AppFixtures extends Fixture
         $admin->setEmail('admin@email.com')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
             ->setRoles(['Role_Admin'])
-            ->isVerified(true)
+              ->isVerified(true)
         ;
         $manager->persist($admin);
         $manager->flush();
@@ -93,7 +97,8 @@ class AppFixtures extends Fixture
             $address->setCountry($faker->country);
             $address->setCity($faker->city);
             $address->setCodePostal($faker->postcode);
-            $addressArray[$i] = $address;
+           $addressArray[$i] = $address;
+
             $manager->persist($address);
         }
         $manager->flush();
@@ -104,7 +109,7 @@ class AppFixtures extends Fixture
             $equipment->setName($faker->unique()->word);
             $equipment->setDescription($faker->sentence);
             $equipment->setType($faker->unique()->word);
-            $equipmentArray[] = $equipment;
+          $equipmentArray[] = $equipment;
             $manager->persist($equipment);
         }
         $manager->flush();
@@ -113,7 +118,7 @@ class AppFixtures extends Fixture
             $ergonomy = new Ergonomy();
             $ergonomy->setName($faker->unique()->word);
             $ergonomy->setDescription($faker->sentence);
-            $ergonomyArray[] = $ergonomy;
+           $ergonomyArray[] = $ergonomy;
             $manager->persist($ergonomy);
         }
         $manager->flush();
@@ -123,6 +128,7 @@ class AppFixtures extends Fixture
             $eventType = new EventType();
             $eventType->setName($faker->unique()->word);
             $eventType->setDescription($faker->sentence);
+
             $eventArray[$i] = $eventType;
             $manager->persist($eventType);
         }
@@ -213,6 +219,7 @@ class AppFixtures extends Fixture
             $manager->persist($hallErgonomy);
         }
         $manager->flush();
+
 
         //INTERMIDIATE hall_image
         for ($i = 0; $i < 10; $i++) {

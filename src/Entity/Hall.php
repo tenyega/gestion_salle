@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\HallRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
+use App\Repository\HallRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: HallRepository::class)]
 class Hall
@@ -63,6 +63,7 @@ class Hall
     /**
      * @var Collection<int, HallErgonomy>
      */
+
     #[ORM\OneToMany(targetEntity: HallErgonomy::class, mappedBy: 'hallId', orphanRemoval: true)]
     private Collection $hallErgonomies;
 
@@ -71,6 +72,7 @@ class Hall
      */
     #[ORM\OneToMany(targetEntity: HallImage::class, mappedBy: 'hallId', orphanRemoval: true)]
     private Collection $hallImages;
+
 
     public function __construct()
     {
