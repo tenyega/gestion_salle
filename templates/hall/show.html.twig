@@ -23,35 +23,38 @@
 					<!-- Hall Name -->
 					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{ hall.name }}</h2>
 					<!-- Area and Capacity -->
-					<p class="text-gray-700">
-						<span class="font-semibold">Area:</span>
-						{{ hall.area }}
+					<p class="flex p-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}
+						</span>
+						{{hall.area}}
 						m²
 					</p>
-					<p class="text-gray-700">
-						<span class="font-semibold">Capacity:</span>
-						{{ hall.capacityMax }}
+					<p class="flex p-2 text-gray-700 ">
+						<span class="pr-2 font-semibold" title='Capacity Max'>{{ ux_icon('ic:baseline-reduce-capacity',{'class': 'h-6 w-6'}) }}</span>
+						{{hall.capacityMax}}
 						people
 					</p>
+
 					<!-- Accessibility -->
-					<p class="mt-2 text-gray-700">
-						<span class="font-semibold">Accessibility:</span>
+					<p class="flex mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Accessibility'>{{ ux_icon('ic:outline-accessible',{'class': 'h-6 w-6'}) }}</span>
 						{{ hall.accessibility }}
 					</p>
 					<!-- Price per Hour -->
-					<p class="mt-2 text-gray-700">
-						<span class="font-semibold">Price per Hour:</span>
+					<p class="flex mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Price'>{{ ux_icon('arcticons:priceconverter',{'class': 'h-6 w-6'}) }}</span>
 						{{ hall.pricePerHour }}
 						&euro;
 					</p>
 					<!-- Event Type -->
-					<p class="mt-2 text-gray-700">
-						<span class="font-semibold">Event Type:</span>
+					<p class="flex mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Event Type'>{{ ux_icon('material-symbols-light:event-note',{'class': 'h-6 w-6'}) }}</span>
 						{{ hall.eventTypeId.name }}
 					</p>
 					<!-- Address -->
-					<p class="mt-2 text-gray-700">
-						<span class="font-semibold">Address:</span>
+					<p class="flex p-2 mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Address'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
+
 						{{ hall.addresseId.number }}
 						{{ hall.addresseId.street }},
 						{{ hall.addresseId.city }},
