@@ -129,3 +129,14 @@ symfony console make:entity HallErgonomy
 symfony console make:entity HallImage
 	hallId M21 with Hall
 	imgId M21 with Images
+
+
+ADMIN
+	composer req easycorp/easyadmin-bundle
+	symfony console make:admin:dashboard	
+	symfony console make:admin:crud 
+
+
+ERROR 
+	wrong relation with intermidiate tables from the intermidiate point its M21 with Hall and M21 with Ergonomy 
+	121 relation with EventType and Addresse which was blocking also the same problem of duplicate key entry. 
