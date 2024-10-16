@@ -45,29 +45,41 @@ class Hall
     #[ORM\JoinColumn(nullable: false)]
     private ?Address $addresseId = null;
 
-    /**
-     * @var Collection<int, Equipment>
-     */
-    #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: 'halls')]
-    private Collection $listEquipment;
-
-    /**
-     * @var Collection<int, Ergonomy>
-     */
-    #[ORM\ManyToMany(targetEntity: Ergonomy::class, inversedBy: 'halls')]
-    private Collection $listErgonomy;
+    #[ORM\Column(length: 255)]
+    private ?string $mainImg = null;
 
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'hallId', orphanRemoval: false)]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'hallId')]
     private Collection $reservations;
+
+    /**
+     * @var Collection<int, HallEquipment>
+     */
+    #[ORM\OneToMany(targetEntity: HallEquipment::class, mappedBy: 'hallId', orphanRemoval: true)]
+    private Collection $hallEquipment;
+
+    /**
+     * @var Collection<int, HallErgonomy>
+     */
+
+    #[ORM\OneToMany(targetEntity: HallErgonomy::class, mappedBy: 'hallId', orphanRemoval: true)]
+    private Collection $hallErgonomies;
+
+    /**
+     * @var Collection<int, HallImage>
+     */
+    #[ORM\OneToMany(targetEntity: HallImage::class, mappedBy: 'hallId', orphanRemoval: true)]
+    private Collection $hallImages;
+
 
     public function __construct()
     {
-        $this->listEquipment = new ArrayCollection();
-        $this->listErgonomy = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->hallEquipment = new ArrayCollection();
+        $this->hallErgonomies = new ArrayCollection();
+        $this->hallImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,50 +195,14 @@ class Hall
         return $this;
     }
 
-    /**
-     * @return Collection<int, Equipment>
-     */
-    public function getListEquipment(): Collection
+    public function getMainImg(): ?string
     {
-        return $this->listEquipment;
+        return $this->mainImg;
     }
 
-    public function addListEquipment(Equipment $listEquipment): static
+    public function setMainImg(string $mainImg): static
     {
-        if (!$this->listEquipment->contains($listEquipment)) {
-            $this->listEquipment->add($listEquipment);
-        }
-
-        return $this;
-    }
-
-    public function removeListEquipment(Equipment $listEquipment): static
-    {
-        $this->listEquipment->removeElement($listEquipment);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Ergonomy>
-     */
-    public function getListErgonomy(): Collection
-    {
-        return $this->listErgonomy;
-    }
-
-    public function addListErgonomy(Ergonomy $listErgonomy): static
-    {
-        if (!$this->listErgonomy->contains($listErgonomy)) {
-            $this->listErgonomy->add($listErgonomy);
-        }
-
-        return $this;
-    }
-
-    public function removeListErgonomy(Ergonomy $listErgonomy): static
-    {
-        $this->listErgonomy->removeElement($listErgonomy);
+        $this->mainImg = $mainImg;
 
         return $this;
     }
@@ -255,6 +231,96 @@ class Hall
             // set the owning side to null (unless already changed)
             if ($reservation->getHallId() === $this) {
                 $reservation->setHallId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HallEquipment>
+     */
+    public function getHallEquipment(): Collection
+    {
+        return $this->hallEquipment;
+    }
+
+    public function addHallEquipment(HallEquipment $hallEquipment): static
+    {
+        if (!$this->hallEquipment->contains($hallEquipment)) {
+            $this->hallEquipment->add($hallEquipment);
+            $hallEquipment->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHallEquipment(HallEquipment $hallEquipment): static
+    {
+        if ($this->hallEquipment->removeElement($hallEquipment)) {
+            // set the owning side to null (unless already changed)
+            if ($hallEquipment->getHallId() === $this) {
+                $hallEquipment->setHallId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HallErgonomy>
+     */
+    public function getHallErgonomies(): Collection
+    {
+        return $this->hallErgonomies;
+    }
+
+    public function addHallErgonomy(HallErgonomy $hallErgonomy): static
+    {
+        if (!$this->hallErgonomies->contains($hallErgonomy)) {
+            $this->hallErgonomies->add($hallErgonomy);
+            $hallErgonomy->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHallErgonomy(HallErgonomy $hallErgonomy): static
+    {
+        if ($this->hallErgonomies->removeElement($hallErgonomy)) {
+            // set the owning side to null (unless already changed)
+            if ($hallErgonomy->getHallId() === $this) {
+                $hallErgonomy->setHallId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HallImage>
+     */
+    public function getHallImages(): Collection
+    {
+        return $this->hallImages;
+    }
+
+    public function addHallImage(HallImage $hallImage): static
+    {
+        if (!$this->hallImages->contains($hallImage)) {
+            $this->hallImages->add($hallImage);
+            $hallImage->setHallId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHallImage(HallImage $hallImage): static
+    {
+        if ($this->hallImages->removeElement($hallImage)) {
+            // set the owning side to null (unless already changed)
+            if ($hallImage->getHallId() === $this) {
+                $hallImage->setHallId(null);
             }
         }
 

@@ -25,15 +25,17 @@ class Equipment
     private ?string $type = null;
 
     /**
-     * @var Collection<int, Hall>
+     * @var Collection<int, HallEquipment>
      */
-    #[ORM\ManyToMany(targetEntity: Hall::class, mappedBy: 'listEquipment')]
-    private Collection $halls;
+    #[ORM\OneToMany(targetEntity: HallEquipment::class, mappedBy: 'equipmentId', orphanRemoval: true)]
+    private Collection $hallEquipment;
 
     public function __construct()
     {
-        $this->halls = new ArrayCollection();
+        $this->hallEquipment = new ArrayCollection();
     }
+
+ 
 
     public function getId(): ?int
     {
@@ -77,29 +79,34 @@ class Equipment
     }
 
     /**
-     * @return Collection<int, Hall>
+     * @return Collection<int, HallEquipment>
      */
-    public function getHalls(): Collection
+    public function getHallEquipment(): Collection
     {
-        return $this->halls;
+        return $this->hallEquipment;
     }
 
-    public function addHall(Hall $hall): static
+    public function addHallEquipment(HallEquipment $hallEquipment): static
     {
-        if (!$this->halls->contains($hall)) {
-            $this->halls->add($hall);
-            $hall->addListEquipment($this);
+        if (!$this->hallEquipment->contains($hallEquipment)) {
+            $this->hallEquipment->add($hallEquipment);
+            $hallEquipment->setEquipmentId($this);
         }
 
         return $this;
     }
 
-    public function removeHall(Hall $hall): static
+    public function removeHallEquipment(HallEquipment $hallEquipment): static
     {
-        if ($this->halls->removeElement($hall)) {
-            $hall->removeListEquipment($this);
+        if ($this->hallEquipment->removeElement($hallEquipment)) {
+            // set the owning side to null (unless already changed)
+            if ($hallEquipment->getEquipmentId() === $this) {
+                $hallEquipment->setEquipmentId(null);
+            }
         }
 
         return $this;
     }
+
+    
 }

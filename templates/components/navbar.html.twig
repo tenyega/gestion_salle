@@ -1,0 +1,37 @@
+<nav class="flex items-center justify-between p-2 bg-slate-50">
+	<a href="#" class="flex items-center gap-1">
+		<img src="{{ asset('img/logo.png')}}" alt="logo" width="32" class="transition-transform duration-200 ease-in-out rounded-full hover:scale-95">
+		<p>{{'Hall 4 All'| trans }}</p>
+	</a>
+	<div class="flex items-center justify-between gap-4">
+
+		<div class="flex items-center justify-between gap-4">
+
+
+			{% if  app.user %}
+				<a href="{{path('app_login')}}" class="p-2 border-2 rounded-md border-neutral-700" title="Login">
+					{{ ux_icon('mdi:archive-outline',{'class': 'h-6 w-6'}) }}
+				</a>
+
+				<a href="#" class="p-2 border-2 rounded-md border-neutral-700" title=''>
+					{{ ux_icon('mdi:home-add',{'class': 'h-6 w-6'}) }}
+				</a>
+				<a href="#', {'id':app.user.id})}}" data-tooltip="Logout" class="p-2 border-2 rounded-md border-neutral-700" title=''>
+					{{ ux_icon('mdi:message-processing-outline',{'class': 'h-6 w-6'}) }}
+				</a>
+
+				<a href="{{path('app_logout')}}" data-tooltip="Logout" class="p-2 border-2 rounded-md border-neutral-700" title='logout'>
+					{{ ux_icon('mdi:user',{'class': 'h-6 w-6'}) }}
+				</a>
+
+
+			{% else %}
+				<a href="{{path('app_login')}}" class="p-2 border-2 rounded-md border-neutral-700" title="Login">
+					{{ ux_icon('mdi:user',{'class': 'h-6 w-6'}) }}
+				</a>
+			{% endif %}
+
+
+		</div>
+	</div>
+</nav>
