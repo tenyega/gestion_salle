@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 .table tr.is-confirmed {
-    background-color: #28a745; /* Green for confirmed */
-    color: white; /* Text color */
+  background-color: #28a745; /* Green for confirmed */
+  color: white; /* Text color */
 }
 
 .table tr.is-not-confirmed {
-    background-color: #dc3545; /* Red for not confirmed */
-    color: white; /* Text color */
+  background-color: #dc3545; /* Red for not confirmed */
+  color: white; /* Text color */
 }
