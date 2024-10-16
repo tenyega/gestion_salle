@@ -1,68 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All Halls
+{% block title %}Hall Details
 {% endblock %}
 
 {% block body %}
 	<h1 class="mb-6 text-3xl font-bold text-center">WELCOME
 	</h1>
-
-	<div class="grid grid-cols-3 gap-4">
-		{% for hall in halls %}
-
+	<div
+		class="grid w-full min-h-screen grid-cols-1 gap-4 px-4 py-8 mt-8 bg-gray-100 md:grid-cols-2">
+		<!-- Main Card Grid -->
+		<div
+			class="grid w-full grid-cols-1 gap-8 px-4 ">
+			<!-- Hall Card -->
 			<div
-				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
+				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
 				<!-- Main Image -->
 				<img
 				class="object-cover w-full h-48" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
-
 				<!-- Card Content -->
 				<div
 					class="p-6">
 					<!-- Hall Name -->
-					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{hall.name}}</h2>
-
+					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{ hall.name }}</h2>
 					<!-- Area and Capacity -->
 					<p class="text-gray-700">
 						<span class="font-semibold">Area:</span>
-						{{hall.area}}
+						{{ hall.area }}
 						m²
 					</p>
 					<p class="text-gray-700">
 						<span class="font-semibold">Capacity:</span>
-						{{hall.capacityMax}}
+						{{ hall.capacityMax }}
 						people
 					</p>
-
 					<!-- Accessibility -->
 					<p class="mt-2 text-gray-700">
 						<span class="font-semibold">Accessibility:</span>
-						{{hall.accessibility}}
+						{{ hall.accessibility }}
 					</p>
-
 					<!-- Price per Hour -->
 					<p class="mt-2 text-gray-700">
 						<span class="font-semibold">Price per Hour:</span>
-						{{hall.pricePerHour}}
+						{{ hall.pricePerHour }}
 						&euro;
 					</p>
-
-
+					<!-- Event Type -->
 					<p class="mt-2 text-gray-700">
 						<span class="font-semibold">Event Type:</span>
-						{{hall.eventTypeId.name}}
+						{{ hall.eventTypeId.name }}
 					</p>
-
-					<!-- Address (Placeholder for now) -->
+					<!-- Address -->
 					<p class="mt-2 text-gray-700">
 						<span class="font-semibold">Address:</span>
-						{{hall.addresseId.number}}
-						{{hall.addresseId.street}}
-						{{hall.addresseId.city}}
-						{{hall.addresseId.codePostal}}
-						{{hall.addresseId.country}}
+						{{ hall.addresseId.number }}
+						{{ hall.addresseId.street }},
+						{{ hall.addresseId.city }},
+						{{ hall.addresseId.codePostal }},
+						{{ hall.addresseId.country }}
 					</p>
-
 					<!-- Action Buttons -->
 					<div class="flex justify-between mt-4">
 						<a href="#" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
@@ -70,7 +65,14 @@
 					</div>
 				</div>
 			</div>
-		{% endfor %}
+		</div>
 
+		<!-- Images Grid -->
+		<div class="grid w-full max-w-6xl grid-cols-1 gap-4 px-4 mt-8 md:grid-cols-3">
+			{% for image in images %}
+				<img class="object-cover w-full h-48 rounded-lg" src="{{ asset('img/halls/' ~ image.imgId.img) }}" alt="Hall Image">
+			{% endfor %}
+		</div>
 	</div>
+
 {% endblock %}

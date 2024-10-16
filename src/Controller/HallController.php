@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Hall;
+use App\Entity\HallImage;
 use App\Form\HallType;
+use App\Repository\HallImageRepository;
 use App\Repository\HallRepository;
+use App\Repository\ImagesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,10 +27,16 @@ class HallController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
-    public function show(Hall $hall): Response
+    public function show(Hall $hall, HallImageRepository $hallImageRepository, ImagesRepository $imagesRepository): Response
     {
+        $id = $hall->getId();
+        $images = $hallImageRepository->findBy([
+            'hallId' => $id,
+        ]);
+
         return $this->render('hall/show.html.twig', [
             'hall' => $hall,
+            'images' => $images
         ]);
     }
 }
