@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HallController!{% endblock %}
+{% block title %}All Halls
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<h1 class="mb-6 text-3xl font-bold text-center">WELCOME
+	</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<div class="grid grid-cols-3 gap-4">
+		{% for hall in halls %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/src/Controller/HallController.php</code></li>
-        <li>Your template at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/templates/hall/index.html.twig</code></li>
-    </ul>
-</div>
+			<div
+				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
+				<!-- Main Image -->
+				<img
+				class="object-cover w-full h-48" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
+
+				<!-- Card Content -->
+				<div
+					class="p-6">
+					<!-- Hall Name -->
+					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{hall.name}}</h2>
+
+					<!-- Area and Capacity -->
+					<p class="flex p-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}
+						</span>
+						{{hall.area}}
+						m²
+					</p>
+					<p class="flex p-2 text-gray-700 ">
+						<span class="pr-2 font-semibold" title='Capacity Max'>{{ ux_icon('ic:baseline-reduce-capacity',{'class': 'h-6 w-6'}) }}</span>
+						{{hall.capacityMax}}
+						people
+					</p>
+
+
+					<!-- Address (Placeholder for now) -->
+					<p class="flex p-2 mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='City'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
+
+						{{hall.addresseId.city}}
+
+					</p>
+
+					<!-- Action Buttons -->
+					<div class="flex justify-between mt-4">
+						<a href="#" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
+						<a href="{{ path('app_hall_show', {'id': hall.id}) }}" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Details</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
 {% endblock %}
