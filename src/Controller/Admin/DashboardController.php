@@ -26,7 +26,9 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        dump('lkjlkjk');
         $unconfirmedReservations = $this->reservationRepository->getUrgentPreReservations();
+        dump($unconfirmedReservations);
         return $this->render('admin/dashboard.html.twig', [
             'unconfirmedReservations' => $unconfirmedReservations,
         ]);
@@ -48,7 +50,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Reservations', 'fas fa-calendar-alt', Reservation::class);
         yield MenuItem::linkToCrud('Equipments', 'fas fa-tools', Equipment::class);
         yield MenuItem::linkToCrud('Ergonomy', 'fas fa-chair', Ergonomy::class);
-
     }
-    
 }

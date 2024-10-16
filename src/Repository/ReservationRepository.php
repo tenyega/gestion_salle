@@ -26,17 +26,15 @@ class ReservationRepository extends ServiceEntityRepository
         $nowDate = new DateTime();
         $now = $nowDate->format('Y-m-d');
         $next = $nextDate->format('Y-m-d');
-
         return $this->createQueryBuilder('r')
             ->where('r.isConfirmed = :isConfirmed')
             ->setParameter('isConfirmed', false)
-            ->andWhere('r.startDate >= :nowDate')
-            ->setParameter('nowDate', $now)
-            ->andWhere('r.startDate <= :nextDate')
-            ->setParameter('nextDate', $next)
+            ->andWhere('r.startDate >= :now')
+            ->setParameter('now', $now)
+            ->andWhere('r.startDate <= :next')
+            ->setParameter('next', $next)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
     //    /**
     //     * @return Reservation[] Returns an array of Reservation objects
