@@ -90,7 +90,7 @@ class AppFixtures extends Fixture
 
 
         //ADDRESS
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $address = new Address();
             $address->setNumber($faker->buildingNumber);
             $address->setStreet($faker->streetName);
@@ -124,7 +124,7 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         //EVENT TYPE
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $eventType = new EventType();
             $eventType->setName($faker->unique()->word);
             $eventType->setDescription($faker->sentence);
@@ -135,7 +135,8 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         //IMAGES
-        for ($i = 0; $i < 26; $i++) {
+
+        for ($i = 0; $i < 46; $i++) {
             $images = new Images();
             $images->setTitle($faker->title())
                 ->setImg('img-' . $i . '.jpg');
@@ -145,7 +146,7 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         // HALL
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $hall = new Hall();
             $hall->setName($faker->company);
             $hall->setArea($faker->randomNumber(2));
@@ -176,16 +177,41 @@ class AppFixtures extends Fixture
 
         $manager->flush();
         //RESERVATION
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $reservation = new Reservation();
 
             $startTime = \DateTime::createFromFormat('H:i:s', $faker->time());
             $endTime = clone $startTime;
             $endTime->modify('+' . $faker->numberBetween(30, 300) . ' minutes');
+            $startDate = $faker->dateTimeBetween('now', '+5 months');
+            $endDate = $faker->dateTimeBetween($startDate, (clone $startDate)->add(new \DateInterval('P1D')));
+
+            $reservation->setStartDate($startDate);
+            $reservation->setEndDate($endDate);
+
+            $reservation->setStartTime($startTime);
+            $reservation->setEndTime($endTime);
+            $reservation->isConfirmed($faker->boolean);
+            $reservation->setSpecialRequest($faker->sentence);
+            $reservation->setUserId($faker->randomElement($userArray));
+            $reservation->setHallId($faker->randomElement($hallArray));
+
+            $manager->persist($reservation);
+        }
 
 
-            $reservation->setStartDate($faker->dateTimeBetween('-1 day', 'now'));
-            $reservation->setEndDate($faker->dateTimeBetween($reservation->getStartDate(), '+1 day'));
+        // FEW RESERVATIONS WITH dates near 
+        for ($i = 0; $i < 6; $i++) {
+            $reservation = new Reservation();
+
+            $startTime = \DateTime::createFromFormat('H:i:s', $faker->time());
+            $endTime = clone $startTime;
+            $endTime->modify('+' . $faker->numberBetween(30, 300) . ' minutes');
+            $startDate = $faker->dateTimeBetween('now', '+5 days');
+            $endDate = $faker->dateTimeBetween($startDate, (clone $startDate)->add(new \DateInterval('P1D')));
+
+            $reservation->setStartDate($startDate);
+            $reservation->setEndDate($endDate);
             $reservation->setStartTime($startTime);
             $reservation->setEndTime($endTime);
             $reservation->isConfirmed($faker->boolean);
@@ -222,7 +248,7 @@ class AppFixtures extends Fixture
 
 
         //INTERMIDIATE hall_image
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $hallImage = new HallImage();
             $hallImage->setHallId($faker->randomElement($hallArray))
                 ->setImgId($faker->randomElement($imgArray));
