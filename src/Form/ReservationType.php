@@ -17,7 +17,7 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('hall', EntityType::class, [
+            ->add('hallId', EntityType::class, [
                 'class' => Hall::class,
                 'choice_label' => 'name', // Assurez-vous que la propriété 'name' existe dans l'entité Hall
                 'label' => 'Hall',
@@ -34,10 +34,7 @@ class ReservationType extends AbstractType
             ->add('endTime', TimeType::class, [
                 'widget' => 'single_text',
             ])
-            ->add('isConfirmed', CheckboxType::class, [
-                'required' => false,
-                'label' => 'Confirm Reservation',
-            ]);
+           ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

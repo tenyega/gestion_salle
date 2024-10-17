@@ -4,7 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Form\ReservationType;
+use App\Repository\HallRepository;
 use App\Repository\ReservationRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,26 +16,37 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/reservation')]
+//#[IsGranted("FULLY_AUTHENTICATED")]
 class ReservationController extends AbstractController
 {
+    private $em;
+    public function __construct(EntityManagerInterface $entityManager){
+        $this->em= $entityManager;
+    }
     #[Route('', name: 'app_reservation_index', methods: ['GET'])]
     public function index(ReservationRepository $rr): Response
     {
+        $user= $this->getUser();
         return $this->render('reservation/index.html.twig', [
-            'reservations' => $rr->findAll(),
+            'reservations' => $rr->findBy(['userId'=>$user->getId()]),
         ]);
     }
 
-    #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReservationRepository $rr): Response
+    #[Route('/new/{id}', name: 'app_reservation_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ReservationRepository $rr, int $id, HallRepository $hr): Response
     {
+        $hall= $hr->find($id);
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rr->save($reservation, true);
+            $reservation->setUserId($this->getUser());
+            $reservation->setHallId($hall);
+            $this->em->persist($reservation);
+            $this->em->flush();
             return $this->redirectToRoute('app_reservation_index');
+            
         }
 
         return $this->render('reservation/new.html.twig', [
@@ -55,8 +70,9 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rr->save($reservation, true);
+        $this->em->flush();
             return $this->redirectToRoute('app_reservation_index');
+            
         }
 
         return $this->render('reservation/edit.html.twig', [
@@ -69,8 +85,10 @@ class ReservationController extends AbstractController
     public function delete(Request $request, Reservation $reservation, ReservationRepository $rr): Response
     {
         if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
-            $rr->remove($reservation, true);
+            $this->em->remove($reservation, true); 
+             $this->em->flush();
         }
+      
 
         return $this->redirectToRoute('app_reservation_index');
     }
