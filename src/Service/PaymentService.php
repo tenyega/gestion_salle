@@ -17,8 +17,8 @@ class PaymentService
 
     private $domain;
     private $apiKey;
-    private $user;
     private $em;
+    private $totalPrice = 0;
     private $rr;
     private $hourcal;
     public function __construct(protected ReservationRepository $reservationRepository, protected HourCalculator $hourCalculator, protected ParameterBagInterface $parameter, private Security $security, private EntityManagerInterface $entityManagerInterface)
@@ -39,19 +39,22 @@ class PaymentService
      * Méthode permettant de créer une session de paiement Stripe
      * @return Stripe\Checkout\Session
      */
-    public function askCheckout(): ?Session
+    public function askCheckout(int $id): ?Session
     {
-        $reservation = $this->rr->find('3');
+        $reservation = $this->rr->find(['id' => $id]);
         $totalHours = $this->hourcal->calculateTotalHours($reservation->getStartDate()->format('Y-m-d'), $reservation->getEndDate()->format('Y-m-d'), $reservation->getStartTime()->format('H:i'), $reservation->getEndTime()->format('H:i'));
-
-        dd(round($totalHours));
+        $price = $reservation->getHallId()->getPricePerHour();
+        $this->totalPrice = $totalHours * $price;
+        $reservation->setTotalPrice($this->totalPrice);
+        $this->em->persist($reservation);
+        $this->em->flush();
         Stripe::setApiKey($this->apiKey); // Établissement de la connexion (requête API)        
         $checkoutSession = Session::create([
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'eur',
                     'tax_behavior' => 'exclusive',
-                    'unit_amount' => round($totalHours) * 100, // Stripe utilise des centimes
+                    'unit_amount' => round($this->totalPrice) * 100, // Stripe utilise des centimes
                     'product_data' => [ // Les informations du produit sont personnalisables
                         'name' => $reservation->getHallId()->getName(),
                     ],
@@ -59,7 +62,7 @@ class PaymentService
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => $this->domain . '/payment-success',
+            'success_url' => $this->domain . '/payment-success/' . $id,
             'cancel_url' => $this->domain . '/payment-cancel',
             'automatic_tax' => [
                 'enabled' => true,
@@ -69,12 +72,12 @@ class PaymentService
         return $checkoutSession;
     }
     //traitement du role de utilisateurs en fonction du paiement. 
-    public function addPayment(): ?Payment
+    public function addPayment(int $id): ?Payment
     {
-        $reservation = $this->rr->find('3');
+        $reservation = $this->rr->find(['id' => $id]);
         // Adding new payment;
         $payment = new Payment();
-        $payment->setAmount('1001')
+        $payment->setAmount($reservation->getTotalPrice())
             ->setPaymentDate(new \DateTimeImmutable())
             ->setPaymentStatus('Paid')
             ->setReservationId($reservation)

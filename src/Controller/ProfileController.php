@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/profile')]
 #[IsGranted('ROLE_USER')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class ProfileController extends AbstractController
 {
     #[Route('', name: 'app_profile_show', methods: ['GET'])]

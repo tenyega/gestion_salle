@@ -52,6 +52,9 @@ class Reservation
     #[ORM\OneToOne(mappedBy: 'reservationId', cascade: ['persist', 'remove'])]
     private ?Payment $payment = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?string $totalPrice = null;
+
 
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
@@ -206,6 +209,18 @@ class Reservation
         }
 
         $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?string
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(?string $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
