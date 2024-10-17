@@ -16,28 +16,26 @@
   aspect-ratio: 1/1;
   object-fit: cover;
   transition: transform 0.3s ease;
- 
 }
 
 .img-zoom-effect {
   width: 100%;
   transition: transform 0.8s ease;
-   overflow: hidden;
-   &:hover {
+  overflow: hidden;
+  &:hover {
     transform: scale(1.2) translate(20px);
-    -ms-transform: scale(1.2)  translate(20px);
-    -webkit-transform: scale(1.2)  translate(20px);
-   
+    -ms-transform: scale(1.2) translate(20px);
+    -webkit-transform: scale(1.2) translate(20px);
   }
 }
 
 footer {
-  background-color: #0F2442;
+  background-color: #0f2442;
   color: white;
   padding: 10px;
   text-align: center;
-  min-height: 25vh;
-  max-height: 250vh;
+  min-height: 10vh;
+  max-height: 10vh;
   bottom: 0;
   width: 100vw;
   & img {
