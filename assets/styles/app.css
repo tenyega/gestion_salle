@@ -47,18 +47,14 @@ footer {
 }
 
 .social-media {
- 
   display: flex;
-  
+
   /* justify-content: space-between; */
   gap: 5px;
-
 }
 
 .social-media-img {
   /* width: 50px; */
   /* aspect-ratio: 1/1; */
   transition: filter 0.3s ease;
-
-
 }
