@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241016145937 extends AbstractMigration
+final class Version20241017130859 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -30,8 +30,9 @@ final class Version20241016145937 extends AbstractMigration
         $this->addSql('CREATE TABLE hall_image (id INT AUTO_INCREMENT NOT NULL, hall_id_id INT NOT NULL, img_id_id INT NOT NULL, INDEX IDX_5F376310E54EF918 (hall_id_id), INDEX IDX_5F37631057883738 (img_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE images (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(120) NOT NULL, img VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE notification (id INT AUTO_INCREMENT NOT NULL, user_id_id INT NOT NULL, message VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', is_read TINYINT(1) NOT NULL, INDEX IDX_BF5476CA9D86650F (user_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE reservation (id INT AUTO_INCREMENT NOT NULL, user_id_id INT NOT NULL, hall_id_id INT NOT NULL, start_date DATE NOT NULL, end_date DATE NOT NULL, start_time TIME NOT NULL, end_time TIME NOT NULL, is_confirmed TINYINT(1) NOT NULL, special_request VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_42C849559D86650F (user_id_id), INDEX IDX_42C84955E54EF918 (hall_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE `user` (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, is_verified TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE payment (id INT AUTO_INCREMENT NOT NULL, reservation_id_id INT NOT NULL, type VARCHAR(180) NOT NULL, amount NUMERIC(5, 2) NOT NULL, payment_status VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', payment_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', UNIQUE INDEX UNIQ_6D28840D3C3B4EF0 (reservation_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE reservation (id INT AUTO_INCREMENT NOT NULL, user_id_id INT NOT NULL, hall_id_id INT NOT NULL, start_date DATE NOT NULL, end_date DATE NOT NULL, start_time TIME NOT NULL, end_time TIME NOT NULL, is_confirmed TINYINT(1) NOT NULL, special_request VARCHAR(255) DEFAULT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', total_price NUMERIC(10, 2) DEFAULT NULL, INDEX IDX_42C849559D86650F (user_id_id), INDEX IDX_42C84955E54EF918 (hall_id_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE `user` (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_verified TINYINT(1) NOT NULL, full_name VARCHAR(255) NOT NULL, address VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE hall ADD CONSTRAINT FK_1B8FA83F29A6C08F FOREIGN KEY (event_type_id_id) REFERENCES event_type (id)');
         $this->addSql('ALTER TABLE hall ADD CONSTRAINT FK_1B8FA83FC2360D68 FOREIGN KEY (addresse_id_id) REFERENCES address (id)');
@@ -42,6 +43,7 @@ final class Version20241016145937 extends AbstractMigration
         $this->addSql('ALTER TABLE hall_image ADD CONSTRAINT FK_5F376310E54EF918 FOREIGN KEY (hall_id_id) REFERENCES hall (id)');
         $this->addSql('ALTER TABLE hall_image ADD CONSTRAINT FK_5F37631057883738 FOREIGN KEY (img_id_id) REFERENCES images (id)');
         $this->addSql('ALTER TABLE notification ADD CONSTRAINT FK_BF5476CA9D86650F FOREIGN KEY (user_id_id) REFERENCES `user` (id)');
+        $this->addSql('ALTER TABLE payment ADD CONSTRAINT FK_6D28840D3C3B4EF0 FOREIGN KEY (reservation_id_id) REFERENCES reservation (id)');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C849559D86650F FOREIGN KEY (user_id_id) REFERENCES `user` (id)');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C84955E54EF918 FOREIGN KEY (hall_id_id) REFERENCES hall (id)');
     }
@@ -58,6 +60,7 @@ final class Version20241016145937 extends AbstractMigration
         $this->addSql('ALTER TABLE hall_image DROP FOREIGN KEY FK_5F376310E54EF918');
         $this->addSql('ALTER TABLE hall_image DROP FOREIGN KEY FK_5F37631057883738');
         $this->addSql('ALTER TABLE notification DROP FOREIGN KEY FK_BF5476CA9D86650F');
+        $this->addSql('ALTER TABLE payment DROP FOREIGN KEY FK_6D28840D3C3B4EF0');
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C849559D86650F');
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C84955E54EF918');
         $this->addSql('DROP TABLE address');
@@ -70,6 +73,7 @@ final class Version20241016145937 extends AbstractMigration
         $this->addSql('DROP TABLE hall_image');
         $this->addSql('DROP TABLE images');
         $this->addSql('DROP TABLE notification');
+        $this->addSql('DROP TABLE payment');
         $this->addSql('DROP TABLE reservation');
         $this->addSql('DROP TABLE `user`');
         $this->addSql('DROP TABLE messenger_messages');

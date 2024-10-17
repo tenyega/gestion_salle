@@ -150,14 +150,48 @@ symfony console make:entity HallImage
 hallId M21 with Hall
 imgId M21 with Images
 
-ERROR
-wrong relation with intermidiate tables from the intermidiate point its M21 with Hall and M21 with Ergonomy
-121 relation with EventType and Addresse which was blocking also the same problem of duplicate key entry.
+PAYMENT WITH STRIPE
+	composer require stripe/stripe-php
 
-## symfony console make:form reservation
+	add PK and SK of Stripe in your .env
+
+PAYMENT Table
+	symfony console make:entity Payment
+	reservationId 121 with Reservation (payment.reservationId nullable ?: No, reservation->getPayment()?: Yes)
+	type varchar 180 Not null 
+	amount decimal Not Null (precision:5, scale:2, nullable?: No)
+	paymentStatus varchar 255 Not Null
+	createdAt datetime_immutable Not Null
+	updatedAt datetime_immutable Not Null
+	paymentDate datetime_immutable Not Null
+
+Added PaymentService and HourCalculator  inside src/Service 
+and changed in service.yaml (added Stripe api under parameter and different services made under services)
+	parameters:
+        STRIPE_API_PK: '%env(STRIPE_API_PK)%'
+        STRIPE_API_SK: '%env(STRIPE_API_SK)%'
+	services:
+	    App\Service\HourCalculator: ~
+    	App\Service\PaymentService: ~
+
+CHANGE IN USER ENTITY
+	symfony console make:entity User 
+	fullName varchar 255 not null
+	address varchar 255 Nullable
+  
+  
+  ## symfony console make:form reservation
 
 creation twig CRUD with form
 index.html.twig
 new.html.twig
 edit.html.twig
 delete.html.twig
+
+
+CREATED PAYMENT CONTROLLER 
+	symfony console make:controller Payment
+
+Reservvation table changed to add totalPrice
+	symfony console make:entity Reservation
+	totalPrice decimal(Precision: 10; Scale 2) Nullable
