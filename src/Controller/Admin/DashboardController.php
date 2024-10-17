@@ -8,6 +8,7 @@ use App\Entity\Hall;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Repository\ReservationRepository;
+use App\Service\EmailNotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -50,13 +51,24 @@ class DashboardController extends AbstractDashboardController
     }
 
     //Cancellation of Pre Reservation
-    #[Route('/admin/cancel', name: 'app_admin_cancel')]
-    public function cancel(): Response
+    /// NEED TO CHANGE HERE TO CANCEL THE RESERVATION AND TO DELETE FROM THE RESERVATION TABLE 
+    #[Route('/admin/cancel/{id}', name: 'app_admin_cancel')]
+    public function cancel(int $id, Request $request, EmailNotificationService $emailNotificationService)
     {
-        $unconfirmedReservations = $this->reservationRepository->getUrgentPreReservations();
-        return $this->render('admin/cancel.html.twig', [
-            'unconfirmedReservations' => $unconfirmedReservations,
+        $reservation = $this->reservationRepository->find(['id' => $id]);
+        $emailNotificationService->sendEmail($reservation->getUserId()->getEmail(),   [
+            'subject' => 'We are extremely sorry ',
+            'template' => 'admin/cancel',
         ]);
+
+
+        $this->em->remove($reservation, true);
+        $this->em->flush();
+
+        $this->addFlash('success', 'Reservation on  ' . $reservation->getStartDate()->format('Y-m-d') . ' is deleted and informed the client via mail');
+        // Redirect back to the referring page
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer ?? 'fallback_route');
     }
 
 

@@ -3,20 +3,25 @@
 namespace App\Controller;
 
 use App\Repository\ReservationRepository;
+use App\Security\EmailVerifier;
 use App\Service\EmailNotificationService;
 use App\Service\HourCalculator;
 use App\Service\PaymentService;
 use Stripe\Webhook;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Mime\Address;
 
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 class PaymentController extends AbstractController
 {
+    public function __construct(private EmailVerifier $emailVerifier) {}
+
     #[Route('/payment/{id}', name: 'app_payment', methods: ['GET'])]
     public function time(HourCalculator $hourCalculator, ReservationRepository $rr, PaymentService $ps, int $id): Response
     {
@@ -35,17 +40,21 @@ class PaymentController extends AbstractController
 
     // // Route lorsque le paiement est réussi
     #[Route('/payment-success/{id}', name: 'app_payment_success', methods: ['GET'])]
-    public function paymentSuccess(Request $request, PaymentService $ps, EmailNotificationService $ens, int $id): Response
+    public function paymentSuccess(Request $request, PaymentService $ps, int $id): Response
     {
         if ($request->headers->get('referer') === 'https://checkout.stripe.com/') {
             $reservation = $ps->addPayment($id);
-            $ens->sendEmail(
-                $this->getUser()->getEmail(),
-                [
-                    'subject' => 'Thank you for your purchase!',
-                    'template' => 'premium',
-                ]
+
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $this->getUser(),
+                (new TemplatedEmail())
+                    ->from(new Address('hall4all@email.com', 'hall4all'))
+                    ->to((string) $this->getUser()->getEmail())
+                    ->subject('Thank you for your Payment')
+                    ->htmlTemplate('payment/paymentConfirmationMail.html.twig')
             );
+
             return $this->render('payment/payment-success.html.twig', [
                 'reservation' => $reservation,
             ]);
@@ -65,7 +74,7 @@ class PaymentController extends AbstractController
             return $this->render('payment/payment-cancel.html.twig');
         } else {
             $this->addFlash('error', "You can't take a subscription without a payment");
-            return $this->redirectToRoute('app_subscription');
+            return $this->redirectToRoute('app_reservation_index');
         }
     }
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Subscribe to premium
+{% block title %}Successful Payment
 {% endblock %}
 
 {% block body %}
@@ -10,16 +10,16 @@
 			<div class="mb-4">
 				{% for message in messages %}
 					<div class="px-4 py-3 rounded-lg text-white
-																										                {% if label == 'success' %}
-																										                    bg-green-500
-																										                {% elseif label == 'error' %}
-																										                    bg-red-500
-																										                {% elseif label == 'warning' %}
-																										                    bg-yellow-500
-																										                {% else %}
-																										                    bg-blue-500
-																										                {% endif %}
-																										            ">
+																																	                {% if label == 'success' %}
+																																	                    bg-green-500
+																																	                {% elseif label == 'error' %}
+																																	                    bg-red-500
+																																	                {% elseif label == 'warning' %}
+																																	                    bg-yellow-500
+																																	                {% else %}
+																																	                    bg-blue-500
+																																	                {% endif %}
+																																	            ">
 						{{ message }}
 					</div>
 				{% endfor %}
