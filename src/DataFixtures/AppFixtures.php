@@ -139,6 +139,7 @@ class AppFixtures extends Fixture
         $manager->flush();
 
         //IMAGES
+
         for ($i = 0; $i < 46; $i++) {
             $images = new Images();
             $images->setTitle($faker->title())
@@ -201,6 +202,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($reservation);
         }
+
 
         // FEW RESERVATIONS WITH dates near 
         for ($i = 0; $i < 6; $i++) {

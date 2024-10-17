@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<h1 class="mb-6 text-3xl font-bold text-center">{{ hall.name }}
 		- Details
 	</h1>
@@ -64,7 +65,9 @@
 					<p class="flex mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Price'>{{ ux_icon('arcticons:priceconverter',{'class': 'h-6 w-6'}) }}</span>
 						{{ hall.pricePerHour }}
-						&euro;
+
+						&euro;  / per hour
+
 					</p>
 					<!-- Event Type -->
 					<p class="flex mt-2 text-gray-700">
@@ -83,7 +86,10 @@
 					</p>
 					<!-- Action Buttons -->
 					<div class="flex justify-between mt-4">
-						<a href="#" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
+
+						<a href="{{path('app_reservation_new', {'id': hall.id})}}" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
+						<a href="{{ path('app_hall_show', {'id': hall.id}) }}" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Details</a>
+
 					</div>
 				</div>
 			</div>
@@ -97,4 +103,6 @@
 		</div>
 	</div>
 
+
 {% endblock %}
+

@@ -1,6 +1,21 @@
-<footer class="">
+<footer class="flex gap-5">
+	<div class="footer-logo">
+		<img src="{{asset('img/logo1.png')}}" alt="logo">
+	</div>
 	<p class="">
 		&copy;{{' A Group Project Using Symfony By Lea, Désiré and Dolma'| trans }}</p>
 	<p class="">
 		{{'now'|date('Y')}}</p>
+	<div>
+		<a href="{{ path('app_legal_notice') }}">
+			Mention legale
+		</a>
+		<a href="{{ path('app_policy') }}">
+			Protection de données personnalle
+		</a>
+		<a href="#">
+			Site Map
+		</a>
+
+	</div>
 </footer>

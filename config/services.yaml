@@ -28,3 +28,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # On enregistre notre service CityService
+    App\Service\CityService:
+        arguments:
+            $hallRepository: '@App\Repository\HallRepository'
+    
+    # Enregistrement de EventSubscriber qui permet d'injecter des variables dans nos pages sans passer par les controleurs
+    App\EventSubscriber\TwigEventSubscriber:
+        tags:
+            - { name: 'kernel.event_subscriber' }

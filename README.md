@@ -178,3 +178,13 @@ CHANGE IN USER ENTITY
 	symfony console make:entity User 
 	fullName varchar 255 not null
 	address varchar 255 Nullable
+  
+  
+  ## symfony console make:form reservation
+
+creation twig CRUD with form
+index.html.twig
+new.html.twig
+edit.html.twig
+delete.html.twig
+
