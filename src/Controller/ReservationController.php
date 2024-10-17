@@ -31,10 +31,10 @@ class ReservationController extends AbstractController
     {
         $user = $this->getUser();
         $reservation =  $rr->findBy(['userId' => $user->getId()]);
-        $payment = $pr->findBy(['reservationId' => $reservation]);
+        $payments = $pr->findBy(['reservationId' => $reservation]);
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservation,
-            'payment' => $payment,
+            'payments' => $payments,
         ]);
     }
 

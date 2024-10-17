@@ -15,6 +15,7 @@
 			<table class="min-w-full overflow-hidden bg-white rounded-lg shadow-md">
 				<thead class="bg-gray-100 border-b-2 border-gray-200">
 					<tr>
+
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Hall</th>
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Image</th>
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Area</th>
@@ -24,7 +25,9 @@
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">End Date</th>
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Start Time</th>
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">End Time</th>
+						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Total Amount</th>
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Confirmed</th>
+
 						<th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Actions</th>
 					</tr>
 				</thead>
@@ -43,6 +46,8 @@
 							<td class="px-4 py-3">{{ reservation.endDate|date('Y-m-d') }}</td>
 							<td class="px-4 py-3">{{ reservation.startTime|date('H:i') }}</td>
 							<td class="px-4 py-3">{{ reservation.endTime|date('H:i') }}</td>
+							<td class="px-4 py-3">{{ reservation.totalPrice }}</td>
+
 							<td class="px-4 py-3">
 								{% if reservation.isConfirmed %}
 									<span class="font-semibold text-green-500">Yes</span>
@@ -57,19 +62,31 @@
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
 									<button class="btn btn-danger btn-sm">Delete</button>
 								</form>
+							</td>
+							<td class="px-4 py-3">
 								{% if reservation.isConfirmed %}
-									{% if not payment %}
-										<a href="{{ path('app_payment_checkout', {'id': reservation.id}) }}" data-id={{reservation.id}} class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
+									{# Initialize a flag to false for each reservation #}
+									{% set paid = false %}
+
+									{# Loop through payments #}
+									{% for payment in payments %}
+										{% if payment is not null and payment.reservationId.id == reservation.id %}
+											<a href="#" data-id="{{ reservation.id }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-green-500 rounded hover:bg-green-600">
+												PAID
+											</a>
+											{% set paid = true %}
+										{% endif %}
+									{% endfor %}
+
+									{# If no payment has been made, show the "Pay" button #}
+									{% if not paid %}
+										<a href="{{ path('app_payment_checkout', {'id': reservation.id}) }}" data-id="{{ reservation.id }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
 											Pay
 										</a>
-									{% else %}
-										<p class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
-											PAID
-										</p>
 									{% endif %}
-
 								{% endif %}
 							</td>
+
 						</tr>
 					{% else %}
 						<tr>
