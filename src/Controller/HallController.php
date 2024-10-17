@@ -47,6 +47,25 @@ class HallController extends AbstractController
         ]);
     }
 
+    #[Route('/halls/filter', name: 'app_halls_by_equipments', methods: ['GET'])]
+    public function filterByEquipments(Request $request, HallRepository $hr)
+    {
+        // Utilisation de `get()` avec `[]` comme valeur par défaut pour récupérer un tableau
+        $selectedEquipments = $request->query->all('equipments') ?? [];
+
+        // Si aucun équipement sélectionné, retourner toutes les salles
+        if (empty($selectedEquipments)) {
+            $halls = $hr->findAll();
+        } else {
+            // Sinon, filtrer les salles en fonction des équipements sélectionnés
+            $halls = $hr->findByEquipments($selectedEquipments);
+        }
+
+        return $this->render('hall/index.html.twig', [
+            'halls' => $halls,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
     public function show(Hall $hall, HallImageRepository $hir, ImagesRepository $ir): Response
     {

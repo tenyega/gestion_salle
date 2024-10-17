@@ -43,5 +43,15 @@ class HallRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByEquipments(array $equipmentIds)
+    {
+        return $this->createQueryBuilder('h')
+            ->join('h.hallEquipment', 'he')
+            ->where('he.equipmentId IN (:equipmentIds)')
+            ->setParameter('equipmentIds', $equipmentIds)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }
