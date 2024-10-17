@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Hall;
+use App\Entity\HallImage;
 use App\Form\HallType;
+use App\Repository\HallImageRepository;
 use App\Repository\HallRepository;
 use App\Repository\ImagesRepository;
 use App\Repository\HallImageRepository;
@@ -67,10 +69,13 @@ class HallController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
+
     public function show(Hall $hall, HallImageRepository $hir, ImagesRepository $ir): Response
     {
         $id = $hall->getId();
         $images = $hir->findBy([
+
+   
             'hallId' => $id,
         ]);
 

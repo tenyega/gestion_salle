@@ -50,5 +50,6 @@ class HallImage
         return $this;
     }
 
-   
+
 }
+
