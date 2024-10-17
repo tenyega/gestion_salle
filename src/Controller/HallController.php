@@ -18,6 +18,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/hall')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class HallController extends AbstractController
 {
     #[Route('', name: 'app_hall_index', methods: ['GET'])]
@@ -28,7 +29,7 @@ class HallController extends AbstractController
             'halls' => $halls,
         ]);
     }
-    
+
     #[Route('/city/{name}', name: 'app_halls_by_city', methods: ['GET'])]
     public function getByCity($name, Request $request, HallRepository $hr): Response
     {
@@ -77,7 +78,7 @@ class HallController extends AbstractController
         $id = $hall->getId();
         $images = $hir->findBy([
 
-   
+
             'hallId' => $id,
         ]);
 
@@ -88,21 +89,5 @@ class HallController extends AbstractController
     }
 
 
-    // A Dummy Route to check the HourCalculator
-    #[Route('/t/c', name: 'app_time_calulate', methods: ['GET'])]
-    public function time(HourCalculator $hourCalculator, ReservationRepository $rr, PaymentService $ps): Response
-    {
-        $reservaton = $rr->find('3');
-        $totalTime = $hourCalculator->calculateTotalHours($reservaton->getStartDate()->format('Y-m-d'), $reservaton->getEndDate()->format('Y-m-d'), $reservaton->getStartTime()->format('H:i:s'), $reservaton->getEndTime()->format('H:i:s'));
-
-        $ps->askCheckout();
-        $payment = $ps->addPayment();
-
-        return $this->render('hall/time.html.twig', [
-            'totalTime' => $totalTime,
-            'payment' => $payment
-
-        ]);
-    }
-
+   
 }

@@ -188,3 +188,10 @@ new.html.twig
 edit.html.twig
 delete.html.twig
 
+
+CREATED PAYMENT CONTROLLER 
+	symfony console make:controller Payment
+
+Reservvation table changed to add totalPrice
+	symfony console make:entity Reservation
+	totalPrice decimal(Precision: 10; Scale 2) Nullable
