@@ -27,11 +27,11 @@ class EmailNotificationService
             //     ->text('Sending emails is fun again!')
             //     ->html('<p>See Twig integration for better HTML integration!</p>');
             $email = (new TemplatedEmail())
-                ->from('hello@codexpress.fr')
+                ->from('hall4all@email.com')
                 ->to($receiver)
                 ->subject($case['subject'])
                 ->priority(Email::PRIORITY_HIGH)
-                ->htmlTemplate('email/' . $case['template'] . '.html.twig' ?? 'email/base_email.html.twig');
+                ->htmlTemplate( $case['template'] . '.html.twig' ?? 'email/base_email.html.twig');
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
             //->replyTo('fabien@example.com')

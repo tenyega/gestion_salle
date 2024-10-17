@@ -23,7 +23,7 @@ class Payment
     #[ORM\Column(length: 180)]
     private ?string $type = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $amount = null;
 
     #[ORM\Column(length: 255)]

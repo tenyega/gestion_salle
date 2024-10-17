@@ -31,10 +31,10 @@ class ReservationController extends AbstractController
     {
         $user = $this->getUser();
         $reservation =  $rr->findBy(['userId' => $user->getId()]);
-        $payment = $pr->findBy(['reservationId' => $reservation]);
+        $payments = $pr->findBy(['reservationId' => $reservation]);
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservation,
-            'payment' => $payment,
+            'payments' => $payments,
         ]);
     }
 
@@ -85,7 +85,7 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, ReservationRepository $rr): Response
     {
         if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
