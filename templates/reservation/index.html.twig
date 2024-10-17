@@ -1,47 +1,57 @@
-{# list des reservations #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}My Reservations
-{% endblock %}
+{% block title %}My Reservations{% endblock %}
 
 {% block body %}
-<a href="{{ path('app_reservation_new') }}" class="btn btn-success">Add New Reservation</a> 
-{# <pre>
-    {{ dump() }}
-</pre> #}
+<div class="container p-6 mx-auto">
+    <h1 class="mb-6 text-2xl font-bold text-center">My Reservations</h1>
 
-    <h1>My Reservations</h1>
+    {# Lien pour ajouter une nouvelle réservation #}
+    <div class="mb-4 text-right">
+        <a href="{{ path('app_reservation_new') }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-green-500 rounded hover:bg-green-600">
+            Add New Reservation
+        </a>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Hall</th>
-                <th>Image</th>
-                <th>Area</th>
-                <th>Capacity</th>
-                <th>Price per Hour</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Start Time</th>
-                <th>End Time</th>
-                <th>Confirmed</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for reservation in reservations %}
+    {# Tableau des réservations #}
+    <div class="overflow-x-auto">
+        <table class="min-w-full overflow-hidden bg-white rounded-lg shadow-md">
+            <thead class="bg-gray-100 border-b-2 border-gray-200">
                 <tr>
-                    <td>{{ reservation.hallId.name }}</td>
-                    <td>{{ reservation.hallId.mainImg }}</td>
-                    <td>{{ reservation.hallId.area }}</td>
-                    <td>{{ reservation.hallId.capacityMax }}</td>
-                     <td>{{ reservation.hallId.pricePerHour }}</td>
-                    <td>{{ reservation.startDate|date('Y-m-d') }}</td>
-                    <td>{{ reservation.endDate|date('Y-m-d') }}</td>
-                    <td>{{ reservation.startTime|date('H:i') }}</td>
-                    <td>{{ reservation.endTime|date('H:i') }}</td>
-                    <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Hall</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Image</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Area</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Capacity</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Price per Hour</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Start Date</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">End Date</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Start Time</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">End Time</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Confirmed</th>
+                    <th class="px-4 py-3 text-sm font-semibold text-left text-gray-700">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for reservation in reservations %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3">{{ reservation.hallId.name }}</td>
+                        <td class="px-4 py-3">
+                            <img src="{{ reservation.hallId.mainImg }}" alt="Hall Image" class="object-cover w-16 h-16 rounded-md">
+                        </td>
+                        <td class="px-4 py-3">{{ reservation.hallId.area }}</td>
+                        <td class="px-4 py-3">{{ reservation.hallId.capacityMax }}</td>
+                        <td class="px-4 py-3">{{ reservation.hallId.pricePerHour }} €</td>
+                        <td class="px-4 py-3">{{ reservation.startDate|date('Y-m-d') }}</td>
+                        <td class="px-4 py-3">{{ reservation.endDate|date('Y-m-d') }}</td>
+                        <td class="px-4 py-3">{{ reservation.startTime|date('H:i') }}</td>
+                        <td class="px-4 py-3">{{ reservation.endTime|date('H:i') }}</td>
+                        <td class="px-4 py-3">
+                            {% if reservation.isConfirmed %}
+                                <span class="font-semibold text-green-500">Yes</span>
+                            {% else %}
+                                <span class="font-semibold text-red-500">No</span>
+                            {% endif %}
+                        </td>
                     <td>
                         <a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="btn btn-primary btn-sm">Show</a>
                         <a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="btn btn-secondary btn-sm">Edit</a>
@@ -50,14 +60,14 @@
                             <button class="btn btn-danger btn-sm">Delete</button>
                         </form>
                     </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="7">No reservations found</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11" class="py-4 text-center text-gray-500">No reservations found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
-
