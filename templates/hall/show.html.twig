@@ -67,9 +67,9 @@
 					</p>
 					<!-- Action Buttons -->
 					<div class="flex justify-between mt-4">
-						<a href="#" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
 
-						<a href="#" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Disponibility</a>
+						<a href="{{path('app_reservation_new', {'id': hall.id})}}" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
+						<a href="{{ path('app_hall_show', {'id': hall.id}) }}" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Details</a>
 
 					</div>
 				</div>

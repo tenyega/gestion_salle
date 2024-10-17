@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation Details{% endblock %}
+
+{% block body %}
+<div class="container p-6 mx-auto">
+    <h1 class="mb-6 text-2xl font-bold">Reservation Details</h1>
+
+    <div class="p-6 mb-6 bg-white rounded-lg shadow-md">
+        <h2 class="mb-4 text-xl font-bold">Hall Information</h2>
+        <div class="flex items-center mb-4">
+            <img src="{{ reservation.hallId.mainImg }}" alt="Hall Image" class="object-cover w-32 h-32 mr-6 rounded-md">
+            <div>
+                <p><strong>Name:</strong> {{ reservation.hallId.name }}</p>
+                <p><strong>Area:</strong> {{ reservation.hallId.area }}</p>
+                <p><strong>Capacity:</strong> {{ reservation.hallId.capacityMax }} people</p>
+                <p><strong>Price per Hour:</strong> {{ reservation.hallId.pricePerHour }} €</p>
+            </div>
+        </div>
+        <div>
+            <h2 class="mb-4 text-xl font-bold">Reservation Details</h2>
+            <p><strong>Start Date:</strong> {{ reservation.startDate|date('Y-m-d') }}</p>
+            <p><strong>End Date:</strong> {{ reservation.endDate|date('Y-m-d') }}</p>
+            <p><strong>Start Time:</strong> {{ reservation.startTime|date('H:i') }}</p>
+            <p><strong>End Time:</strong> {{ reservation.endTime|date('H:i') }}</p>
+            <p><strong>Confirmed:</strong> 
+                {% if reservation.isConfirmed %}
+                    <span class="font-semibold text-green-500">Yes</span>
+                {% else %}
+                    <span class="font-semibold text-red-500">No</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    {# Boutons pour éditer ou retourner à la liste #}
+    <div class="flex justify-between">
+        <a href="{{ path('app_reservation_index') }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
+            Back to Reservations
+        </a>
+        {# Button to Edit Reservation #}
+        <a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
+            Edit Reservation
+        </a>
+    </div>
+</div>
+{% endblock %}
