@@ -3,14 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Hall;
-use App\Entity\HallImage;
 use App\Form\HallType;
-use App\Repository\HallImageRepository;
+use App\Entity\HallImage;
+use App\Form\SearchFormType;
 use App\Repository\HallRepository;
 use App\Repository\ImagesRepository;
+
+use App\Repository\HallImageRepository;
+
 use App\Repository\ReservationRepository;
 use App\Service\HourCalculator;
 use App\Service\PaymentService;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,10 +26,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HallController extends AbstractController
 {
     #[Route('', name: 'app_hall_index', methods: ['GET'])]
-    public function index(HallRepository $hr): Response
+    public function index(HallRepository $hr, Request $request): Response
     {
-        $halls = $hr->findAll();
+        if ($request) {
+           // Récupérer les paramètres de la requête
+    $filter = $request->query->get('filter', '');
+
+    // Convertir la capacité en entier si elle existe, sinon laisser à null
+    $capacity = $request->query->get('capacity', null);
+    if ($capacity !== null) {
+        $capacity = (int)$capacity; // Conversion en entier
+    }
+
+        // Rechercher les salles avec les filtres
+        $halls = $hr->findHallsBySearch($filter, $capacity);
         return $this->render('hall/index.html.twig', [
+            'halls' => $halls,
+        ]);
+        }
+
+        
+       $halls = $hr->findAll();
+        return $this->render('hall/index.html.twig', [
+            'form' => $form->createView(),
             'halls' => $halls,
         ]);
     }

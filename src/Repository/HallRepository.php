@@ -53,5 +53,34 @@ class HallRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * Recherche de salles en fonction des filtres (ville, ergonomie, équipement, type d'événement, capacité).
+     */
+    public function findHallsBySearch(?string $filter, ?int $capacity): array
+    {
+        $qb = $this->createQueryBuilder('h')
+            ->leftJoin('h.addresseId', 'a') // Jointure avec Address pour accéder à la ville
+            ->leftJoin('h.hallErgonomies', 'he') // Jointure avec HallErgonomy pour l'ergonomie
+            ->leftJoin('he.ergonomyId', 'e') // Jointure avec Ergonomy pour le nom de l'ergonomie
+            ->leftJoin('h.hallEquipment', 'heq') // Jointure avec HallEquipment pour les équipements
+            ->leftJoin('heq.equipmentId', 'eq'); // Jointure avec Equipment
+         //   ->leftJoin('h.eventTypeId', 'et'); // Jointure avec EventType pour accéder au type d'événement
+    
+        if ($filter) {
+            // Filtrer par ville, ergonomie, équipement, ou type d'événement
+      //      $qb->andWhere('a.city LIKE :filter OR e.name LIKE :filter OR eq.name LIKE :filter OR h.eventTypeId LIKE :filter')
+            $qb->andWhere('a.city LIKE :filter OR e.name LIKE :filter OR eq.name LIKE :filter ')
+               ->setParameter('filter', '%' . $filter . '%');
+        }
+    
+        if ($capacity !== null) {
+            // Filtrer par capacité
+            $qb->andWhere('h.capacityMax >= :capacity')
+               ->setParameter('capacity', $capacity);
+        }
+    
+        return $qb->getQuery()->getResult();
+    }
+
 
 }
