@@ -1,11 +1,17 @@
 <footer class="flex gap-5">
-	<div class="footer-logo">
+<div class="footer-logo">
 		<img src="{{asset('img/logo1.png')}}" alt="logo">
 	</div>
-	<p class="">
-		&copy;{{' A Group Project Using Symfony By Lea, Désiré and Dolma'| trans }}</p>
-	<p class="">
+<section>
+<div>
+&copy; <p class="">
 		{{'now'|date('Y')}}</p>
+<p>
+{{' A Group Project Using Symfony By L2D Team'| trans }}
+</p>
+</div>
+</section>
+<section>
 	<div>
 		<a href="{{ path('app_legal_notice') }}">
 			Mention legale
@@ -18,4 +24,14 @@
 		</a>
 
 	</div>
+</section>
+	
+    <div class="social-media flex ">
+        <a href="#"><img src="{{ asset('img/facebook.png')}}" alt="facebook"></a>
+        <a href="#"><img src="{{ asset('img/twitter.png')}}" alt="twitter"></a>
+        <a href="#"><img src="{{ asset('img/instagram.png')}}" alt="instagram"></a>
+    </div>
+		
+	
+
 </footer>
