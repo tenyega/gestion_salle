@@ -29,5 +29,19 @@ class HallRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+        /**
+     * Récupération de toutes les salles associées à une ergonomie spécifique
+     */
+    public function findByErgonomy(string $ergonomyName): array
+    {
+        return $this->createQueryBuilder('h')
+            ->join('h.hallErgonomies', 'he')  // Jointure avec HallErgonomy
+            ->join('he.ergonomyId', 'e')      // Jointure avec Ergonomy
+            ->andWhere('e.name = :name')      // Filtrer par le nom de l'ergonomie
+            ->setParameter('name', $ergonomyName)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 }

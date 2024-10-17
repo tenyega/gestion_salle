@@ -30,7 +30,7 @@ services:
         arguments:
             $hallRepository: '@App\Repository\HallRepository'
     
-    # On enregistre notre EventSubscriber
+    # Enregistrement de EventSubscriber qui permet d'injecter des variables dans nos pages sans passer par les controleurs
     App\EventSubscriber\TwigEventSubscriber:
         tags:
             - { name: 'kernel.event_subscriber' }

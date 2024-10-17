@@ -35,6 +35,18 @@ class HallController extends AbstractController
         ]);
     }
 
+    #[Route('/ergonomy/{name}', name: 'app_halls_by_ergonomy', methods: ['GET'])]
+    public function getByErgonomy(string $name, HallRepository $hr): Response
+    {
+        // Utilisation du service pour récupérer les salles par ergonomie
+        $halls = $hr->findByErgonomy($name);
+
+        return $this->render('hall/by_ergonomy.html.twig', [
+            'ergonomyName' => $name,
+            'halls' => $halls,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
     public function show(Hall $hall, HallImageRepository $hir, ImagesRepository $ir): Response
     {
