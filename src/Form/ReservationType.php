@@ -2,68 +2,42 @@
 
 namespace App\Form;
 
-use App\Entity\Hall;
 use App\Entity\Reservation;
-use App\Entity\User;
+use App\Entity\Hall;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('startDate', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('endDate', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('startTime', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('endTime', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('isConfirmed')
-            ->add('specialRequest')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('userId', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            ->add('hallId', EntityType::class, [
-                'class' => Hall::class,
-                'choice_label' => 'id',
-            ])
             ->add('hall', EntityType::class, [
                 'class' => Hall::class,
-                'choice_label' => function (Hall $hall) {
-                    return sprintf(
-                        '%s (Area: ùs, Capacity: %d, Price per hour: $.2f)',
-                        $hall->getName(),
-                        $hall->getArea(),
-                        $hall->getMainImg(),
-                        $hall->getCapacityMax(),
-                        $hall->getPricePerHour(),
-                        $hall->getHallEquipment(),
-                        $hall->getHallErgonomies(),
-                        $hall->getEventTypeId()->getName(),
-                        $hall->getAddresseId()->getCity(),
-                        $hall->getOpeningTime()->format('H:i:s'),
-                        $hall->getClosingTime()->format('H:i:s'),
-                        $hall->getAccessibility(),
-                    );
-                }
+                'choice_label' => 'name', // Assurez-vous que la propriété 'name' existe dans l'entité Hall
+                'label' => 'Hall',
             ])
-        ;
+            ->add('startDate', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('endDate', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('startTime', TimeType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('endTime', TimeType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('isConfirmed', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Confirm Reservation',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
