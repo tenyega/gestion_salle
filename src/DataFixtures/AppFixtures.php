@@ -49,6 +49,7 @@ class AppFixtures extends Fixture
         $user1->setEmail('user1@email.com')
             ->setPassword($this->hasher->hashPassword($user1, 'user1'))
             ->setRoles(['Role_User'])
+            ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->isVerified(true);
 
         $userArray[] = $user1;
@@ -59,6 +60,7 @@ class AppFixtures extends Fixture
         $user2->setEmail('user2@email.com')
             ->setPassword($this->hasher->hashPassword($user2, 'user2'))
             ->setRoles(['Role_User'])
+            ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->isVerified(false);
 
         $userArray[] = $user2;
@@ -70,6 +72,7 @@ class AppFixtures extends Fixture
         $user3 = new User();
         $user3->setEmail('user3@email.com')
             ->setPassword($this->hasher->hashPassword($user3, 'user2'))
+            ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->setRoles(['Role_User'])
             ->isVerified(true);
 
@@ -81,6 +84,7 @@ class AppFixtures extends Fixture
         $admin->setEmail('admin@email.com')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
             ->setRoles(['Role_Admin'])
+            ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->isVerified(true)
         ;
         $manager->persist($admin);

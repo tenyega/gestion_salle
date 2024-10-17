@@ -173,3 +173,8 @@ and changed in service.yaml (added Stripe api under parameter and different serv
 	services:
 	    App\Service\HourCalculator: ~
     	App\Service\PaymentService: ~
+
+CHANGE IN USER ENTITY
+	symfony console make:entity User 
+	fullName varchar 255 not null
+	address varchar 255 Nullable

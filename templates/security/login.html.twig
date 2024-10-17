@@ -5,42 +5,62 @@
 {% endblock %}
 
 {% block body %}
-	<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-		<div class="max-w-md w-full space-y-8">
+	
+	<div class="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-100 sm:px-6 lg:px-8">
+	{% for label, messages in app.flashes %}
+		<div class="mb-4">
+			{% for message in messages %}
+				<div class="px-4 py-3 rounded-lg text-white
+												                {% if label == 'success' %}
+												                    bg-green-500
+												                {% elseif label == 'error' %}
+												                    bg-red-500
+												                {% elseif label == 'warning' %}
+												                    bg-yellow-500
+												                {% else %}
+												                    bg-blue-500
+												                {% endif %}
+												            ">
+					{{ message }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+		<div class="w-full max-w-md space-y-8">
 			<div>
-				<h1 class="text-center text-3xl font-extrabold text-gray-900">{{ 'Please sign in' | trans }}</h1>
-				<p class="mt-2 text-center text-sm text-gray-600">
+				<h1 class="text-3xl font-extrabold text-center text-gray-900">{{ 'Please sign in' | trans }}</h1>
+				<p class="mt-2 text-sm text-center text-gray-600">
 					{{ "Log in!" | trans }}
 				</p>
 			</div>
 
 			<form class="mt-8 space-y-6" method="post">
 				{% if error %}
-					<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+					<div class="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
 						{{ error.messageKey | trans(error.messageData, 'security') }}
 					</div>
 				{% endif %}
 
 
-				<div class="rounded-md shadow-sm space-y-4">
+				<div class="space-y-4 rounded-md shadow-sm">
 					<div>
 						<label for="username" class="block text-sm font-medium text-gray-700">{{ 'Email' | trans }}</label>
-						<input type="email" value="{{ last_username }}" name="_username" id="username" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="{{ 'Email' | trans }}" required autofocus>
+						<input type="email" value="{{ last_username }}" name="_username" id="username" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="{{ 'Email' | trans }}" required autofocus>
 					</div>
 					<div>
 						<label for="password" class="block text-sm font-medium text-gray-700">{{ 'Password' | trans }}</label>
-						<input type="password" name="_password" id="password" class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="{{ 'Password' | trans }}" required>
+						<input type="password" name="_password" id="password" class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-none appearance-none rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="{{ 'Password' | trans }}" required>
 					</div>
 				</div>
 
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 				<div class="space-y-4">
-					<button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+					<button type="submit" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 						{{ 'Sign in' | trans }}
 					</button>
 
-					<a href="{{ path('app_register') }}" class="block w-full text-center px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+					<a href="{{ path('app_register') }}" class="block w-full px-4 py-2 text-center text-white bg-indigo-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
 						{{ 'Register' | trans }}
 					</a>
 				</div>

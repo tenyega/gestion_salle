@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ 'Profile Show' | trans }}
+{% endblock %}
+
+{% block body %}
+	SHOW PROFILE
+	
+	<div class="max-w-sm p-10 mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
+    {% for label, messages in app.flashes %}
+		<div class="mb-4">
+			{% for message in messages %}
+				<div class="px-4 py-3 rounded-lg text-white
+												                {% if label == 'success' %}
+												                    bg-green-500
+												                {% elseif label == 'error' %}
+												                    bg-red-500
+												                {% elseif label == 'warning' %}
+												                    bg-yellow-500
+												                {% else %}
+												                    bg-blue-500
+												                {% endif %}
+												            ">
+					{{ message }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endfor %}
+		<div class="px-6 py-4">
+			<div class="mb-2 text-xl font-bold">User Details</div>
+
+			<p class="text-base text-gray-700">
+				<strong>Email:</strong>
+				{{user.email}}</p>
+			<p class="text-base text-gray-700">
+
+				{{user.fullName}}</p>
+			<p class="text-base text-gray-700">
+
+				{{user.address}}</p>
+
+		</div>
+		<div>
+			<a href="{{path('app_profile_edit')}}" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+				{{ 'Edit' | trans }}
+			</a>
+		</div>
+	</div>
+
+{% endblock %}
