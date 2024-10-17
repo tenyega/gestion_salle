@@ -16,10 +16,10 @@ const cookieConsentModal = document.getElementById('cookie-consent');
 const acceptCookiesButton = document.getElementById('accept-cookies');
 const denyCookiesButton = document.getElementById('deny-cookies');
 // Check if user has already accepted cookies
-if (localStorage.getItem('cookiesAccepted') == false) { // Show the modal
-cookieConsentModal.style.display = 'flex';
+if (localStorage.getItem('cookiesAccepted') === null || localStorage.getItem('cookiesAccepted') === 'false') {
+    // Show the modal
+    cookieConsentModal.style.display = 'flex';
 }
-
 // Add click event listener to the accept button
 acceptCookiesButton.addEventListener('click', function () { // Save consent in localStorage
 localStorage.setItem('cookiesAccepted', 'true');
