@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\HallImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HallImageRepository;
 
 #[ORM\Entity(repositoryClass: HallImageRepository::class)]
 class HallImage
@@ -49,4 +49,6 @@ class HallImage
 
         return $this;
     }
+
+   
 }

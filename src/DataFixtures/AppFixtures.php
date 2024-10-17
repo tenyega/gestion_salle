@@ -134,6 +134,15 @@ class AppFixtures extends Fixture
         }
         $manager->flush();
 
+        //IMAGES
+        for ($i = 0; $i < 26; $i++) {
+            $images = new Images();
+            $images->setTitle($faker->title())
+                ->setImg('img-' . $i . '.jpg');
+            $imgArray[$i] = $images;
+            $manager->persist($images);
+        }
+        $manager->flush();
 
         // HALL
         for ($i = 0; $i < 10; $i++) {
@@ -147,7 +156,7 @@ class AppFixtures extends Fixture
             $hall->setClosingTime(\DateTime::createFromFormat('H:i:s', '23:30:00'));
             $hall->setEventTypeId($eventArray[$i]);
             $hall->setAddresseId($addressArray[$i]);
-            $hall->setMainImg($faker->imageUrl(640, 480, 'house', true));
+            $hall->setMainImg($faker->randomElement($imgArray));
 
             $hallArray[] = $hall;
             $manager->persist($hall);
@@ -187,15 +196,6 @@ class AppFixtures extends Fixture
             $manager->persist($reservation);
         }
 
-        $manager->flush();
-        //IMAGES
-        for ($i = 0; $i < 15; $i++) {
-            $images = new Images();
-            $images->setTitle($faker->title())
-                ->setImg($faker->imageUrl(640, 480, 'house', true));
-            $imgArray[] = $images;
-            $manager->persist($images);
-        }
         $manager->flush();
 
         //INTERMIDIATE hall_equipment

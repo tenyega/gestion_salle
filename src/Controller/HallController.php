@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Hall;
 use App\Form\HallType;
 use App\Repository\HallRepository;
+use App\Repository\ImagesRepository;
+use App\Repository\HallImageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -22,12 +24,30 @@ class HallController extends AbstractController
             'halls' => $halls,
         ]);
     }
-
-    #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
-    public function show(Hall $hall): Response
+    
+    #[Route('/city/{name}', name: 'app_halls_by_city', methods: ['GET'])]
+    public function getByCity($name, Request $request, HallRepository $hr): Response
     {
-        return $this->render('hall/show.html.twig', [
-            'hall' => $hall,
+        $halls = $hr->findByCity($name);
+        return $this->render('hall/by_city.html.twig', [
+            'cityName' => $name,
+            'halls' => $halls,
         ]);
     }
+
+    #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
+    public function show(Hall $hall, HallImageRepository $hir, ImagesRepository $ir): Response
+    {
+        $id = $hall->getId();
+        $images = $hir->findBy([
+            'hallId' => $id,
+        ]);
+
+        return $this->render('hall/show.html.twig', [
+            'hall' => $hall,
+            'images' => $images
+        ]);
+    }
+    
+
 }

@@ -4,10 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="mb-6 text-3xl font-bold text-center">WELCOME
+	<h1 class="mb-6 text-3xl font-bold text-center">{{cityName}}
 	</h1>
-
-	<div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4">
 		{% for hall in halls %}
 
 			<div
@@ -54,4 +53,5 @@
 		{% endfor %}
 
 	</div>
+
 {% endblock %}

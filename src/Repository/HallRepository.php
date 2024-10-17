@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Hall;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Hall>
@@ -16,28 +16,18 @@ class HallRepository extends ServiceEntityRepository
         parent::__construct($registry, Hall::class);
     }
 
-//    /**
-//     * @return Hall[] Returns an array of Hall objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('h.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Récupération de toutes les salles dans une ville spécifique
+     */
+    public function findByCity(string $city): array
+    {
+        return $this->createQueryBuilder('h')
+            ->join('h.addresseId', 'a') // 'a' représente l'entité Address
+            ->andWhere('a.city = :city')
+            ->setParameter('city', $city)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Hall
-//    {
-//        return $this->createQueryBuilder('h')
-//            ->andWhere('h.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
 }
