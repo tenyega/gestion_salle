@@ -1,20 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NotificationController!{% endblock %}
+{% block title %}Hello NotificationController!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<body>
+		<h1 class="mt-6 text-3xl font-bold text-center">My Notifications
+		</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/src/Controller/NotificationController.php</code></li>
-        <li>Your template at <code>/Volumes/DEVOPS/PREPAVENIR/SYMFONY/gestion_salle/templates/notification/index.html.twig</code></li>
-    </ul>
-</div>
+		{% for notification in notifcations %}
+			<!-- Notification Card -->
+			<div
+				class="max-w-sm p-6 p-10 m-auto mt-10 mb-20 bg-white rounded-lg shadow-lg ">
+				<!-- Notification message -->
+				<p class="mb-4 text-gray-700">
+					<strong>Message:</strong>
+					{{notification.message}}
+				</p>
+
+				<!-- Created date -->
+				<p class="mb-4 text-sm text-gray-500">
+					<strong>Created at:</strong>
+					{{notification.createdAt | date('Y-m-d')}}
+				</p>
+
+				<!-- Status: Read/Unread -->
+				<p class="mb-4 text-sm">
+					<span class="font-semibold text-red-500">{{notification.isRead}}</span>
+				</p>
+
+				<!-- User Info -->
+				<p class="text-sm text-gray-500">
+					<strong>User:</strong>
+					{{notification.userId}}
+					<!-- Replace with dynamic user info -->
+				</p>
+
+
+			</div>
+
+		{% endfor %}
+
+	</body>
 {% endblock %}

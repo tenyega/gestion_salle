@@ -21,7 +21,7 @@ class SearchFormType extends AbstractType
         $builder
             // Premier input pour les filtres multiples
             ->add('filter', TextType::class, [
-                'label' => 'Search by City, Ergonomy, Equipment, or Event Type',
+                'label' => 'Search by City, Ergonomy or Equipment',
                 'label_attr' => [
                     'class' => 'block text-sm font-medium text-gray-700'
                 ],
