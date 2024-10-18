@@ -1,37 +1,37 @@
 <footer class="flex gap-5">
-<div class="footer-logo">
+	<div class="footer-logo">
 		<img src="{{asset('img/logo1.png')}}" alt="logo">
 	</div>
-<section>
-<div>
-&copy; <p class="">
-		{{'now'|date('Y')}}</p>
-<p>
-{{' A Group Project Using Symfony By L2D Team'| trans }}
-</p>
-</div>
-</section>
-<section>
-	<div>
-		<a href="{{ path('app_legal_notice') }}">
-			Mention legale
-		</a>
-		<a href="{{ path('app_policy') }}">
-			Protection de données personnalle
-		</a>
-		<a href="#">
-			Site Map
-		</a>
+	<section>
+		<div>
+			&copy;
+			<p class="">
+				{{'now'|date('Y')}}</p>
+			<p>
+				{{' A Group Project Using Symfony By L2D Team'| trans }}
+			</p>
+		</div>
+	</section>
+	<section>
+		<div>
+			<a href="{{ path('app_legal_notice') }}">
+				Mention legale
+			</a>
+			<a href="{{ path('app_policy') }}">
+				Protection de données personnalle
+			</a>
+			<a href="#">
+				Site Map
+			</a>
 
+		</div>
+	</section>
+
+	<div class="flex social-media ">
+		<a href="#"><img src="{{ asset('img/facebook.webp')}}" alt="facebook" class="social-media-img"></a>
+		<a href="#"><img src="{{ asset('img/twitter.webp')}}" alt="twitter" class="social-media-img"></a>
+		<a href="#"><img src="{{ asset('img/instagram.webp')}}" alt="instagram" class="social-media-img"></a>
 	</div>
-</section>
-	
-    <div class="social-media flex ">
-        <a href="#"><img src="{{ asset('img/facebook.webp')}}" alt="facebook" class="social-media-img"></a>
-        <a href="#"><img src="{{ asset('img/twitter.webp')}}" alt="twitter" class="social-media-img"></a>
-        <a href="#"><img src="{{ asset('img/instagram.webp')}}" alt="instagram" class="social-media-img"></a>
-    </div>
-		
-	
 
 </footer>
+{% include 'cookie/cookie_consent.html.twig' %}

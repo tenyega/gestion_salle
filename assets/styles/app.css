@@ -37,7 +37,7 @@ footer {
   padding: 10px;
   text-align: center;
   min-height: 10vh;
-  max-height: 10vh;
+  max-height: 20vh;
   bottom: 0;
   /* position: absolute; */
   width: 100vw;
@@ -49,18 +49,14 @@ footer {
 }
 
 .social-media {
- 
   display: flex;
-  
+
   /* justify-content: space-between; */
   gap: 5px;
-
 }
 
 .social-media-img {
   /* width: 50px; */
   /* aspect-ratio: 1/1; */
   transition: filter 0.3s ease;
-
-
 }

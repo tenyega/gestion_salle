@@ -1,0 +1,39 @@
+<div id="cookie-consent" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" style="display: none;">
+	<div class="relative w-full max-w-md p-6 text-center transition-opacity duration-300 bg-white rounded shadow-md opacity-90">
+		<h2 class="mb-4 text-lg font-semibold">We use cookies</h2>
+		<p class="mb-4">We use cookies to ensure that we give you the best experience on our website.</p>
+		<button id="accept-cookies" class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+			Accept
+		</button>
+		<button id="deny-cookies" class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">
+			Deny
+		</button>
+	</div>
+</div>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+const cookieConsentModal = document.getElementById('cookie-consent');
+const acceptCookiesButton = document.getElementById('accept-cookies');
+const denyCookiesButton = document.getElementById('deny-cookies');
+// Check if user has already accepted cookies
+if (localStorage.getItem('cookiesAccepted') === null || localStorage.getItem('cookiesAccepted') === 'false') {
+    // Show the modal
+    cookieConsentModal.style.display = 'flex';
+}
+// Add click event listener to the accept button
+acceptCookiesButton.addEventListener('click', function () { // Save consent in localStorage
+localStorage.setItem('cookiesAccepted', 'true');
+
+// Hide the modal
+cookieConsentModal.style.display = 'none';
+});
+
+// Add click event listener to the accept button
+denyCookiesButton.addEventListener('click', function () { // Save consent in localStorage
+localStorage.setItem('cookiesAccepted', 'false');
+
+// Hide the modal
+cookieConsentModal.style.display = 'none';
+});
+});
+</script>
