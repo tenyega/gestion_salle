@@ -1,70 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reservation{% endblock %}
+{% block title %}New Reservation
+{% endblock %}
 
 {% block body %}
-<div class="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
-    <div class="w-full max-w-md space-y-8">
-        <div>
-            <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
-                Add a New Reservation
-            </h2>
-        </div>
+	<div class="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
+		<div class="w-full max-w-md space-y-8">
+			<div>
+				<h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
+					Add a New Reservation
+				</h2>
+			</div>
 
-        {# Affichage du nom du hall sélectionné #}
-        {# <div class="text-lg font-bold text-center text-indigo-700">
-            Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
-        </div> #}
+			{# Affichage du nom du hall sélectionné #}
+			{# <div class="text-lg font-bold text-center text-indigo-700">
+									            Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
+									        </div> #}
+			<img src="{{asset('img/halls/'~ hallImg)}}" alt='Main Image for Hall'/>
 
-        {{ form_start(form) }}
+			{{ form_start(form) }}
 
-        <div class="space-y-4 rounded-md shadow-sm">
-            <div>
-                <label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
-                {{ form_widget(form.startDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
-            </div>
-            <div>
-                <label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
-                {{ form_widget(form.endDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
-            </div>
-            <div>
-                <label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
-                {{ form_widget(form.startTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
-            </div>
-            <div>
-                <label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
-                {{ form_widget(form.endTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
-            </div>
-            <div>
-                <label for="ergonomy" class="block text-sm font-medium text-gray-700">Ergonomy</label>
-                <select id="ergonomy" name="ergonomy" class="relative block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">Choose ergonomics</option>
-                    {% for ergonomy in ergonomies %}
-                        <option value="{{ ergonomy.id }}">{{ ergonomy.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-                   <div>
-                <label for="ergonomy" class="block text-sm font-medium text-gray-700">Equipment</label>
-                <select id="ergonomy" name="ergonomy" class="relative block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="">Choose equipments</option>
-                    {% for equipment in equipments %}
-                        <option value="{{ equipment.id }}">{{ equipment.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+			<div class="space-y-4 rounded-md shadow-sm">
+				<div>
+					<label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+					{{ form_widget(form.startDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+				</div>
+				<div>
+					<label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+					{{ form_widget(form.endDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+				</div>
+				<div>
+					<label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
+					{{ form_widget(form.startTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+				</div>
+				<div>
+					<label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
+					{{ form_widget(form.endTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+				</div>
+				<div>
+					<label for="ergonomy" class="block text-sm font-medium text-gray-700">Ergonomy</label>
+					<select id="ergonomy" name="ergonomy" class="relative block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+						<option value="">Choose ergonomics</option>
+						{% for ergonomy in ergonomies %}
+							<option value="{{ ergonomy.id }}">{{ ergonomy.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div>
+					<label for="ergonomy" class="block text-sm font-medium text-gray-700">Equipment</label>
+					<select id="ergonomy" name="ergonomy" class="relative block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+						<option value="">Choose equipments</option>
+						{% for equipment in equipments %}
+							<option value="{{ equipment.id }}">{{ equipment.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
 
-        <div class="my-4 space-y-4">
-            <button type="submit" class="justify-center block w-full px-4 py-2 text-center text-white bg-indigo-600 border border-transparent rounded-md py-2text-white relativeflex group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Add Reservation
-            </button>
-          	<a href="{{ path('app_reservation_index') }}" class="justify-center block w-full px-4 py-2 text-center text-white border border-transparent rounded-md bg-stone-500 py-2text-white relativeflex group hover:bg-stone-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+				<div class="my-4 space-y-4">
+					<button type="submit" class="justify-center block w-full px-4 py-2 text-center text-white bg-indigo-600 border border-transparent rounded-md py-2text-white relativeflex group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+						Add Reservation
+					</button>
+					<a href="{{ path('app_reservation_index') }}" class="justify-center block w-full px-4 py-2 text-center text-white border border-transparent rounded-md bg-stone-500 py-2text-white relativeflex group hover:bg-stone-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 						Back to Reservations
 					</a>
-        </div>
+				</div>
 
-        {{ form_end(form) }}
-    </div>
-</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
 
-{% endblock %}
+	{% endblock %}
