@@ -18,7 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/reservation')]
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
-//#[IsGranted("FULLY_AUTHENTICATED")]
 class ReservationController extends AbstractController
 {
     private $em;
