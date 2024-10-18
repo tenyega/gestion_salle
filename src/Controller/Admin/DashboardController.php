@@ -2,17 +2,17 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Equipment;
-use App\Entity\Ergonomy;
 use App\Entity\Hall;
-use App\Entity\Reservation;
 use App\Entity\User;
+use App\Entity\Ergonomy;
+use App\Entity\Equipment;
+use App\Entity\Reservation;
 use App\Repository\ReservationRepository;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -23,7 +23,7 @@ class DashboardController extends AbstractDashboardController
     {
         $this->reservationRepository = $reservationRepository;
     }
-    #[Route('/admin', name: 'admin')]
+    #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
         dump('lkjlkjk');
