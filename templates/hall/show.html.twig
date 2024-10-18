@@ -14,16 +14,16 @@
 			<div class="mb-4">
 				{% for message in messages %}
 					<div class="px-4 py-3 rounded-lg text-white
-																			                {% if label == 'success' %}
-																			                    bg-green-500
-																			                {% elseif label == 'error' %}
-																			                    bg-red-500
-																			                {% elseif label == 'warning' %}
-																			                    bg-yellow-500
-																			                {% else %}
-																			                    bg-blue-500
-																			                {% endif %}
-																			            ">
+																										                {% if label == 'success' %}
+																										                    bg-green-500
+																										                {% elseif label == 'error' %}
+																										                    bg-red-500
+																										                {% elseif label == 'warning' %}
+																										                    bg-yellow-500
+																										                {% else %}
+																										                    bg-blue-500
+																										                {% endif %}
+																										            ">
 						{{ message }}
 					</div>
 				{% endfor %}
@@ -88,7 +88,7 @@
 					<div class="flex justify-between mt-4">
 
 						<a href="{{path('app_reservation_new', {'id': hall.id})}}" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
-						<a href="{{ path('app_hall_show', {'id': hall.id}) }}" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Details</a>
+						<a href="{{ path('app_hall_calender', {'id': hall.id}) }}" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Disponibility</a>
 
 					</div>
 				</div>
@@ -105,4 +105,3 @@
 
 
 {% endblock %}
-

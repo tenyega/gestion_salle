@@ -195,3 +195,6 @@ CREATED PAYMENT CONTROLLER
 Reservvation table changed to add totalPrice
 	symfony console make:entity Reservation
 	totalPrice decimal(Precision: 10; Scale 2) Nullable
+
+Full Calender Library Added with its JS and CSS code under public-CSS and -JS
+and a fullCalender.html.twig with the display of the calender and route for the calender is defined under HallController 
