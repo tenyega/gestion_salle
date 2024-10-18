@@ -1,1 +1,35 @@
-Contact
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block body %}
+<div class="container p-6 mx-auto">
+    <h1 class="mb-6 text-2xl font-bold">Contact Us</h1>
+
+    {% if app.flashes('success') %}
+        <div class="mb-4 text-green-600">
+            {% for message in app.flashes('success') %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {{ form_start(form, { 'attr': {'class': 'space-y-4'} }) }}
+        <div>
+            {{ form_row(form.name) }} <!-- Affiche le champ "name" -->
+        </div>
+        <div>
+            {{ form_row(form.email) }} <!-- Affiche le champ "email" -->
+        </div>
+        <div>
+            {{ form_row(form.subject) }} <!-- Affiche le champ "subject" -->
+        </div>
+        <div>
+            {{ form_row(form.message) }} <!-- Affiche le champ "message" -->
+        </div>
+        <div>
+            {{ form_row(form.send) }} <!-- Affiche le bouton d'envoi -->
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
