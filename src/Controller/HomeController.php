@@ -11,17 +11,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
-    public function index(HallRepository $hr, Request $request): Response
-    {
+  #[Route('/', name: 'app_home')]
+  public function index(HallRepository $hr, Request $request): Response
+  {
 
-  // Crée le formulaire for the search criteria of filter on capacity and city,Ergonomy, equipment
-  $form = $this->createForm(SearchFormType::class);
-  $form->handleRequest($request);
+    // Crée le formulaire for the search criteria of filter on capacity and city,Ergonomy, equipment
+    $form = $this->createForm(SearchFormType::class);
+    $form->handleRequest($request);
 
-  $halls = [];
+    $halls = [];
 
-  if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
       $data = $form->getData();
 
       // Récupère les filtres
@@ -29,18 +29,25 @@ class HomeController extends AbstractController
       $capacity = $data['capacity'] ?? null;
 
       // Récupère les salles filtrées
-   //   dd($halls = $hr->findHallsBySearch($filter, $capacity));
+      //   dd($halls = $hr->findHallsBySearch($filter, $capacity));
       // Redirection vers la page des salles avec les paramètres
       return $this->redirectToRoute('app_hall_index', [
         'filter' => $filter,
         'capacity' => $capacity,
+      ]);
+    }
+
+    $halls = $hr->findAll();
+    return $this->render('home/index.html.twig', [
+      'form' => $form->createView(),
+      //       'halls' => $halls,
     ]);
   }
-        
-       $halls = $hr->findAll();
-        return $this->render('home/index.html.twig', [
-            'form' => $form->createView(),
-     //       'halls' => $halls,
-        ]);
-    }
+
+
+  #[Route('/404', name: 'app_404')]
+  public function pageNotFound(): Response
+  {
+    return $this->render('home/404.html.twig', []);
+  }
 }

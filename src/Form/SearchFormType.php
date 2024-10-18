@@ -23,7 +23,7 @@ class SearchFormType extends AbstractType
             ->add('filter', TextType::class, [
                 'label' => 'Search by City, Ergonomy or Equipment',
                 'label_attr' => [
-                    'class' => 'block text-sm font-medium text-gray-700'
+                    'class' => 'block text-sm font-medium text-gray-700 '
                 ],
                 'required' => false,
                 'attr' => ['placeholder' => 'City, Ergonomy, Equipment, Event Type']

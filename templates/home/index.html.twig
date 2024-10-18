@@ -39,7 +39,7 @@
 	<!--Bloc formulaire de recherche -->
 
 
-	<div class="z-[100] flex justify-center -mt-75 opacity-90" style="margin-top:-70px">
+	<div class="z-[100] flex justify-center -mt-75 opacity-90 mb-10" style="margin-top:-70px">
 		<div class="w-full max-w-4xl p-6 border rounded-lg bg-zinc-200">
 			<h2 class="mb-6 text-2xl font-bold text-center">Que cherchez-vous ?</h2>
 
@@ -49,10 +49,14 @@
 				{# Premier Select #}
 
 				<div
-					class="w-1/2">
+					class="w-1/2 ">
 
 					{# Premier Select #}
-					{{ form_row(form.filter) }}
+					{{ form_row(form.filter, {
+    'attr': {
+        'class': 'block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+    }
+}) }}
 					{# <div class="flex-col w-1/2 "> {{ form_row(form.filter) }} #}
 
 				</div>
@@ -62,12 +66,16 @@
 
 				{# Deuxième Select #}
 				<div class="w-1/2">
-					{{ form_row(form.capacity) }}
+					{{ form_row(form.capacity, {
+    'attr': {
+        'class': 'block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+    }
+}) }}
 
 				{# <div class="w-1/2">
-																																						{{ form_row(form.capacity) }}
-																																	
-																																					</div> #}
+																																																																		{{ form_row(form.capacity) }}
+																																																													
+																																																																	</div> #}
 					{# Bouton de recherche #}
 				</div>
 				<div class="flex justify-center mt-6">
