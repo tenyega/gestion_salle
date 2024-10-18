@@ -48,7 +48,7 @@ class HallController extends AbstractController
 
         $halls = $hr->findAll();
         return $this->render('hall/index.html.twig', [
-            'form' => $form->createView(),
+            // 'form' => $form->createView(),
             'halls' => $halls,
         ]);
     }
@@ -119,9 +119,8 @@ class HallController extends AbstractController
         // brings all the reservation with this hallid. 
         $reservations = $reservationRepository->findBy(['hallId' => $id]);
         foreach ($reservations as $r) {
-          
-                $events[] = array('title' => 'Reserved', 'start' => $r->getStartDate()->format('Y-m-d'), 'end' => $r->getEndDate()->format('Y-m-d'));
-            
+
+            $events[] = array('title' => 'Reserved: ' . $r->getStartTime()->format('H:i') . '-' . $r->getEndTime()->format('H:i'), 'start' => $r->getStartDate()->format('Y-m-d'), 'end' => $r->getEndDate()->format('Y-m-d'));
         }
 
 
