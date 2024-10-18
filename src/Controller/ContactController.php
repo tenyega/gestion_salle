@@ -2,22 +2,36 @@
 
 namespace App\Controller;
 
-use App\Entity\Address;
-use App\Repository\AddressRepository;
+use App\Form\ContactType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/contact')]
 class ContactController extends AbstractController
 {
-    
-    #[Route('', name: 'app_contact', methods: ['GET'])]
-    public function index(): Response
+    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
+    public function contact(Request $request): Response
     {
-        return $this->render('contact/index.html.twig');
-       
+        $form = $this->createForm(ContactType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer les données du formulaire
+            $data = $form->getData();
+
+            // Traitement des données (comme l'envoi d'un email)
+            // mail($data['email'], $data['subject'], $data['message']); // Exemple d'envoi d'email
+            
+            // Redirection ou message de succès
+            $this->addFlash('success', 'Your message has been sent!');
+
+            return $this->redirectToRoute('app_contact'); // Ou une autre route
+        }
+
+        return $this->render('contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
-   
 }
