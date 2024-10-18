@@ -18,7 +18,6 @@ use App\Entity\Notification;
 use App\Entity\Reservation;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -48,7 +47,7 @@ class AppFixtures extends Fixture
         $user1 = new User();
         $user1->setEmail('user1@email.com')
             ->setPassword($this->hasher->hashPassword($user1, 'user1'))
-            ->setRoles(['Role_User'])
+            ->setRoles(['ROLE_USER'])
             ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->isVerified(true);
 
@@ -59,7 +58,7 @@ class AppFixtures extends Fixture
         $user2 = new User();
         $user2->setEmail('user2@email.com')
             ->setPassword($this->hasher->hashPassword($user2, 'user2'))
-            ->setRoles(['Role_User'])
+            ->setRoles(['ROLE_USER'])
             ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->isVerified(false);
 
@@ -73,7 +72,7 @@ class AppFixtures extends Fixture
         $user3->setEmail('user3@email.com')
             ->setPassword($this->hasher->hashPassword($user3, 'user2'))
             ->setFullName($faker->firstName() . ' ' . $faker->lastName())
-            ->setRoles(['Role_User'])
+            ->setRoles(['ROLE_USER'])
             ->isVerified(true);
 
         $userArray[] = $user3;
@@ -83,7 +82,7 @@ class AppFixtures extends Fixture
         $admin = new User();
         $admin->setEmail('admin@email.com')
             ->setPassword($this->hasher->hashPassword($admin, 'admin'))
-            ->setRoles(['Role_Admin'])
+            ->setRoles(['ROLE_ADMIN'])
             ->setFullName($faker->firstName() . ' ' . $faker->lastName())
             ->isVerified(true)
         ;
