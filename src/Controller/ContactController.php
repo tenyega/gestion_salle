@@ -3,35 +3,43 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mime\Address;
+use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route('/contact')]
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
-    public function contact(Request $request): Response
+    public function __construct(private EmailVerifier $emailVerifier, private EntityManagerInterface $em) {}
+    #[Route('', name: 'app_contact', methods: ['GET'])]
+    public function index(Request $request): Response
     {
         $form = $this->createForm(ContactType::class);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Récupérer les données du formulaire
-            $data = $form->getData();
 
-            // Traitement des données (comme l'envoi d'un email)
-            // mail($data['email'], $data['subject'], $data['message']); // Exemple d'envoi d'email
-            
-            // Redirection ou message de succès
-            $this->addFlash('success', 'Your message has been sent!');
-
-            return $this->redirectToRoute('app_contact'); // Ou une autre route
+            $this->emailVerifier->sendEmailConfirmation(
+                'app_verify_email',
+                $this->getUser(),
+                (new TemplatedEmail())
+                    ->from(new Address('hall4all@email.com', 'hall4all'))
+                    ->to((string) $this->getUser()->getEmail())
+                    ->subject('Thank you for contacting us ')
+                    ->htmlTemplate('contact/confirmation.html.twig')
+            );
+            $this->em->flush();
+            return $this->redirectToRoute('app_reservation_index');
         }
 
-        return $this->render('contact.html.twig', [
-            'form' => $form->createView(),
+
+        return $this->render('contact/index.html.twig', [
+            'form' => $form,
         ]);
     }
 }
