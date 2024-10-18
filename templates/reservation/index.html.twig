@@ -6,6 +6,7 @@
 
 {% block body %}
 
+
     <h1 class="mb-6 text-3xl font-bold text-center">My Reservations
     </h1>
 
@@ -95,12 +96,40 @@
 				<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md ali hover:bg-gray-400">
 					Delete
 				</button>
+        
+        {% if reservation.isConfirmed %}
+									{# Initialize a flag to false for each reservation #}
+									{% set paid = false %}
+
+									{# Loop through payments #}
+									{% for payment in payments %}
+										{% if payment is not null and payment.reservationId.id == reservation.id %}
+											<a href="#" data-id="{{ reservation.id }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-green-500 rounded hover:bg-green-600">
+												PAID
+											</a>
+											{% set paid = true %}
+										{% endif %}
+									{% endfor %}
+
+									{# If no payment has been made, show the "Pay" button #}
+									{% if not paid %}
+										<a href="{{ path('app_payment_checkout', {'id': reservation.id}) }}" data-id="{{ reservation.id }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
+											Pay
+										</a>
+									{% endif %}
+								{% endif %}
+        
+        
+        
 			</form>
                     </div>
                 </div> 
             </div>  
         {% endfor %} 
-
+    {% if not reservations %}
+    	<h1 class="mb-6 text-2xl font-bold text-center">No Reservations Found </h1>
+      {% endif %}
     </div>
+
 {% endblock %}
 
