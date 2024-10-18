@@ -6,12 +6,12 @@
 
 
 {% block body %}
-	<div class="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0 z-0">
+	<div class="relative z-0 flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
 		<div class="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
 			<svg class="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block" viewbox="0 0 100 100" fill="currentColor" preserveaspectratio="none slice">
 				<path d="M50 0H100L50 100H0L50 0Z"></path>
 			</svg>
-			<img class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full z-0" src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" alt=""/>
+			<img class="z-0 object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full" src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260" alt=""/>
 		</div>
 		<div class="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
 			<div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
@@ -35,69 +35,46 @@
 			</div>
 		</div>
 	</div>
+
 	<!--Bloc formulaire de recherche -->
-<section class="bg-slate-400 opacity-55 my-5 p-5 w-1/2 ">
-	<div class="block-search-form w-1/3 mx-auto">
-		{# <form>
-			<div class="mb-4">
-				<label for="ville" class="block text-gray-700 text-sm font-bold mb-2">Ville :</label>
-				<select id="ville" name="ville" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-					<option value="">Toutes les villes</option>
-					<option value="Paris">Paris</option>
-					<option value="Lyon">Lyon</option>
-					<option value="Marseille">Marseille</option>
-					<!-- Ajoutez d'autres options pour les autres villes -->
-				</select>
-			</div>
-			<div class="mb-4">
-				<label for="ergonomie" class="block text-gray-700 text-sm font-bold mb-2">Ergonomie :</label>
-				<select id="ergonomie" name="ergonomie" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-					<option value="">Toutes les ergonomies</option>
-					<option value="Ergonomie 1">Ergonomie 1</option>
-					<option value="Ergonomie 2">Ergonomie 2</option>
-					<option value="Ergonomie 3">Ergonomie 3</option>
-					<!-- Ajoutez d'autres options pour les autres ergonomies -->
-				</select>
-			</div>
-			<div class="mb-4">
-				<label for="capacite" class="block text-gray-700 text-sm font-bold mb-2">Capacité :</label>
-				<select id="capacite" name="capacite" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-					<option value="">Toutes les capacités</option>
-					<option value="10-20">10-20 personnes</option>
-					<option value="20-50">20-50 personnes</option>
-					<option value="50-100">50-100 personnes</option>
-					<!-- Ajoutez d'autres options pour les autres capacités -->
-				</select>
-			</div>
-			<div class="mb-4">
-				<label for="equipement" class="block text-gray-700 text-sm font-bold mb-2">Équipement :</label>
-				<select id="equipement" name="equipement" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-					<option value="">Tous les équipements</option>
-					<option value="Projetor">Projecteur</option>
-					<option value="Ecran">Écran</option>
-					<option value="Sonorisation">Sonorisation</option>
-					<!-- Ajoutez d'autres options pour les autres équipements -->
-				</select>
-			</div>
-			<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Filtrer</button>
-		</form> #}
-        {{ form_start(form) }}
-    <div class="form-row">
-        <div class="col-md-6">
-            {{ form_row(form.filter) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.capacity) }}
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Search</button>
-{{ form_end(form) }}
 
-<hr>
+	<div class="flex justify-center mt-10">
+		<div class="w-full max-w-4xl p-6 border rounded-lg bg-zinc-200 ">
+			<h2 class="mb-6 text-2xl font-bold text-center">Que cherchez-vous ?</h2>
 
 
+			{{ form_start(form) }}
+				<div
+					class="flex space-x-4">
+					{# Premier Select #}
+         
+					<div class="w-1/2">
+           {{ form_row(form.filter) }}
+						
+					{# Trait de séparation vertical #}
+					<div class="w-px mx-4 bg-gray-700 h-15"></div>
+					{# Deuxième Select #}
+					<div class="w-1/2">
+           {{ form_row(form.capacity) }}
+						
+					</div>
+					{# Bouton de recherche #}
+					<div class="flex justify-center mt-6">
+						<button type="submit" class="px-2 py-2 text-sm font-medium text-white bg-indigo-800 rounded-md hover:bg-indigo-700">
+							<span title='Search'>{{ ux_icon('material-symbols:search',{'class': 'h-6 w-6'}) }}
+							</span>
+						</button>
+					</div>
+				</div>
+
+
+			</form>
+		</div>
 	</div>
-</section>
-<hr>
-
+	{# fin exemple #}
+	
+			{{ form_end(form) }}
+		</div>
+	</section>
 {% endblock %}
+
