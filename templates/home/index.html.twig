@@ -39,41 +39,50 @@
 	<!--Bloc formulaire de recherche -->
 
 
-	<div class="flex justify-center mt-10">
+	<div class="z-[100] flex justify-center -mt-75 opacity-90" style="margin-top:-70px">
 		<div class="w-full max-w-4xl p-6 border rounded-lg bg-zinc-200">
 			<h2 class="mb-6 text-2xl font-bold text-center">Que cherchez-vous ?</h2>
-
 
 			{{ form_start(form) }}
 			<div
 				class="flex space-x-4">
 				{# Premier Select #}
 
-				<div class="flex-row w-1/2 ">
+				<div
+					class="w-1/2">
+
+					{# Premier Select #}
 					{{ form_row(form.filter) }}
+					{# <div class="flex-col w-1/2 "> {{ form_row(form.filter) }} #}
 
-					{# Trait de séparation vertical #}
-					<div class="w-px mx-4 bg-gray-700 h-15"></div>
-					{# Deuxième Select #}
-					<div class="w-1/2">
-						{{ form_row(form.capacity) }}
+				</div>
+				{# Trait de séparation vertical #}
+				<div class="w-px mx-4 bg-gray-700 h-15"></div>
+				{# Deuxième Select #}
 
-					</div>
+				{# Deuxième Select #}
+				<div class="w-1/2">
+					{{ form_row(form.capacity) }}
+
+				{# <div class="w-1/2">
+																																						{{ form_row(form.capacity) }}
+																																	
+																																					</div> #}
 					{# Bouton de recherche #}
-					<div class="flex justify-center mt-6">
-						<button type="submit" class="px-2 py-2 text-sm font-medium text-white bg-indigo-800 rounded-md hover:bg-indigo-700">
-							<span title='Search'>{{ ux_icon('material-symbols:search',{'class': 'h-6 w-6'}) }}
-							</span>
-						</button>
-					</div>
+				</div>
+				<div class="flex justify-center mt-6">
+					<button type="submit" class="px-2 py-2 text-sm font-medium text-white bg-indigo-800 rounded-md hover:bg-indigo-700">
+						<span title='Search'>{{ ux_icon('material-symbols:search',{'class': 'h-6 w-6'}) }}
+						</span>
+					</button>
+
+					{# </div> #}
 					{{ form_end(form) }}
 				</div>
-
-
 			</div>
 		</div>
 		{# fin exemple #}
 
 		{{ form_end(form) }}
 	</div>
-</section>{% endblock %}
+</div>{% endblock %}
