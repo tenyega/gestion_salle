@@ -6,30 +6,46 @@
 <div class="container p-6 mx-auto">
     <h1 class="mb-6 text-2xl font-bold">Contact Us</h1>
 
+    <!-- Success message after form submission -->
     {% if app.flashes('success') %}
-        <div class="mb-4 text-green-600">
+        <div class="p-4 mb-6 text-green-700 bg-green-100 rounded-lg">
             {% for message in app.flashes('success') %}
                 <p>{{ message }}</p>
             {% endfor %}
         </div>
     {% endif %}
 
-    {{ form_start(form, { 'attr': {'class': 'space-y-4'} }) }}
-        <div>
-            {{ form_row(form.name) }} <!-- Affiche le champ "name" -->
+    <!-- Contact Form -->
+    <div class="p-6 bg-white rounded-lg shadow-md">
+        {{ form_start(form, { 'attr': {'class': 'space-y-6'} }) }}
+
+        <div class="mb-4">
+            <label for="name" class="block mb-2 font-semibold text-gray-700">Your Name</label>
+            {{ form_widget(form.name, { 'attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
         </div>
-        <div>
-            {{ form_row(form.email) }} <!-- Affiche le champ "email" -->
+
+        <div class="mb-4">
+            <label for="email" class="block mb-2 font-semibold text-gray-700">Your Email</label>
+            {{ form_widget(form.email, { 'attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
         </div>
-        <div>
-            {{ form_row(form.subject) }} <!-- Affiche le champ "subject" -->
+
+        <div class="mb-4">
+            <label for="subject" class="block mb-2 font-semibold text-gray-700">Subject</label>
+            {{ form_widget(form.subject, { 'attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
         </div>
-        <div>
-            {{ form_row(form.message) }} <!-- Affiche le champ "message" -->
+
+        <div class="mb-4">
+            <label for="message" class="block mb-2 font-semibold text-gray-700">Message</label>
+            {{ form_widget(form.message, { 'attr': {'class': 'block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm', 'rows': 5} }) }}
         </div>
+
         <div>
-            {{ form_row(form.send) }} <!-- Affiche le bouton d'envoi -->
+            <button type="submit" class="px-4 py-2 font-semibold text-white bg-green-500 rounded hover:bg-green-600">
+                Let's talk
+            </button>
         </div>
-    {{ form_end(form) }}
+
+        {{ form_end(form) }}
+    </div>
 </div>
 {% endblock %}
