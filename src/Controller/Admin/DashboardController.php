@@ -2,12 +2,13 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Equipment;
-use App\Entity\Ergonomy;
 use App\Entity\Hall;
-use App\Entity\Reservation;
 use App\Entity\User;
+use App\Entity\Ergonomy;
+use App\Entity\Equipment;
+use App\Entity\Reservation;
 use App\Repository\ReservationRepository;
+
 use App\Service\EmailNotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;

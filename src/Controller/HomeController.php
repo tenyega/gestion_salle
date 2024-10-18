@@ -24,12 +24,11 @@ class HomeController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
       $data = $form->getData();
 
-      // Récupère les filtres
+      // Récupération des filtres
       $filter = $data['filter'] ?? null;
       $capacity = $data['capacity'] ?? null;
 
-      // Récupère les salles filtrées
-      //   dd($halls = $hr->findHallsBySearch($filter, $capacity));
+
       // Redirection vers la page des salles avec les paramètres
       return $this->redirectToRoute('app_hall_index', [
         'filter' => $filter,
@@ -37,12 +36,15 @@ class HomeController extends AbstractController
       ]);
     }
 
-    $halls = $hr->findAll();
-    return $this->render('home/index.html.twig', [
-      'form' => $form->createView(),
-      //       'halls' => $halls,
-    ]);
-  }
+
+        
+       $halls = $hr->findAll();
+        return $this->render('home/index.html.twig', [
+            'form' => $form->createView(),
+            'halls' => $halls,
+        ]);
+    }
+
 
 
   #[Route('/404', name: 'app_404')]
@@ -50,4 +52,5 @@ class HomeController extends AbstractController
   {
     return $this->render('home/404.html.twig', []);
   }
+
 }
