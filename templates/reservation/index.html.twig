@@ -16,16 +16,16 @@
 			<div class="mb-4">
 				{% for message in messages %}
 					<div class="px-4 py-3 rounded-lg text-white
-							                                                                                                {% if label == 'success' %}
-							                                                                                                    bg-green-500
-							                                                                                                {% elseif label == 'error' %}
-							                                                                                                    bg-red-500
-							                                                                                                {% elseif label == 'warning' %}
-							                                                                                                    bg-yellow-500
-							                                                                                                {% else %}
-							                                                                                                    bg-blue-500
-							                                                                                                {% endif %}
-							                                                                                            ">
+																																																																																				                                                                                                {% if label == 'success' %}
+																																																																																				                                                                                                    bg-green-500
+																																																																																				                                                                                                {% elseif label == 'error' %}
+																																																																																				                                                                                                    bg-red-500
+																																																																																				                                                                                                {% elseif label == 'warning' %}
+																																																																																				                                                                                                    bg-yellow-500
+																																																																																				                                                                                                {% else %}
+																																																																																				                                                                                                    bg-blue-500
+																																																																																				                                                                                                {% endif %}
+																																																																																				                                                                                            ">
 						{{ message }}
 					</div>
 				{% endfor %}
@@ -34,102 +34,89 @@
 
 		{% for reservation in reservations %}
 
-			<div
-				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
+			<div class="relative max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
+
+				{% if reservation.isConfirmed %}
+					{% set paid = false %}
+
+					{% for payment in payments %}
+						{% if payment is not null and payment.reservationId.id == reservation.id %}
+							<a href="#" data-id="{{ reservation.id }}" class="absolute top-0 right-0 px-4 py-2 font-bold text-white transition duration-300 bg-green-500 rounded hover:bg-green-600 z-[100] opacity-90">
+								PAID
+							</a>
+							{% set paid = true %}
+						{% endif %}
+					{% endfor %}
+
+					{% if not paid %}
+						<a href="{{ path('app_payment_checkout', {'id': reservation.id}) }}" data-id="{{ reservation.id }}" class="absolute top-0 right-0 px-4 py-2 font-bold text-white transition duration-300 bg-red-500 rounded hover:bg-red-600 z-[100] opacity-90">
+							Pay
+						</a>
+					{% endif %}
+				{% endif %}
+
 				<!-- Main Image -->
 				<img
-				class="w-fullpresentation-img" src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="Hall Image">
+				class="w-full presentation-img" src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="Hall Image">
 
 				<!-- Card Content -->
-				<div
-					class="p-6">
-
-					<!-- Hall Name -->
+				<div class="p-6">
 					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{ reservation.hallId.name }}</h2>
 
 					<!-- Area and Capacity -->
 					<p class="flex p-2 text-gray-700">
-						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}
-						</span>
-						{{ reservation.hallId.area}}
+						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}</span>
+						{{ reservation.hallId.area }}
 						m²
 					</p>
 					<p class="flex p-2 text-gray-700 ">
 						<span class="pr-2 font-semibold" title='Capacity Max'>{{ ux_icon('ic:baseline-reduce-capacity',{'class': 'h-6 w-6'}) }}</span>
-						{{reservation.hallId.capacityMax}}
+						{{ reservation.hallId.capacityMax }}
 						people
 					</p>
 
-
-					<!-- start date end date -->
+					<!-- Start and End Dates -->
 					<p class="flex p-2 mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='City'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
 						{{ reservation.hallId.addresseId.city }}
 					</p>
 					<p class="flex p-2 mt-2 text-gray-700">
-						<span class="pr-2 font-semibold" title='City'>{{ ux_icon('uiw:date',{'class': 'h-6 w-6'}) }}</span>
-
+						<span class="pr-2 font-semibold" title='Dates'>{{ ux_icon('uiw:date',{'class': 'h-6 w-6'}) }}</span>
 						{{ reservation.startDate|date('Y-m-d') }}
 						until
 						{{ reservation.endDate|date('Y-m-d') }}
-
 					</p>
 
 					{% if reservation.isConfirmed %}
 						<p class="flex p-2 mt-2 text-gray-700">
 							<span class="font-semibold text-green-500">{{ ux_icon('game-icons:confirmed',{'class': 'h-6 w-6'}) }}</span>
 							Confirmed: Yes
-							<p/>
+						</p>
+					{% else %}
+						<p class="flex p-2 mt-2 text-gray-700">
+							<span class="font-semibold text-red-500">{{ ux_icon('game-icons:confirmed',{'class': 'h-6 w-6'}) }}</span>
+							Confirmed: No
+						</p>
+					{% endif %}
 
-						{% else %}
-							<p class="flex p-2 mt-2 text-gray-700">
-								<span class="font-semibold text-red-500">{{ ux_icon('game-icons:confirmed',{'class': 'h-6 w-6'}) }}</span>
-								Confirmed: No
-								<p/>
-							{% endif %}
-
-							<!-- Action Buttons -->
-							<div class="flex justify-between mt-4">
-								<a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 ">View Details</a>
-								<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="px-4 py-2 text-white rounded-md bg-amber-600 hover:bg-amber-500">Modify</a>
-								<form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
-									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-									<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md ali hover:bg-gray-400">
-										Delete
-									</button>
-
-									{% if reservation.isConfirmed %}
-										{# Initialize a flag to false for each reservation #}
-										{% set paid = false %}
-
-										{# Loop through payments #}
-										{% for payment in payments %}
-											{% if payment is not null and payment.reservationId.id == reservation.id %}
-												<a href="#" data-id="{{ reservation.id }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-green-500 rounded hover:bg-green-600">
-													PAID
-												</a>
-												{% set paid = true %}
-											{% endif %}
-										{% endfor %}
-
-										{# If no payment has been made, show the "Pay" button #}
-										{% if not paid %}
-											<a href="{{ path('app_payment_checkout', {'id': reservation.id}) }}" data-id="{{ reservation.id }}" class="px-4 py-2 font-bold text-white transition duration-300 bg-gray-500 rounded hover:bg-gray-600">
-												Pay
-											</a>
-										{% endif %}
-									{% endif %}
-
-
-								</form>
-							</div>
-						</div>
+					<!-- Action Buttons -->
+					<div class="flex justify-between mt-4">
+						<a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700">View Details</a>
+						<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="px-4 py-2 text-white rounded-md bg-amber-600 hover:bg-amber-500">Modify</a>
+						<form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
+							<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md hover:bg-gray-400">
+								Delete
+							</button>
+						</form>
 					</div>
-				{% endfor %}
-				{% if not reservations %}
-					<h1 class="mb-6 text-2xl font-bold text-center">No Reservations Found
-					</h1>
-				{% endif %}
+				</div>
 			</div>
+		{% endfor %}
+		{% if not reservations %}
+			<h1 class="mb-6 text-2xl font-bold text-center">No Reservations Found
+			</h1>
+		{% endif %}
+	</div>
 
-		{% endblock %}
+{% endblock %}
