@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Successful Payment
+{% endblock %}
+
+{% block body %}
+
+	<div class="h-screen max-w-screen-lg px-10 mx-auto text-center">
+		{% for label, messages in app.flashes %}
+			<div class="mb-4">
+				{% for message in messages %}
+					<div class="px-4 py-3 rounded-lg text-white
+																																	                {% if label == 'success' %}
+																																	                    bg-green-500
+																																	                {% elseif label == 'error' %}
+																																	                    bg-red-500
+																																	                {% elseif label == 'warning' %}
+																																	                    bg-yellow-500
+																																	                {% else %}
+																																	                    bg-blue-500
+																																	                {% endif %}
+																																	            ">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+		<h3>{{ 'Your payment has been successful'|trans }}</h3>
+		<p class="text-slate-600"></p>
+
+	</div>
+{% endblock %}

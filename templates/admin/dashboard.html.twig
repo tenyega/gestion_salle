@@ -10,80 +10,98 @@
 		</div>
 	</div>
 	<body>
-
-		{% if unconfirmedReservations is empty %}
-			<p class="text-center text-gray-600">No unconfirmed reservations found.</p>
-		{% else %}
-			<h1 class="mb-6 text-3xl font-bold text-center blink">Reservations that need Attention !!!</h1>
-
-			<div class="grid grid-cols-2 gap-6">
-				{% for unconfirmedReservation in unconfirmedReservations %}
-					<div class="max-w-sm mx-auto overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
-						<div class="p-4">
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">Start Date:</span>
-								{{ unconfirmedReservation.startDate|date('Y-m-d') }}
-							</p>
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">End Date:</span>
-								{{ unconfirmedReservation.endDate|date('Y-m-d') }}
-							</p>
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">Start Time:</span>
-								{{ unconfirmedReservation.startTime|date('H:i') }}
-							</p>
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">End Time:</span>
-								{{ unconfirmedReservation.endTime|date('H:i') }}
-							</p>
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">Confirmed:</span>
-								{{ unconfirmedReservation.isConfirmed ? 'Yes' : 'No' }}
-							</p>
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">Special Request:</span>
-								{{ unconfirmedReservation.specialRequest }}
-							</p>
-							<p class="mt-2 text-gray-500">
-								<span class="font-semibold">User:</span>
-								{{ unconfirmedReservation.userId.email }}
-							</p>
-							<a href="{{ path('app_register') }}" class="w-full px-4 py-2 text-center text-indigo-600 bg-indigo-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-								{{ 'Confirm' | trans }}
-							</a>
-							<a href="{{ path('app_register') }}" class="w-full px-4 py-2 text-center text-indigo-600 bg-indigo-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-								{{ 'Cancel' | trans }}
-							</a>
-						</div>
+		{% if is_granted('ROLE_ADMIN') %}
+			{% if unconfirmedReservations is empty %}
+				<p class="text-center text-gray-600">No unconfirmed reservations found.</p>
+			{% else %}
+				<h1 class="mb-6 text-3xl font-bold text-center blink">Reservations that need Attention !!!</h1>
+				{% for label, messages in app.flashes %}
+					<div class="mb-4">
+						{% for message in messages %}
+							<div class="px-4 py-3 rounded-lg text-white
+																																												                {% if label == 'success' %}
+																																												                    bg-green-500
+																																												                {% elseif label == 'error' %}
+																																												                    bg-red-500
+																																												                {% elseif label == 'warning' %}
+																																												                    bg-yellow-500
+																																												                {% else %}
+																																												                    bg-blue-500
+																																												                {% endif %}
+																																												            ">
+								{{ message }}
+							</div>
+						{% endfor %}
 					</div>
 				{% endfor %}
-			</div>
-		{% endif %}
+				<div class="grid grid-cols-2 gap-6">
+					{% for unconfirmedReservation in unconfirmedReservations %}
+						<div class="max-w-sm mx-auto overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-lg hover:shadow-xl">
+							<div class="p-4">
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">Start Date:</span>
+									{{ unconfirmedReservation.startDate|date('Y-m-d') }}
+								</p>
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">End Date:</span>
+									{{ unconfirmedReservation.endDate|date('Y-m-d') }}
+								</p>
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">Start Time:</span>
+									{{ unconfirmedReservation.startTime|date('H:i') }}
+								</p>
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">End Time:</span>
+									{{ unconfirmedReservation.endTime|date('H:i') }}
+								</p>
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">Confirmed:</span>
+									{{ unconfirmedReservation.isConfirmed ? 'Yes' : 'No' }}
+								</p>
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">Special Request:</span>
+									{{ unconfirmedReservation.specialRequest }}
+								</p>
+								<p class="mt-2 text-gray-500">
+									<span class="font-semibold">User:</span>
+									{{ unconfirmedReservation.userId.email }}
+								</p>
+								<a href="{{ path('app_admin_confirm', {'id': unconfirmedReservation.id}) }}" class="w-full px-4 py-2 text-center text-indigo-600 bg-indigo-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+									{{ 'Confirm' | trans }}
+								</a>
+								<a href="{{ path('app_admin_cancel', {'id': unconfirmedReservation.id}) }}" class="w-full px-4 py-2 text-center text-indigo-600 bg-indigo-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+									{{ 'Cancel' | trans }}
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
 
-	</body>
-	<style>
-		@keyframes blink {
-			0% {
-				opacity: 1;
+		</body>
+		<style>
+			@keyframes blink {
+				0% {
+					opacity: 1;
+				}
+				25% {
+					opacity: 0.5;
+				}
+				50% {
+					opacity: 0;
+					color: red;
+				}
+				75% {
+					opacity: 0.5;
+				}
+				100% {
+					opacity: 1;
+				}
 			}
-			25% {
-				opacity: 0.5;
-			}
-			50% {
-				opacity: 0;
-				color: red;
-			}
-			75% {
-				opacity: 0.5;
-			}
-			100% {
-				opacity: 1;
-			}
-		}
 
-		.blink {
-			animation: blink 2s infinite;
-		}
-	</style>
-
+			.blink {
+				animation: blink 2s infinite;
+			}
+		</style>
+	{% endif %}
 {% endblock %}

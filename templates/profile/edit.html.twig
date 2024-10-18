@@ -4,28 +4,28 @@
 {% endblock %}
 
 {% block body %}
-	
+
 
 	<div class="max-w-sm p-10 mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
-	{% for label, messages in app.flashes %}
-		<div class="mb-4">
-			{% for message in messages %}
-				<div class="px-4 py-3 rounded-lg text-white
-												                {% if label == 'success' %}
-												                    bg-green-500
-												                {% elseif label == 'error' %}
-												                    bg-red-500
-												                {% elseif label == 'warning' %}
-												                    bg-yellow-500
-												                {% else %}
-												                    bg-blue-500
-												                {% endif %}
-												            ">
-					{{ message }}
-				</div>
-			{% endfor %}
-		</div>
-	{% endfor %}
+		{% for label, messages in app.flashes %}
+			<div class="mb-4">
+				{% for message in messages %}
+					<div class="px-4 py-3 rounded-lg text-white
+																																								                {% if label == 'success' %}
+																																								                    bg-green-500
+																																								                {% elseif label == 'error' %}
+																																								                    bg-red-500
+																																								                {% elseif label == 'warning' %}
+																																								                    bg-yellow-500
+																																								                {% else %}
+																																								                    bg-blue-500
+																																								                {% endif %}
+																																								            ">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
 		<h1 class="mb-6 text-2xl font-bold">Edit Profile</h1>
 
 		{# Formulaire d'édition de la réservation #}
@@ -35,11 +35,17 @@
 			<div class="mb-4">
 				<label for="hall" class="block mb-2 font-bold text-gray-700">Full Name</label>
 				{{ form_widget(form.fullName, { 'attr': {'class': 'form-control block w-full mt-1 rounded-lg border-gray-300 shadow-sm'} }) }}
+				{% if form.fullName.vars.errors|length > 0 %}
+					<p class="text-sm text-red-500">{{ form_errors(form.fullName) }}</p>
+				{% endif %}
 			</div>
 
 			<div class="mb-4">
 				<label for="start_date" class="block mb-2 font-bold text-gray-700">Address</label>
 				{{ form_widget(form.address, { 'attr': {'class': 'form-control block w-full mt-1 rounded-lg border-gray-300 shadow-sm'} }) }}
+				{% if form.address.vars.errors|length > 0 %}
+					<p class="text-sm text-red-500">{{ form_errors(form.address) }}</p>
+				{% endif %}
 			</div>
 
 
@@ -52,4 +58,5 @@
 
 
 	</div>
+
 {% endblock %}

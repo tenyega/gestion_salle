@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-
 class Reservation
 {
     #[ORM\Id]
@@ -49,6 +48,12 @@ class Reservation
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Hall $hallId = null;
+
+    #[ORM\OneToOne(mappedBy: 'reservationId', cascade: ['persist', 'remove'])]
+    private ?Payment $payment = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?string $totalPrice = null;
 
 
     #[ORM\PrePersist]
@@ -187,6 +192,35 @@ class Reservation
     public function setHallId(?Hall $hallId): static
     {
         $this->hallId = $hallId;
+
+        return $this;
+    }
+
+    public function getPayment(): ?Payment
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(Payment $payment): static
+    {
+        // set the owning side of the relation if necessary
+        if ($payment->getReservationId() !== $this) {
+            $payment->setReservationId($this);
+        }
+
+        $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?string
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(?string $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }

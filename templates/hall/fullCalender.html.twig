@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Calendar
+{% endblock %}
+{% block body %}
+
+	<h1 class="mb-6 text-3xl font-bold text-center">Disponibility of the Room</h1>
+
+	<link rel="stylesheet" href="{{ asset('CSS/fullCalender.css') }}"/>
+	<div id='calendar'></div>
+
+	<!-- FullCalendar JS (local) -->
+	<script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+
+	<script type="text/javascript">
+		function initializeFullCalendar() {
+const calendarEl = document.querySelector('#calendar');
+
+// Parse the events data passed from the controller
+let events = '{{ events }}';
+events = events.replace(/(&quot\;)/g, "\"");
+// Replacing encoded quotes
+
+// Initialize FullCalendar
+const calendar = new FullCalendar.Calendar(calendarEl, {
+initialView: 'dayGridMonth',
+initialDate: '2024-10-17',
+headerToolbar: {
+left: 'prev,next today',
+center: 'title',
+right: ''
+},
+events: JSON.parse(events) // Convert event JSON string back to object
+});
+
+calendar.render();
+}
+
+// Check if page has already been reloaded
+if (!localStorage.getItem('pageReloaded')) { // Set a flag to track reload status
+localStorage.setItem('pageReloaded', true);
+
+// Reload the page once
+window.location.reload();
+} else { // If the page was reloaded already, initialize the calendar
+initializeFullCalendar();
+
+// Clear the flag for future navigations
+localStorage.removeItem('pageReloaded');
+}
+
+// Re-initialize FullCalendar after a navigation event (like after clicking the link)
+document.addEventListener('turbolinks:load', function () {
+initializeFullCalendar();
+});
+
+// If you aren't using Turbolinks but do have some AJAX navigation, you can use this
+document.addEventListener('ajaxComplete', function () {
+initializeFullCalendar();
+});
+	</script>
+
+{% endblock %}
