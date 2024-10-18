@@ -12,16 +12,16 @@
 			<div class="mb-4">
 				{% for message in messages %}
 					<div class="px-4 py-3 rounded-lg text-white
-																			                {% if label == 'success' %}
-																			                    bg-green-500
-																			                {% elseif label == 'error' %}
-																			                    bg-red-500
-																			                {% elseif label == 'warning' %}
-																			                    bg-yellow-500
-																			                {% else %}
-																			                    bg-blue-500
-																			                {% endif %}
-																			            ">
+																																															                {% if label == 'success' %}
+																																															                    bg-green-500
+																																															                {% elseif label == 'error' %}
+																																															                    bg-red-500
+																																															                {% elseif label == 'warning' %}
+																																															                    bg-yellow-500
+																																															                {% else %}
+																																															                    bg-blue-500
+																																															                {% endif %}
+																																															            ">
 						{{ message }}
 					</div>
 				{% endfor %}
@@ -43,9 +43,13 @@
 
 
 		</div>
-		<div>
+		<div class='flex flex-row gap-4'>
 			<a href="{{path('app_profile_edit')}}" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 				{{ 'Edit' | trans }}
+			</a>
+
+			<a href="{{path('app_notification')}}" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+				{{ 'Notifications' | trans }}
 			</a>
 		</div>
 	</div>

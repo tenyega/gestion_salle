@@ -8,14 +8,12 @@
 	<body>
 		<h1 class="mt-6 text-3xl font-bold text-center">My Notifications
 		</h1>
+		<div class="max-w-sm p-6 m-auto mt-10 mb-20 bg-white rounded-lg shadow-lg ">
+			{% for notification in notifcations %}
+				<!-- Notification Card -->
 
-		{% for notification in notifcations %}
-			<!-- Notification Card -->
-			<div
-				class="max-w-sm p-6 p-10 m-auto mt-10 mb-20 bg-white rounded-lg shadow-lg ">
 				<!-- Notification message -->
-				<p class="mb-4 text-gray-700">
-					<strong>Message:</strong>
+					<p class="mb-4 text-gray-700"> <strong>Message:</strong>
 					{{notification.message}}
 				</p>
 
@@ -38,9 +36,10 @@
 				</p>
 
 
-			</div>
-
-		{% endfor %}
-
+			{% endfor %}
+			<a href="{{path('app_profile_show')}}" class="relative flex justify-center w-full px-4 py-2 mt-5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+				{{ 'Back to Profile' | trans }}
+			</a>
+		</div>
 	</body>
 {% endblock %}
