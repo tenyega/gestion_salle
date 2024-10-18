@@ -6,6 +6,7 @@
 
 {% block body %}
 	SHOW PROFILE
+
 	
 	<div class="max-w-sm p-10 mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
     {% for label, messages in app.flashes %}
@@ -27,6 +28,7 @@
 			{% endfor %}
 		</div>
 	{% endfor %}
+
 		<div class="px-6 py-4">
 			<div class="mb-2 text-xl font-bold">User Details</div>
 
@@ -39,6 +41,7 @@
 			<p class="text-base text-gray-700">
 
 				{{user.address}}</p>
+
 
 		</div>
 		<div>
