@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     public function index(HallRepository $hr, Request $request): Response
     {
 
-  // Crée le formulaire
+  // Crée le formulaire for the search criteria of filter on capacity and city,Ergonomy, equipment
   $form = $this->createForm(SearchFormType::class);
   $form->handleRequest($request);
 

@@ -14,28 +14,41 @@
 
 			{# Affichage du nom du hall sélectionné #}
 			{# <div class="text-lg font-bold text-center text-indigo-700">
-									            Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
-									        </div> #}
+																		            Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
+																		        </div> #}
 			<img src="{{asset('img/halls/'~ hallImg)}}" alt='Main Image for Hall'/>
-
-			{{ form_start(form) }}
+	
+			{{ form_start(form ) }}
 
 			<div class="space-y-4 rounded-md shadow-sm">
 				<div>
 					<label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
 					{{ form_widget(form.startDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+					{% if form.startDate.vars.errors|length > 0 %}
+						<p class="text-sm text-red-500">{{ form_errors(form.startDate) }}</p>
+					{% endif %}
 				</div>
 				<div>
 					<label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
 					{{ form_widget(form.endDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+
+					{% if form.endDate.vars.errors|length > 0 %}
+						<p class="text-sm text-red-500">{{ form_errors(form.endDate) }}</p>
+					{% endif %}
 				</div>
 				<div>
 					<label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
 					{{ form_widget(form.startTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+					{% if form.startTime.vars.errors|length > 0 %}
+						<p class="text-sm text-red-500">{{ form_errors(form.startTime) }}</p>
+					{% endif %}
 				</div>
 				<div>
 					<label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
 					{{ form_widget(form.endTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
+					{% if form.endTime.vars.errors|length > 0 %}
+						<p class="text-sm text-red-500">{{ form_errors(form.endTime) }}</p>
+					{% endif %}
 				</div>
 				<div>
 					<label for="ergonomy" class="block text-sm font-medium text-gray-700">Ergonomy</label>

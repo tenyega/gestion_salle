@@ -5,29 +5,28 @@
 {% endblock %}
 
 {% block body %}
-	SHOW PROFILE
 
-	
+
 	<div class="max-w-sm p-10 mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
-    {% for label, messages in app.flashes %}
-		<div class="mb-4">
-			{% for message in messages %}
-				<div class="px-4 py-3 rounded-lg text-white
-												                {% if label == 'success' %}
-												                    bg-green-500
-												                {% elseif label == 'error' %}
-												                    bg-red-500
-												                {% elseif label == 'warning' %}
-												                    bg-yellow-500
-												                {% else %}
-												                    bg-blue-500
-												                {% endif %}
-												            ">
-					{{ message }}
-				</div>
-			{% endfor %}
-		</div>
-	{% endfor %}
+		{% for label, messages in app.flashes %}
+			<div class="mb-4">
+				{% for message in messages %}
+					<div class="px-4 py-3 rounded-lg text-white
+																			                {% if label == 'success' %}
+																			                    bg-green-500
+																			                {% elseif label == 'error' %}
+																			                    bg-red-500
+																			                {% elseif label == 'warning' %}
+																			                    bg-yellow-500
+																			                {% else %}
+																			                    bg-blue-500
+																			                {% endif %}
+																			            ">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
 
 		<div class="px-6 py-4">
 			<div class="mb-2 text-xl font-bold">User Details</div>

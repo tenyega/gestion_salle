@@ -22,9 +22,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/hall')]
-#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class HallController extends AbstractController
 {
+    //used for all to visit the halls available 
     #[Route('', name: 'app_hall_index', methods: ['GET'])]
     public function index(HallRepository $hr, Request $request): Response
     {
@@ -52,7 +52,7 @@ class HallController extends AbstractController
             'halls' => $halls,
         ]);
     }
-
+    // Used incase of search by city
     #[Route('/city/{name}', name: 'app_halls_by_city', methods: ['GET'])]
     public function getByCity($name, Request $request, HallRepository $hr): Response
     {
@@ -63,6 +63,7 @@ class HallController extends AbstractController
         ]);
     }
 
+    // User for the search criteria with ergonomy 
     #[Route('/ergonomy/{name}', name: 'app_halls_by_ergonomy', methods: ['GET'])]
     public function getByErgonomy(string $name, HallRepository $hr): Response
     {
@@ -74,7 +75,7 @@ class HallController extends AbstractController
             'halls' => $halls,
         ]);
     }
-
+    // User for the search criteria with equipments 
     #[Route('/halls/filter', name: 'app_halls_by_equipments', methods: ['GET'])]
     public function filterByEquipments(Request $request, HallRepository $hr)
     {
@@ -94,8 +95,8 @@ class HallController extends AbstractController
         ]);
     }
 
+    //Route used to show one particular room 
     #[Route('/{id}', name: 'app_hall_show', methods: ['GET'])]
-
     public function show(Hall $hall, HallImageRepository $hir, ImagesRepository $ir): Response
     {
         $id = $hall->getId();
@@ -111,6 +112,8 @@ class HallController extends AbstractController
         ]);
     }
 
+
+    //Used to check the calender for dispo 
     #[Route('/calender/{id}', name: 'app_hall_calender', methods: ['GET'])]
 
     public function fullCalender(int $id, ReservationRepository $reservationRepository)

@@ -9,6 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserProfileType extends AbstractType
 {
@@ -16,10 +18,24 @@ class UserProfileType extends AbstractType
     {
         $builder
             ->add('fullName', TextType::class, [
-                'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your full name.',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Your full name should be at least {{ limit }} characters long.',
+                        'max' => 255,
+                    ]),
+                ],
             ])
             ->add('address', TextareaType::class, [
-                'required' => false,
+                'constraints' => [
+                    new Length([
+                        'max' => 255,
+                        'maxMessage' => 'Your address should not exceed {{ limit }} characters.',
+                    ]),
+                ],
             ])
             // Ajoutez d'autres champs selon vos besoins
         ;
