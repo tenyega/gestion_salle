@@ -7,9 +7,9 @@
 		<p class="ml-10 text-2xl font-bold text-blue-800 hover:text-blue-400">{{'Hall 4 All - Room Rental'| trans }}</p>
 	</a>
 
-	<a href="{{path('app_hall_index')}}" class="p-2 border-2 rounded-md " title="Show halls">
+	{# <a href="{{path('app_hall_index')}}" class="p-2 border-2 rounded-md hover:bg-blue-300 focus:bg-white" title="Show halls">
 		{{ ux_icon('mdi:home-group',{'class': 'h-6 w-6'}) }}
-	</a>
+	</a> #}
 	<div class="relative" x-data="{ localisationOpen: false }">
 		<button @click="localisationOpen = !localisationOpen" class="flex flex-row items-center w-full px-2 py-2 mt-2 font-semibold text-left bg-transparent rounded-lg text-md dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline ">
 			<span class="font-bold text-xxl">Localisation
@@ -71,26 +71,26 @@
 			</div>
 		</div>
 	</div>
-	<a class="p-2 border-2 rounded-md border-neutral-700" href="{{ path('app_contact') }}" title="Contact">{{ ux_icon('mdi:email-outline',{'class': 'h-6 w-6'}) }}</a>
+	<a class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" href="{{ path('app_contact') }}" title="Contact">{{ ux_icon('mdi:email-outline',{'class': 'h-6 w-6'}) }}</a>
 
 	{% if app.user %}
 
-		<a href="{{path('app_reservation_index')}}" class="p-2 border-2 rounded-md border-neutral-700" title="My reservations">
+		<a href="{{path('app_reservation_index')}}" class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" title="My reservations">
 			{{ ux_icon('mdi:reschedule',{'class': 'h-6 w-6'}) }}
 		</a>
-		<a href="{{path('app_profile_show')}}" data-tooltip="Logout" class="p-2 border-2 rounded-md border-neutral-700" title='My profile'>
+		<a href="{{path('app_profile_show')}}" data-tooltip="Logout" class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" title='My profile'>
 			{{ ux_icon('mdi:user',{'class': 'h-6 w-6'}) }}
 		</a>
 		{% if is_granted('ROLE_ADMIN') %}
-			<a href="{{path('app_admin')}}" data-tooltip="Dashboard" class="p-2 border-2 rounded-md border-neutral-700" title='Dashboard'>
+			<a href="{{path('app_admin')}}" data-tooltip="Dashboard" class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" title='Dashboard'>
 				{{ ux_icon('mdi:monitor-dashboard',{'class': 'h-6 w-6'}) }}
 			</a>
 		{% endif %}
-		<a href="{{path('app_logout')}}" data-tooltip="Logout" class="p-2 border-2 rounded-md border-neutral-700" title='logout'>
+		<a href="{{path('app_logout')}}" data-tooltip="Logout" class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" title='logout'>
 			{{ ux_icon('mdi:logout',{'class': 'h-6 w-6'}) }}
 		</a>
 	{% else %}
-		<a href="{{path('app_login')}}" class="p-2 border-2 rounded-md border-neutral-700" title="Login">
+		<a href="{{path('app_login')}}" class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" title="Login">
 			{{ ux_icon('mdi:login-variant',{'class': 'h-6 w-6'}) }}
 		</a>
 	{% endif %}

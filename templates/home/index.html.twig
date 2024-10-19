@@ -16,80 +16,55 @@
 		<div class="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
 			<div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
 				<p class="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
-					Brand new
+					Comet Meetings
 				</p>
 				<h2 class="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-					Everything you<br class="hidden md:block"/>
-					can imagine
-					<span class="inline-block text-deep-purple-accent-400">is real</span>
+					Our locations for the success <br class="hidden md:block"/>
+					of your meetings 
+					<span class="inline-block text-deep-purple-accent-400">and events</span>
 				</h2>
 				<p class="pr-5 mb-5 text-base text-gray-700 md:text-lg">
-					Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae. explicabo.
+					Séminaire, formation, événement sur mesure, rencontre hybride, cocktail de fin d'année ... notre offre s'adapte à vos besoins.
 				</p>
 				<div class="flex items-center">
-					<a href="/" class="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
-						Get started
+					<a href="/hall" class="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 bg-indigo-800 rounded-full shadow-md hover:bg-indigo-700 focus:shadow-outline focus:outline-none">
+						Book online
 					</a>
-					<a href="/" aria-label="" class="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700">Learn more</a>
+					
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!--Bloc formulaire de recherche -->
-
-
 	<div class="z-[100] flex justify-center -mt-75 opacity-90 mb-10" style="margin-top:-70px">
 		<div class="w-full max-w-4xl p-6 border rounded-lg bg-zinc-200">
 			<h2 class="mb-6 text-2xl font-bold text-center">Que cherchez-vous ?</h2>
 
 			{{ form_start(form) }}
-			<div
-				class="flex space-x-4">
-				{# Premier Select #}
-
-				<div
-					class="w-1/2 ">
-
-					{# Premier Select #}
+			<div class="flex space-x-4">
+				<div class="w-1/2 ">
 					{{ form_row(form.filter, {
-    'attr': {
-        'class': 'block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-    }
-}) }}
+    'attr': {'class': 'block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
 					{# <div class="flex-col w-1/2 "> {{ form_row(form.filter) }} #}
 
 				</div>
 				{# Trait de séparation vertical #}
 				<div class="w-px mx-4 bg-gray-700 h-15"></div>
-				{# Deuxième Select #}
 
-				{# Deuxième Select #}
 				<div class="w-1/2">
-					{{ form_row(form.capacity, {
-    'attr': {
-        'class': 'block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-    }
-}) }}
-
-				{# <div class="w-1/2">
-																																																																		{{ form_row(form.capacity) }}
-																																																													
-																																																																	</div> #}
-					{# Bouton de recherche #}
+					{{ form_row(form.capacity, {'attr': {'class': 'block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'}}) }}
 				</div>
 				<div class="flex justify-center mt-6">
 					<button type="submit" class="px-2 py-2 text-sm font-medium text-white bg-indigo-800 rounded-md hover:bg-indigo-700">
 						<span title='Search'>{{ ux_icon('material-symbols:search',{'class': 'h-6 w-6'}) }}
 						</span>
 					</button>
-
-					{# </div> #}
+			
 					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
-		{# fin exemple #}
 
 		{{ form_end(form) }}
 	</div>
