@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\DTO\ContactDTO; // Corrected namespace case
+// use App\DTO\ContactDTO; // Corrected namespace case
 use App\Form\ContactType;
 use Symfony\Component\Mime\Address;
 use App\Security\EmailVerifier;
+use App\Service\EmailNotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,25 +21,37 @@ class ContactController extends AbstractController
     public function __construct(private EmailVerifier $emailVerifier, private EntityManagerInterface $em) {}
 
     #[Route('', name: 'app_contact', methods: ['GET', 'POST'])] // Added POST method
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, EmailNotificationService $emailNotificationService): Response
     {
-        $data = new ContactDTO(); // Corrected case for class name
-        $form = $this->createForm(ContactType::class, $data);
+        // $data = new ContactDTO(); // Corrected case for class name
+        $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
+
 
         //Doc symfony:  https://symfony.com/doc/current/mailer.html#creating-sending-messages
         if ($form->isSubmitted() && $form->isValid()) {
-            $email = (new TemplatedEmail())
-                ->from(new Address($data->email)) // Correctly wrapping in Address
-                ->to('hall4all@email.com', 'hall4all') // your adress
-                ->subject('Contact request')
-                ->htmlTemplate('Contact/request.html.twig')
-                ->context(['data' => $data]);
 
-            $mailer->send($email);
+            $formData = $form->getData();
+            $userEmail = $formData['email'];
+            $emailNotificationService->sendEmail($userEmail,   [
+                'subject' => 'Thank you for contacting us ',
+                'template' => 'contact/confirmation',
+            ]);
+
+
+
+
+            // $email = (new TemplatedEmail())
+            //     ->from(new Address($data->email)) // Correctly wrapping in Address
+            //     ->to('hallForall@email.com', 'hallForall') // your adress
+            //     ->subject('Contact request')
+            //     ->htmlTemplate('Contact/request.html.twig')
+            //     ->context(['data' => $data]);
+
+            // $mailer->send($email);
             $this->addFlash('success', 'Your email has been sent');
 
-            return $this->redirectToRoute('app_contact'); 
+            return $this->redirectToRoute('app_contact');
         }
 
         return $this->render('contact/index.html.twig', [
@@ -71,4 +84,3 @@ class ContactController extends AbstractController
     //         'form' => $form,
     //     ]);
     // }
-
