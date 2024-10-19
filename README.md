@@ -198,3 +198,46 @@ Reservvation table changed to add totalPrice
 
 Full Calender Library Added with its JS and CSS code under public-CSS and -JS
 and a fullCalender.html.twig with the display of the calender and route for the calender is defined under HallController 
+
+ ## Formulaire contact
+
+#### Messenger.yaml 
+
+sync: 'sync://'
+
+routing:
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: sync
+            Symfony\Component\Notifier\Message\ChatMessage: sync
+            Symfony\Component\Notifier\Message\SmsMessage: sync
+
+#### .env
+
+MAILER_DSN=smtp://localhost:1025
+
+Dans src, créer le dossier DTO, le fichier contactDTO.php
+
+Creer make:form
+Contact
+=> ContactType.php
+
+ContactContoller
+
+Contact/index.html.twig
+#### Notice
+!!! composer mailer et composer require symfony/twig-bundle sont déjà installé lorsque composer require wepapp
+
+#### Search symfony doc and configure mailer
+
+Sending Emails with Mailer https://symfony.com/doc/current/mailer.html
+
+Creating Sending Messages. https://symfony.com/doc/current/mailer.html#creating-sending-messages
+
+HTML Content  :  https://symfony.com/doc/current/mailer.html#html-content
+
+#### install Mailtrip
+https://help.mailtrap.io/article/12-getting-started-guide
+
+#### Contact page, email page Twig
+
+
+
