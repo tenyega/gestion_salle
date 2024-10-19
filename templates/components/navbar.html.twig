@@ -6,9 +6,7 @@
 	<a href="{{path('app_hall_index')}}">
 		<p title="Show Halls" class="ml-10 text-2xl font-bold text-blue-800 hover:text-blue-400">{{'Hall 4 All - Room Rental'| trans }}</p>
 	</a>
-	{# <a href="{{path('app_hall_index')}}" class="p-2 border-2 rounded-md hover:bg-blue-300 focus:bg-white" title="Show halls">
-		{{ ux_icon('mdi:home-group',{'class': 'h-6 w-6'}) }}
-	</a> #}
+
 	<div class="relative" x-data="{ localisationOpen: false }">
 		<button @click="localisationOpen = !localisationOpen" class="flex flex-row items-center w-full px-2 py-2 mt-2 font-semibold text-left bg-transparent rounded-lg text-md dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline ">
 			<span class="font-bold text-xxl">Localisation
@@ -71,10 +69,13 @@
 		</div>
 	</div>
 	<div class="flex items-center">
-					<a href="{{path('app_hall_index')}}" title="Book Now" class="p-2 text-indigo-900 transition duration-200 border-2 rounded-md shadow-md hover:text-white border-neutral-700 hover:bg-indigo-700"> 
-						Book
-					</a>
-				</div>
+		<a href="{{path('app_hall_index')}}" title="Book Now" class="p-2 text-indigo-900 transition duration-200 border-2 rounded-md shadow-md hover:text-white border-neutral-700 hover:bg-indigo-700"> 
+		Book
+        </a>
+    </div>
+		{# <a href="{{path('app_hall_index')}}" class="p-2 border-2 rounded-md hover:bg-blue-300 focus:bg-white" title="Show halls">
+		{{ ux_icon('mdi:home-group',{'class': 'h-6 w-6'}) }}
+	</a> #}
 	<a class="p-2 border-2 rounded-md border-neutral-700 hover:border-neutral-400" href="{{ path('app_contact') }}" title="Contact">{{ ux_icon('mdi:email-outline',{'class': 'h-6 w-6'}) }}</a>
 
 	{% if app.user %}
