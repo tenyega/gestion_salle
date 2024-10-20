@@ -6,10 +6,12 @@ use App\Entity\Hall;
 use App\Entity\User;
 use App\Entity\Ergonomy;
 use App\Entity\Equipment;
+use App\Entity\Notification;
 use App\Entity\Reservation;
 use App\Repository\ReservationRepository;
 
 use App\Service\EmailNotificationService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -44,9 +46,19 @@ class DashboardController extends AbstractDashboardController
     public function confirm(int $id, Request $request)
     {
         $resaToConfirm = $this->reservationRepository->find(['id' => $id]);
+
+
+        $notification = new Notification();
+        $notification->setMessage('The Reservation for hall ' . $resaToConfirm->getHallId()->getName() . ' is confirmed by Administrator of the website on ' . (new DateTime())->format('Y-m-d H:i:s') . '.');
+        $notification->setUserId($this->getUser());
+        $this->em->persist($notification);
+        $this->em->flush();
+
         $resaToConfirm->setConfirmed(true);
         $this->em->persist($resaToConfirm);
         $this->em->flush();
+
+
         $this->addFlash('success', 'Reservation pour ' . $resaToConfirm->getHallId()->getName() . ' is Confirmed and waiting for the payment from the client');
         // Redirect back to the referring page
         $referer = $request->headers->get('referer');
@@ -63,10 +75,15 @@ class DashboardController extends AbstractDashboardController
             'subject' => 'We are extremely sorry ',
             'template' => 'admin/cancel',
         ]);
-
+        $notification = new Notification();
+        $notification->setMessage('The Reservation for hall ' . $reservation->getHallId()->getName() . ' is refused by the Administrator of the website on ' . (new DateTime())->format('Y-m-d H:i:s') . '.');
+        $notification->setUserId($this->getUser());
+        $this->em->persist($notification);
+        $this->em->flush();
 
         $this->em->remove($reservation, true);
         $this->em->flush();
+
 
         $this->addFlash('success', 'Reservation on  ' . $reservation->getStartDate()->format('Y-m-d') . ' is deleted and informed the client via mail');
         // Redirect back to the referring page

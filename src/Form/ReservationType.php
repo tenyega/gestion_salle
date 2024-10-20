@@ -28,9 +28,7 @@ class ReservationType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a start date.',
                     ]),
-                    new Date([
-                        'message' => 'Please enter a valid start date.',
-                    ]),
+
                 ],
             ])
             ->add('endDate', DateType::class, [
@@ -39,13 +37,6 @@ class ReservationType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter an end date.',
-                    ]),
-                    new Date([
-                        'message' => 'Please enter a valid end date.',
-                    ]),
-                    new GreaterThan([
-                        'propertyPath' => 'parent.all[startDate].data',
-                        'message' => 'The end date must be after the start date.',
                     ]),
                 ],
             ])
@@ -56,9 +47,6 @@ class ReservationType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a start time.',
                     ]),
-                    new Time([
-                        'message' => 'Please enter a valid start time.',
-                    ]),
                 ],
             ])
             ->add('endTime', TimeType::class, [
@@ -67,13 +55,6 @@ class ReservationType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter an end time.',
-                    ]),
-                    new Time([
-                        'message' => 'Please enter a valid end time.',
-                    ]),
-                    new GreaterThan([
-                        'propertyPath' => 'parent.all[startTime].data',
-                        'message' => 'The end time must be after the start time.',
                     ]),
                 ],
             ]);

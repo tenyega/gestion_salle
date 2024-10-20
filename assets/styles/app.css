@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Arial", "Helvetica", sans-serif;
+}
 
 .table tr.is-confirmed {
   background-color: #28a745; /* Green for confirmed */
@@ -61,7 +64,3 @@ footer {
   transition: filter 0.3s ease;
 }
 
-/* button-detail {
-  bg-cyan-600 
-  hover:bg-cyan-700
-} */
