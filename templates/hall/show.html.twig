@@ -14,17 +14,11 @@
 			<div class="mb-4">
 				{% for message in messages %}
 					<div class="px-4 py-3 rounded-lg text-white
-																										                {% if label == 'success' %}
-																										                    bg-green-500
-																										                {% elseif label == 'error' %}
-																										                    bg-red-500
-																										                {% elseif label == 'warning' %}
-																										                    bg-yellow-500
-																										                {% else %}
-																										                    bg-blue-500
-																										                {% endif %}
-																										            ">
-						{{ message }}
+																																						                {% if label == 'success' %}
+																																						                    bg-green-500
+																																						                {% elseif label == 'error' %}
+																															 bg-red-500 {% elseif label == 'warning' %} bg-yellow-500 {% else %}
+				 bg-blue-500 {% endif %} ">{{ message }}
 					</div>
 				{% endfor %}
 			</div>
@@ -55,7 +49,6 @@
 						{{hall.capacityMax}}
 						people
 					</p>
-
 					<!-- Accessibility -->
 					<p class="flex mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Accessibility'>{{ ux_icon('ic:outline-accessible',{'class': 'h-6 w-6'}) }}</span>
@@ -65,9 +58,7 @@
 					<p class="flex mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Price'>{{ ux_icon('arcticons:priceconverter',{'class': 'h-6 w-6'}) }}</span>
 						{{ hall.pricePerHour }}
-
 						&euro;  / per hour
-
 					</p>
 					<!-- Event Type -->
 					<p class="flex mt-2 text-gray-700">
@@ -77,7 +68,6 @@
 					<!-- Address -->
 					<p class="flex p-2 mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Address'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
-
 						{{ hall.addresseId.number }}
 						{{ hall.addresseId.street }},
 						{{ hall.addresseId.city }},
