@@ -6,7 +6,6 @@
 {% block body %}
 
 <h1 class="mt-6 mb-6 text-3xl font-bold text-center">WELCOME</h1>
-
 <div class="grid grid-cols-3 gap-4 pl-20 pr-20">
 {% for label, messages in app.flashes %}
 		<div class="mb-4">
@@ -28,20 +27,15 @@
 	{% endfor %}
 
 		{% for hall in halls %}
-
-			<div
-				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
+			<div class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
 				<!-- Main Image -->
 				<img
 				class="w-full img-zoom-effect presentation-img" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
 
 				<!-- Card Content -->
-				<div
-					class="p-6">
-
+				<div class="p-6">
 					<!-- Hall Name -->
 					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{hall.name}}</h2>
-
 					<!-- Area and Capacity -->
 					<p class="flex p-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}
@@ -54,16 +48,11 @@
 						{{hall.capacityMax}}
 						people
 					</p>
-
-
 					<!-- Address (Placeholder for now) -->
 					<p class="flex p-2 mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='City'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
-
 						{{hall.addresseId.city}}
-
 					</p>
-
 					<!-- Action Buttons -->
 					<div class="flex justify-between mt-4">
 						<a href="{{path('app_reservation_new', {'id':hall.id})}}" class="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Book Now</a>
@@ -72,8 +61,7 @@
 				</div> 
 			</div>
 		{% endfor %}
-
 	</div>
-
+	
 {% endblock %}
 
