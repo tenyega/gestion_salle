@@ -5,28 +5,25 @@
 
 {% block body %}
 
-	<h1 class="mb-6 text-3xl font-bold text-center">WELCOME
-	</h1>
+<h1 class="mt-6 mb-6 text-3xl font-bold text-center">WELCOME</h1>
 
-	
-	<div class="grid grid-cols-3 gap-4 pl-20 pr-20">
-	{% for label, messages in app.flashes %}
+<div class="grid grid-cols-3 gap-4 pl-20 pr-20">
+{% for label, messages in app.flashes %}
 		<div class="mb-4">
-			{% for message in messages %}
-				<div class="px-4 py-3 rounded-lg text-white
-												                {% if label == 'success' %}
-												                    bg-green-500
-												                {% elseif label == 'error' %}
-												                    bg-red-500
-												                {% elseif label == 'warning' %}
-												                    bg-yellow-500
-												                {% else %}
-												                    bg-blue-500
-												                {% endif %}
-												            ">
-					{{ message }}
-				</div>
-			{% endfor %}
+		  {% for message in messages %}
+			<div class="px-4 py-3 rounded-lg text-white
+				{% if label == 'success' %}
+				    bg-green-500
+				{% elseif label == 'error' %}
+				    bg-red-500
+				{% elseif label == 'warning' %}
+				    bg-yellow-500
+				{% else %}
+				    bg-blue-500
+				{% endif %} ">
+				{{ message }}
+			</div>
+		  {% endfor %}
 		</div>
 	{% endfor %}
 
@@ -36,7 +33,7 @@
 				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
 				<!-- Main Image -->
 				<img
-				class="w-full  img-zoom-effect presentation-img" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
+				class="w-full img-zoom-effect presentation-img" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
 
 				<!-- Card Content -->
 				<div

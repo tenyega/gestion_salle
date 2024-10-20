@@ -3,7 +3,7 @@ namespace App\DTO;
 
 use Symfony\Component\Validator\Contraints as Assert;
 
-class contactDTO
+class ContactDTO
 {
     /**
      * @Assert\NotBlank(message="Please enter your name.")
