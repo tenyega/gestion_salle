@@ -99,10 +99,10 @@
 					<!-- Action Buttons -->
 					<div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-3">
 
-						<a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white bg-indigo-500 rounded-md hover:bg-indigo-600 max-h-fit">View</a>
+						<a href="{{ path('app_reservation_show', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-700 max-h-fit">View</a>
 
 						{% if (not paid and reservation.isConfirmed) %}
-							<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white rounded-md bg-cyan-600 hover:bg-cyan-700 max-h-fit">Modify</a>
+							<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white rounded-md max-h-fit bg-cyan-500 hover:bg-cyan-600">Modify</a>
 
 							<form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
