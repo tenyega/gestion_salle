@@ -224,7 +224,7 @@ ContactContoller
 
 Contact/index.html.twig
 #### Notice
-!!! composer mailer et composer require symfony/twig-bundle sont déjà installé lorsque composer require wepapp
+!!! composer mailer et composer require symfony/twig-bundle sont déjà installé lorsque composer require webapp
 
 #### Search symfony doc and configure mailer
 
