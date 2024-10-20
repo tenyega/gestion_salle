@@ -5,7 +5,7 @@
 
 {% block body %}
 
-	<h1 class="mb-6 text-3xl font-bold text-center">{{ hall.name }}
+	<h1 class="mt-6 mb-6 text-3xl font-bold text-center">{{ hall.name }}
 		- Details
 	</h1>
 	<div class="grid w-full min-h-screen grid-cols-1 gap-4 px-4 py-8 mt-8 bg-gray-100 md:grid-cols-2">
@@ -91,6 +91,13 @@
 			{% endfor %}
 		</div>
 	</div>
-
+		{# Ajoutez la carte ici #}
+		<div class="mt-10 mb-6">
+			<h2 class="mb-2 text-2xl font-bold text-center">Where is the hall located?</h2>
+			<div class="w-full max-w-4xl mx-auto h-80">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19468.623487451772!2d-0.18797764960700503!3d51.48180392055793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760f9d1fa8ab13%3A0xe2d3a9d3d661be6b!2sParsons%20Green!5e0!3m2!1sfr!2sfr!4v1729464150925!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				
+			</div>
+		</div>
 
 {% endblock %}
