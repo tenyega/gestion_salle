@@ -14,15 +14,15 @@
 			<div class="mb-4">
 				{% for message in messages %}
 					<div class="px-4 py-3 rounded-lg text-white
-											{% if label == 'success' %}
-											    bg-green-500
-											{% elseif label == 'error' %}
-											    bg-red-500
-											{% elseif label == 'warning' %}
-											    bg-yellow-500
-											{% else %}
-											    bg-blue-500
-											{% endif %} ">
+																		{% if label == 'success' %}
+																		    bg-green-500
+																		{% elseif label == 'error' %}
+																		    bg-red-500
+																		{% elseif label == 'warning' %}
+																		    bg-yellow-500
+																		{% else %}
+																		    bg-blue-500
+																		{% endif %} ">
 						{{ message }}
 					</div>
 				{% endfor %}
@@ -104,17 +104,17 @@
 							<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white rounded-md bg-cyan-600 hover:bg-cyan-700 max-h-fit">Modify</a>
 							<form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-								<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-md hover:bg-red-600">
+								<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md hover:bg-gray-600">
 									Delete
 								</button>
 							</form>
 						{% endif %}
 
 						{% if not reservation.isConfirmed %}
-							<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white rounded-md bg-amber-500 hover:bg-amber-600 max-h-fit">Modify</a>
+							<a href="{{ path('app_reservation_edit', {id: reservation.id}) }}" class="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white rounded-md bg-cyan-600 hover:bg-cyan-700 max-h-fit">Modify</a>
 							<form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-								<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-md hover:bg-red-600">
+								<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md hover:bg-gray-600">
 									Delete
 								</button>
 							</form>
