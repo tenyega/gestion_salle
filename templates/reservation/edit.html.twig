@@ -55,16 +55,6 @@
 				</div>
 				{{ form_end(form) }}
 			</div>
-
-			{# Formulaire de suppression de la réservation #}
-			{# <form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-							<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md ali hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2">
-								Delete Reservation
-							</button>
-						</form> #}
-
-
 		</div>
 	</div>
 {% endblock %}
