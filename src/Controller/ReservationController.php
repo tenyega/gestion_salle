@@ -50,13 +50,14 @@ class ReservationController extends AbstractController
             $reservation->setHallId($hall);
             $this->em->persist($reservation);
             $this->em->flush();
+            $this->addFlash('success', 'Your request for the reservation is sent to the Admin');
             return $this->redirectToRoute('app_reservation_index');
         }
 
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
             'form' => $form,
-            'hallImg'=>$hall->getMainImg(),
+            'hallImg' => $hall->getMainImg(),
         ]);
     }
 
