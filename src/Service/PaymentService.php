@@ -54,7 +54,7 @@ class PaymentService
                 'price_data' => [
                     'currency' => 'eur',
                     'tax_behavior' => 'exclusive',
-                    'unit_amount' => round($this->totalPrice) * 100, // Stripe utilise des centimes
+                    'unit_amount' => $this->totalPrice * 100, // Stripe utilise des centimes
                     'product_data' => [ // Les informations du produit sont personnalisables
                         'name' => $reservation->getHallId()->getName(),
                     ],
