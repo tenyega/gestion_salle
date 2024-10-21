@@ -21,21 +21,21 @@ class SearchFormType extends AbstractType
         $builder
             // Premier input pour les filtres multiples
             ->add('filter', TextType::class, [
-                'label' => 'Search by City, Ergonomy or Equipment',
+                'label' => 'Search by : ',
                 'label_attr' => [
                     'class' => 'block text-sm font-medium text-gray-700 '
                 ],
                 'required' => false,
-                'attr' => ['placeholder' => 'City, Ergonomy, Equipment, Event Type']
+                'attr' => ['placeholder' => 'Country, City, Ergonomy, Equipment, ...']
             ])
-            // Deuxième input pour la capacité maximale
+            // Deuxième input pour la capacité ou nombre de personne
             ->add('capacity', IntegerType::class, [
-                'label' => 'Capacity (Max)',
+                'label' => 'Capacity ',
                 'label_attr' => [
                     'class' => 'block text-sm font-medium text-gray-700'
                 ],
                 'required' => false,
-                'attr' => ['placeholder' => 'Max Capacity']
+            //    'attr' => ['placeholder' => 'Max Capacity']
             ]);
     }
 

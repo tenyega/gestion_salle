@@ -69,7 +69,7 @@ class HallRepository extends ServiceEntityRepository
         if ($filter) {
             // Filtrer par ville, ergonomie, équipement, ou type d'événement
       //      $qb->andWhere('a.city LIKE :filter OR e.name LIKE :filter OR eq.name LIKE :filter OR h.eventTypeId LIKE :filter')
-            $qb->andWhere('a.city LIKE :filter OR e.name LIKE :filter OR eq.name LIKE :filter ')
+            $qb->andWhere('a.city LIKE :filter OR a.country LIKE :filter OR e.name LIKE :filter OR eq.name LIKE :filter ')
                ->setParameter('filter', '%' . $filter . '%');
         }
     

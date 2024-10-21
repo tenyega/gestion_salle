@@ -2,7 +2,7 @@
     <div class="container flex flex-col justify-between mx-auto md:flex-row">
         <!-- Première colonne : Logo -->
         <div class="flex-shrink-0 mb-6 md:mb-0">
-            <img src="{{ asset('img/logo1.png') }}" alt="logo" class="h-16">
+            <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-16">
         </div>
 
         <!-- Deuxième colonne : Liens de navigation et mentions légales -->
@@ -16,9 +16,9 @@
 
             <!-- Mentions légales et copyright (centrés) -->
             <div class="mt-4 text-sm text-gray-400">
-                <a href="{{ path('app_legal_notice') }}" class="hover:text-gray-300">Mention légale</a>
+                <a href="{{ path('app_legal_notice') }}" class="hover:text-gray-300">Mentions légales</a>
                 <span class="mx-2">|</span>
-                <a href="{{ path('app_policy') }}" class="hover:text-gray-300">Protection de données personnelle</a>
+                <a href="{{ path('app_policy') }}" class="hover:text-gray-300">Protection de données personnelles</a>
                 <p class="mt-2">
                     &copy; 2024 A Group Project Using Symfony By L2D Team. All rights reserved.
                 </p>
@@ -26,10 +26,12 @@
         </div>
 
         <!-- Troisième colonne : Réseaux sociaux -->
-        <div class="flex gap-4 mt-6 md:mt-0">
-            <a href="#"><img src="{{ asset('img/facebook.png') }}" alt="facebook" class="w-6 h-6 hover:opacity-75"></a>
-            <a href="#"><img src="{{ asset('img/twitter.webp') }}" alt="twitter" class="w-6 h-6 hover:opacity-75"></a>
-            <a href="#"><img src="{{ asset('img/instagram.webp') }}" alt="instagram" class="w-6 h-6 hover:opacity-75"></a>
+
+        <div class="flex gap-4 mt-6 md:mt-0 items-center">
+            <a href="#"><img src="{{ asset('img/facebook.webp') }}" alt="facebook" class="w-10 h-10 hover:opacity-75"></a>
+            <a href="#"><img src="{{ asset('img/twitter.webp') }}" alt="twitter" class="w-10 h-10 hover:opacity-75"></a>
+            <a href="#"><img src="{{ asset('img/instagram.webp') }}" alt="instagram" class="w-10 h-10 hover:opacity-75"></a>
+
         </div>
     </div>
 </footer>

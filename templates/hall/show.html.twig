@@ -13,12 +13,20 @@
 		{% for label, messages in app.flashes %}
 			<div class="mb-4">
 				{% for message in messages %}
-					<div class="px-4 py-3 rounded-lg text-white
-																																						                {% if label == 'success' %}
-																																						                    bg-green-500
-																																						                {% elseif label == 'error' %}
-																															 bg-red-500 {% elseif label == 'warning' %} bg-yellow-500 {% else %}
-				 bg-blue-500 {% endif %} ">{{ message }}
+					<div class="px-4 py-3 rounded-lg text-white ">
+
+						{% if label == 'success' %}
+							 bg-green-500
+						{% elseif label == 'error' %}
+							 bg-red-500
+						{% elseif label == 'warning' %}
+							 bg-yellow-500
+						{% else %}
+							 bg-blue-500
+						{% endif %}
+					    
+						{{ message }}
+
 					</div>
 				{% endfor %}
 			</div>
@@ -63,7 +71,7 @@
 					<!-- Event Type -->
 					<p class="flex mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Event Type'>{{ ux_icon('material-symbols-light:event-note',{'class': 'h-6 w-6'}) }}</span>
-						{{ hall.eventTypeId.name }}
+						{{ hall.eventTypeId.name }} 
 					</p>
 					<!-- Address -->
 					<p class="flex p-2 mt-2 text-gray-700">
