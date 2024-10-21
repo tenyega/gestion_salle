@@ -60,10 +60,10 @@ class PaymentController extends AbstractController
             ]);
         } else {
             $this->addFlash('error', "You can't take a reservation without a payment");
-            return $this->redirectToRoute('app_subscription');
+            return $this->redirectToRoute('app_payment');
         }
 
-        return $this->render('subscription/payment-success.html.twig');
+        return $this->render('payment/payment-success.html.twig');
     }
 
     // Route lorsque le paiement a échoué
@@ -73,7 +73,7 @@ class PaymentController extends AbstractController
         if ($request->headers->get('referer') === 'https://checkout.stripe.com/') {
             return $this->render('payment/payment-cancel.html.twig');
         } else {
-            $this->addFlash('error', "You can't take a subscription without a payment");
+            $this->addFlash('error', "You can't do the reservation without a payment");
             return $this->redirectToRoute('app_reservation_index');
         }
     }

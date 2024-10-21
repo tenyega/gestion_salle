@@ -44,7 +44,11 @@ class PaymentService
         $totalHours = $this->hourcal->calculateTotalHours($reservation->getStartDate()->format('Y-m-d'), $reservation->getEndDate()->format('Y-m-d'), $reservation->getStartTime()->format('H:i'), $reservation->getEndTime()->format('H:i'));
         $price = $reservation->getHallId()->getPricePerHour();
         $this->totalPrice = $totalHours * $price;
+
+
         $reservation->setTotalPrice($this->totalPrice);
+
+        $amountInCents = (int) round($this->totalPrice * 100);
         $this->em->persist($reservation);
         $this->em->flush();
         Stripe::setApiKey($this->apiKey); // Établissement de la connexion (requête API)        
@@ -53,7 +57,7 @@ class PaymentService
                 'price_data' => [
                     'currency' => 'eur',
                     'tax_behavior' => 'exclusive',
-                    'unit_amount' => $this->totalPrice * 100, // Stripe utilise des centimes
+                    'unit_amount' => $amountInCents, // Stripe utilise des centimes
                     'product_data' => [ // Les informations du produit sont personnalisables
                         'name' => $reservation->getHallId()->getName(),
                     ],
