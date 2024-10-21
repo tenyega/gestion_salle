@@ -12,14 +12,11 @@
 					Add a New Reservation
 				</h2>
 			</div>
+			{# <h2 class="mb-4 text-2xl font-bold text-gray-800">{{ hallId.name }}</h2> #}
+			{# Image of the hall #}
+			<img src="{{ asset('img/halls/' ~ hallImg) }}" alt='Main Image for Hall'/>
 
-			{# Affichage du nom du hall sélectionné #}
-			{# <div class="text-lg font-bold text-center text-indigo-700">
-																		            Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
-																		        </div> #}
-			<img src="{{asset('img/halls/'~ hallImg)}}" alt='Main Image for Hall'/>
-	
-			{{ form_start(form ) }}
+			{{ form_start(form) }}
 
 			<div class="space-y-4 rounded-md shadow-sm">
 				<div>
@@ -29,14 +26,15 @@
 						<p class="text-sm text-red-500">{{ form_errors(form.startDate) }}</p>
 					{% endif %}
 				</div>
+
 				<div>
 					<label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
 					{{ form_widget(form.endDate, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
-
 					{% if form.endDate.vars.errors|length > 0 %}
 						<p class="text-sm text-red-500">{{ form_errors(form.endDate) }}</p>
 					{% endif %}
 				</div>
+
 				<div>
 					<label for="startTime" class="block text-sm font-medium text-gray-700">Start Time</label>
 					{{ form_widget(form.startTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
@@ -44,6 +42,7 @@
 						<p class="text-sm text-red-500">{{ form_errors(form.startTime) }}</p>
 					{% endif %}
 				</div>
+
 				<div>
 					<label for="endTime" class="block text-sm font-medium text-gray-700">End Time</label>
 					{{ form_widget(form.endTime, { 'attr': {'class': 'relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'} }) }}
@@ -51,6 +50,7 @@
 						<p class="text-sm text-red-500">{{ form_errors(form.endTime) }}</p>
 					{% endif %}
 				</div>
+				{# select Ergonomy #}
 				<div>
 					<label for="ergonomy" class="block text-sm font-medium text-gray-700">Ergonomy</label>
 					<select id="ergonomy" name="ergonomy" class="relative block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -60,30 +60,60 @@
 						{% endfor %}
 					</select>
 				</div>
-				<div>
-					<label for="ergonomy" class="block text-sm font-medium text-gray-700">Equipment</label>
-					<select id="ergonomy" name="ergonomy" class="relative block w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-						<option value="">Choose equipments</option>
-						{% for equipment in equipments %}
-							<option value="{{ equipment.id }}">{{ equipment.name }}</option>
-						{% endfor %}
-					</select>
+
+				{# selectedEquipments - checkbox #}
+				<div x-data="{ open: false, selectedEquipments: [] }">
+					<label for="ergonomy" class="block text-sm font-medium text-gray-700">Equipments</label>
+
+					<!-- Dropdown for selecting equipments -->
+					<div @click="open = !open" class="relative w-full px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+						<span class="block truncate">Choose equipments</span>
+						<span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+							<svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+								<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+							</svg>
+						</span>
+					</div>
+
+					<!-- Dropdown Menu -->
+					<div x-show="open" @click.away="open = false" class="absolute z-10 w-full mt-2 origin-top-left bg-white border border-gray-200 rounded-md shadow-lg">
+						<div class="py-1">
+							{% for equipment in equipments %}
+								<label class="flex items-center px-4 py-2 space-x-3 text-sm text-gray-700 hover:bg-gray-100">
+									<input type="checkbox" @click="selectedEquipments.push('{{ equipment.name }}')" value="{{ equipment.id }}" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+									<span>{{ equipment.name }}</span>
+								</label>
+							{% endfor %}
+						</div>
+					</div>
+
+					{# Display selected equipments #}
+					<div class="mt-4">
+						<h3 class="text-sm font-medium text-gray-700">Chosen Equipments:</h3>
+						<ul>
+							<template x-for="equipment in selectedEquipments" :key="equipment">
+								<li x-text="equipment" class="text-gray-600"></li>
+							</template>
+						</ul>
+					</div>
 				</div>
 
 				<div class="my-4 space-y-4">
-					<button type="submit" class="justify-center block w-full px-4 py-2 text-center text-white bg-indigo-600 border border-transparent rounded-md py-2text-white relativeflex group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+					<button type="submit" class="justify-center block w-full px-4 py-2 text-center text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 						Add Reservation
 					</button>
-					<a href="{{ path('app_reservation_index') }}" class="justify-center block w-full px-4 py-2 text-center text-white border border-transparent rounded-md bg-stone-500 py-2text-white relativeflex group hover:bg-stone-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+					<a href="{{ path('app_reservation_index') }}" class="justify-center block w-full px-4 py-2 text-center text-white border border-transparent rounded-md bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 						Back to Reservations
 					</a>
 				</div>
-
-				{{ form_end(form) }}
 			</div>
-		</div>
+
 
 </main>
 
 
-	{% endblock %}
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}
+

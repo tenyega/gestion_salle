@@ -6,24 +6,12 @@
 
 {% block body %}
 
-	<div class="flex flex-col align-between">
+	<div class="flex flex-col mt-6 align-between">
 		<div class="max-w-sm p-10 mx-auto overflow-hidden bg-white rounded-lg shadow-lg">
 			{% for label, messages in app.flashes %}
 				<div class="mb-4">
 					{% for message in messages %}
-						<div class="px-4 py-3 rounded-lg text-white
-																																																																							                {% if label == 'success' %}
-																																																																							                    bg-green-500
-																																																																							                {% elseif label == 'error' %}
-																																																																							                    bg-red-500
-																																																																							                {% elseif label == 'warning' %}
-																																																																							                    bg-yellow-500
-																																																																							                {% else %}
-																																																																							                    bg-blue-500
-																																																																							                {% endif %}
-																																																																							            ">
-							{{ message }}
-						</div>
+						<div class="px-4 py-3 rounded-lg text-white {% if label == 'success' %} bg-green-500 {% elseif label == 'error' %} bg-red-500 {% elseif label == 'warning'%}bg-yellow-500 {% else %} bg-blue-500 {% endif %}">{{ message }}</div>
 					{% endfor %}
 				</div>
 			{% endfor %}
@@ -40,15 +28,13 @@
 				<p class="text-base text-gray-700">
 
 					{{user.address}}</p>
-
-
 			</div>
 			<div class='flex flex-row gap-4'>
 				<a href="{{path('app_profile_edit')}}" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 					{{ 'Edit' | trans }}
 				</a>
 
-				<a href="{{path('app_notification')}}" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+				<a href="{{path('app_notification')}}" class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md group bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
 					{{ 'Notifications' | trans }}
 				</a>
 			</div>

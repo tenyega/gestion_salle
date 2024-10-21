@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<main class="flex flex-col min-h-full px-4 py-12 sm:px-6 lg:px-8">
 		<div class="container p-12 mx-auto  rounded-md" >
 			<h1 class="mb-6 text-3xl font-semibold  text-center">Reservation Details</h1>
@@ -66,4 +67,107 @@
 			</div>
 		</div>
 	</main>
+
+	<div class="container p-6 mx-auto">
+		<h1 class="mb-6 text-3xl font-semibold text-center text-gray-800">Reservation Details</h1>
+
+		<div
+			class="flex w-full max-w-4xl p-6 mx-auto space-x-6 bg-white rounded-lg shadow-lg">
+
+
+			{# Image du Hall à gauche #}
+			<div class="flex justify-center w-2/3">
+				<img src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="{{ reservation.hallId.name }}" class="object-cover w-full h-auto rounded-lg">
+			</div>
+
+			{# <div class="w-1/2">
+												                <img src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="{{ reservation.hallId.name }}" class="object-cover w-full h-auto rounded-lg">
+												            </div> #}
+
+			{# Détails de la réservation à droite #}
+			<div class="w-1/3">
+				<h2 class="mb-4 text-2xl font-bold text-gray-800">{{ reservation.hallId.name }}</h2>
+
+				<div class="space-y-4">
+					<p class="flex p-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}</span>
+						{{reservation.hallId.area}}
+						m²
+					</p>
+
+					<p class="flex p-2 text-gray-700 ">
+						<span class="pr-2 font-semibold" title='Capacity Max'>{{ ux_icon('ic:baseline-reduce-capacity',{'class': 'h-6 w-6'}) }}</span>
+						{{reservation.hallId.capacityMax}}
+						people
+					</p>
+
+					<p class="flex p-2 mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Dates'>{{ ux_icon('uiw:date',{'class': 'h-6 w-6'}) }}</span>
+						{{ reservation.startDate|date('Y-m-d') }}
+						until
+						{{ reservation.endDate|date('Y-m-d') }}
+					</p>
+
+					<p class="flex p-2 mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Time'>{{ ux_icon('tdesign:time',{'class': 'h-6 w-6'}) }}</span>
+						{{ reservation.startTime|date('H:i') }}
+						until
+						{{ reservation.endTime|date('H:i') }}
+					</p>
+
+					<p class="flex mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Accessibility'>{{ ux_icon('ic:outline-accessible',{'class': 'h-6 w-6'}) }}</span>
+						{{ reservation.hallId.accessibility }}
+					</p>
+
+					<p class="flex mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Price'>{{ ux_icon('arcticons:priceconverter',{'class': 'h-6 w-6'}) }}</span>
+						{{ reservation.hallId.pricePerHour }}
+						&euro;  / per hour
+					</p>
+
+					<p class="flex p-2 mt-2 text-gray-700">
+						<span class="pr-2 font-semibold" title='Address'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
+						{{ reservation.hallId.addresseId.number }}
+						{{ reservation.hallId.addresseId.street }},
+						<br>
+						{{ reservation.hallId.addresseId.city }},<br>
+						{{ reservation.hallId.addresseId.codePostal }},
+						{{ reservation.hallId.addresseId.country }}
+					</p>
+
+					{% if reservation.isConfirmed %}
+						<p class="flex p-2 mt-2 text-gray-700">
+							<span class="font-semibold text-green-500">{{ ux_icon('game-icons:confirmed',{'class': 'h-6 w-6'}) }}</span>
+							Confirmed: Yes
+						</p>
+					{% else %}
+						<p class="flex p-2 mt-2 text-gray-700">
+							<span class="font-semibold text-red-500">{{ ux_icon('game-icons:confirmed',{'class': 'h-6 w-6'}) }}</span>
+							Confirmed: No
+						</p>
+					{% endif %}
+				</div>
+
+				{# Actions #}
+				<div class="mt-6 space-x-4">
+
+					<a href="{{ path('app_reservation_index') }}" class="justify-center block px-4 py-2 text-center text-white border border-transparent rounded-md bg-cyan-600 py-2text-white relativeflex group hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-fit">
+
+						Back to Reservations
+					</a>
+				</div>
+			</div>
+		</div>
+
+		{# Ajoutez la carte ici #}
+		<div class="mt-10 mb-6">
+			<h2 class="mb-2 text-2xl font-bold text-center">Where is the hall located?</h2>
+			<div class="w-full max-w-4xl mx-auto h-80">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19468.623487451772!2d-0.18797764960700503!3d51.48180392055793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760f9d1fa8ab13%3A0xe2d3a9d3d661be6b!2sParsons%20Green!5e0!3m2!1sfr!2sfr!4v1729464150925!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+				
+			</div>
+		</div>
+	</div>
+
 {% endblock %}

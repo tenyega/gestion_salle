@@ -26,24 +26,20 @@
 					{{ message }}
 				</div>
 			{% endfor %}
+
 		</div>
 	{% endfor %}
 
 		{% for hall in halls %}
-
-			<div
-				class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
+			<div class="max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg ">
 				<!-- Main Image -->
 				<img
-				class="w-full  img-zoom-effect presentation-img" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
+				class="w-full img-zoom-effect presentation-img" src="{{ asset('img/halls/' ~ hall.mainImg) }}" alt="Hall Image">
 
 				<!-- Card Content -->
-				<div
-					class="p-6">
-
+				<div class="p-6">
 					<!-- Hall Name -->
 					<h2 class="mb-2 text-2xl font-bold text-gray-900">{{hall.name}}</h2>
-
 					<!-- Area and Capacity -->
 					<p class="flex p-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='Area'>{{ ux_icon('tdesign:measurement-1',{'class': 'h-6 w-6'}) }}
@@ -56,26 +52,24 @@
 						{{hall.capacityMax}}
 						people
 					</p>
-
-
 					<!-- Address (Placeholder for now) -->
 					<p class="flex p-2 mt-2 text-gray-700">
 						<span class="pr-2 font-semibold" title='City'>{{ ux_icon('weui:location-outlined',{'class': 'h-6 w-6'}) }}</span>
 
+
 						{{hall.addresseId.city}} - {{hall.addresseId.country}}
 
-					</p>
 
+					</p>
 					<!-- Action Buttons -->
 					<div class="flex justify-between mt-4">
-						<a href="{{path('app_reservation_new', {'id':hall.id})}}" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">Book Now</a>
-						<a href="{{ path('app_hall_show', {'id': hall.id}) }}" class="px-4 py-2 text-white bg-gray-600 rounded-lg hover:bg-gray-700">View Details</a>
-					</div>
-				</div>
+						<a href="{{path('app_reservation_new', {'id':hall.id})}}" class="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700">Book Now</a>
+						<a href="{{ path('app_hall_show', {'id': hall.id}) }}" class="px-4 py-2 text-white rounded-lg bg-cyan-600 hover:bg-cyan-700">View Details</a>
+					</div> 
+				</div> 
 			</div>
 		{% endfor %}
-
 	</div>
-
+	
 {% endblock %}
 
