@@ -14,8 +14,8 @@
 
 			{# Affichage du nom du hall sélectionné #}
 			{# <div class="text-lg font-bold text-center text-indigo-700">
-															                                                                                                                        Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
-															                                                                                                                    </div> #}
+																					                                                                                                                        Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
+																					                                                                                                                    </div> #}
 			<img src="{{asset('img/halls/'~ hallImg)}}" alt='Main Image for Hall'/>
 
 			{{ form_start(form ) }}
@@ -50,7 +50,7 @@
 						<p class="text-sm text-red-500">{{ form_errors(form.endTime) }}</p>
 					{% endif %}
 				</div>
-			
+
 				<div>
 					<!-- Ergonomy Dropdown with Checkboxes -->
 					<div x-data="{ open: false }" class="relative inline-block w-full text-left">
@@ -88,9 +88,11 @@
 						</a>
 					</div>
 
-					{{ form_end(form) }}
+
 				</div>
+
 			</div>
+			{{ form_end(form) }}
 		</div>
 	</div>
 
