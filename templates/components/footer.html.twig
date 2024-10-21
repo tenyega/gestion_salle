@@ -2,6 +2,42 @@
     <div class="container flex flex-col justify-between mx-auto md:flex-row">
         <!-- Première colonne : Logo -->
         <div class="flex-shrink-0 mb-6 md:mb-0">
+            <img src="{{ asset('img/logo1.png') }}" alt="logo" class="h-16">
+        </div>
+
+        <!-- Deuxième colonne : Liens de navigation et mentions légales -->
+        <div class="flex flex-col items-center text-center md:text-center">
+            <div class="flex flex-col gap-6 md:flex-row md:gap-10">
+                <a href="{{ path('app_home') }}" class="text-sm hover:text-gray-400">Home</a>
+                <a href="{{ path('app_hall_index') }}" class="text-sm hover:text-gray-400">Hall</a>
+                <a href="{{ path('app_reservation_index') }}" class="text-sm hover:text-gray-400">Reservation</a>
+                <a href="{{ path('app_contact') }}" class="text-sm hover:text-gray-400">Contact</a>
+            </div>
+
+            <!-- Mentions légales et copyright (centrés) -->
+            <div class="mt-4 text-sm text-gray-400">
+                <a href="{{ path('app_legal_notice') }}" class="hover:text-gray-300">Mention légale</a>
+                <span class="mx-2">|</span>
+                <a href="{{ path('app_policy') }}" class="hover:text-gray-300">Protection de données personnelle</a>
+                <p class="mt-2">
+                    &copy; 2024 A Group Project Using Symfony By L2D Team. All rights reserved.
+                </p>
+            </div>
+        </div>
+
+        <!-- Troisième colonne : Réseaux sociaux -->
+        <div class="flex gap-4 mt-6 md:mt-0">
+            <a href="#"><img src="{{ asset('img/facebook.png') }}" alt="facebook" class="w-8 h-8 hover:opacity-75"></a>
+            <a href="#"><img src="{{ asset('img/twitter.webp') }}" alt="twitter" class="w-8 h-8 hover:opacity-75"></a>
+            <a href="#"><img src="{{ asset('img/instagram.webp') }}" alt="instagram" class="w-8 h-8 hover:opacity-75"></a>
+        </div>
+    </div>
+</footer>
+
+{# <footer class="bg-[#0e2442] text-white py-8 mt-6">
+    <div class="container flex flex-col justify-between mx-auto md:flex-row">
+        <!-- Première colonne : Logo -->
+        <div class="flex-shrink-0 mb-6 md:mb-0">
             <img src="{{ asset('img/logo.png') }}" alt="logo" class="h-16">
         </div>
 
@@ -27,13 +63,13 @@
 
         <!-- Troisième colonne : Réseaux sociaux -->
 
-        <div class="flex gap-4 mt-6 md:mt-0 items-center">
+        <div class="flex items-center gap-4 mt-6 md:mt-0">
             <a href="#"><img src="{{ asset('img/facebook.webp') }}" alt="facebook" class="w-10 h-10 hover:opacity-75"></a>
             <a href="#"><img src="{{ asset('img/twitter.webp') }}" alt="twitter" class="w-10 h-10 hover:opacity-75"></a>
             <a href="#"><img src="{{ asset('img/instagram.webp') }}" alt="instagram" class="w-10 h-10 hover:opacity-75"></a>
 
         </div>
     </div>
-</footer>
+</footer> #}
 
 
