@@ -66,7 +66,6 @@ class DashboardController extends AbstractDashboardController
     }
 
     //Cancellation of Pre Reservation
-    /// NEED TO CHANGE HERE TO CANCEL THE RESERVATION AND TO DELETE FROM THE RESERVATION TABLE 
     #[Route('/admin/cancel/{id}', name: 'app_admin_cancel')]
     public function cancel(int $id, Request $request, EmailNotificationService $emailNotificationService)
     {

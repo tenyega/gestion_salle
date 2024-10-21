@@ -33,8 +33,8 @@ class ReservationRepository extends ServiceEntityRepository
             ->setParameter('now', $now)
             ->andWhere('r.startDate <= :next')
             ->setParameter('next', $next)
+            ->orderBy('r.startDate', 'ASC')
             ->getQuery()
             ->getResult();
     }
-      
 }

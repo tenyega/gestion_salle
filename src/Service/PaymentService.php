@@ -93,8 +93,6 @@ class PaymentService
 
         return $payment;
     }
-    //Generation de la facture 
-    //notification par email
-
+    
 
 }

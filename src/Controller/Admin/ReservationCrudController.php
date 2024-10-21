@@ -30,11 +30,12 @@ class ReservationCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            
+
             DateTimeField::new('startDate'),
             DateTimeField::new('endDate'),
             TimeField::new('startTime'),
             TimeField::new('endTime'),
+            DateTimeField::new('createdAt'),
             BooleanField::new('isConfirmed')
                 ->setLabel('Confirmed')
                 ->setCustomOption('html', true),  // Enable raw HTML rendering
