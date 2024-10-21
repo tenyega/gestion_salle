@@ -20,12 +20,13 @@ class CityService
 
         foreach ($halls as $hall) {
             $city = $hall->getAddresseId()->getCity();
+            // Verifie si l'item est déjà dans le tableau pour éviter les doublons
             if (!in_array($city, $cities)) {
                 $cities[] = $city;
             }
         }
-
-        // Retourne la liste unique des villes
+        sort($cities);
+        // Retourne la liste unique des villes triée par ordre alphabétique
         return $cities;
     }
 }

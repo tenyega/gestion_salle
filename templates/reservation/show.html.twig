@@ -4,64 +4,66 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container p-6 mx-auto">
-		<h1 class="mb-6 text-3xl font-semibold text-gray-800">Reservation Details</h1>
+	<main class="flex flex-col min-h-full px-4 py-12 sm:px-6 lg:px-8">
+		<div class="container p-12 mx-auto  rounded-md" >
+			<h1 class="mb-6 text-3xl font-semibold  text-center">Reservation Details</h1>
 
-		<div
-			class="flex p-6 space-x-6 bg-white rounded-lg shadow-lg">
-			{# Image du Hall à gauche #}
-			<div class="w-1/2">
-				<img src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="{{ reservation.hallId.name }}" class="object-cover w-full h-auto rounded-lg">
-			</div>
-
-			{# Détails de la réservation à droite #}
-			<div class="w-2/3">
-				<h2 class="mb-4 text-2xl font-bold text-gray-800">{{ reservation.hallId.name }}</h2>
-
-				<div class="space-y-4">
-					<div>
-						<span class="font-medium text-gray-600">Area:</span>
-						<span class="text-gray-900">{{ reservation.hallId.area }}
-							m²</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">Capacity:</span>
-						<span class="text-gray-900">{{ reservation.hallId.capacityMax }}
-							people</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">Price per Hour:</span>
-						<span class="text-gray-900">{{ reservation.hallId.pricePerHour }}€</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">Start Date:</span>
-						<span class="text-gray-900">{{ reservation.startDate|date('Y-m-d') }}</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">End Date:</span>
-						<span class="text-gray-900">{{ reservation.endDate|date('Y-m-d') }}</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">Start Time:</span>
-						<span class="text-gray-900">{{ reservation.startTime|date('H:i') }}</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">End Time:</span>
-						<span class="text-gray-900">{{ reservation.endTime|date('H:i') }}</span>
-					</div>
-					<div>
-						<span class="font-medium text-gray-600">Confirmed:</span>
-						<span class="text-gray-900">{{ reservation.isConfirmed ? 'Yes' : 'No' }}</span>
-					</div>
+			<div class="flex p-6 space-x-6 bg-white rounded-lg shadow-lg w-full  space-y-8 gap-2">
+				{# Image du Hall à gauche #}
+				<div class="w-1/2 flex  flex-col items-center justify-center ">
+					<img src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="{{ reservation.hallId.name }}" class="object-cover w-full h-auto rounded-lg">
 				</div>
 
-				{# Actions #}
-				<div class="mt-6 space-x-4">
-					<a href="{{ path('app_reservation_index') }}" class="justify-center block px-4 py-2 text-center text-white bg-indigo-600 border border-transparent rounded-md py-2text-white relativeflex group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-fit">
-						Back to Reservations
-					</a>
+				{# Détails de la réservation à droite #}
+				<div class="w-1/2">
+					<h2 class="mb-4 text-2xl font-bold text-gray-800 text-center">{{ reservation.hallId.name }}</h2>
+
+					<div class="space-y-4 flex flex-col ">
+						<div>
+							<span class=" text-gray-600 font-bold">Area:</span>
+							<span class="text-gray-900">{{ reservation.hallId.area }}
+								m²</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">Capacity:</span>
+							<span class="text-gray-900">{{ reservation.hallId.capacityMax }}
+								people</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">Price per Hour:</span>
+							<span class="text-gray-900">{{ reservation.hallId.pricePerHour }}€</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">Start Date:</span>
+							<span class="text-gray-900">{{ reservation.startDate|date('Y-m-d') }}</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">End Date:</span>
+							<span class="text-gray-900">{{ reservation.endDate|date('Y-m-d') }}</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">Start Time:</span>
+							<span class="text-gray-900">{{ reservation.startTime|date('H:i') }}</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">End Time:</span>
+							<span class="text-gray-900">{{ reservation.endTime|date('H:i') }}</span>
+						</div>
+						<div>
+							<span class=" text-gray-600 font-bold">Confirmed:</span>
+							<span class="text-gray-900">{{ reservation.isConfirmed ? 'Yes' : 'No' }}</span>
+						</div>
+					</div>
+
+					<!--  Bouton reservation  -->
+					<div class="mt-6 space-x-4">
+						<a href="{{ path('app_reservation_index') }}" class="justify-center block px-4 py-2 text-center text-white bg-[#0f2442] border border-transparent rounded-md py-2text-white relativeflex group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-fit">
+							Back to Reservations
+						</a>
+					</div>
+					<!--  Fin bouton reservation  -->
 				</div>
 			</div>
 		</div>
-	</div>
+	</main>
 {% endblock %}

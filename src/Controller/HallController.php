@@ -2,19 +2,19 @@
 
 namespace App\Controller;
 
+use DateInterval;
 use App\Entity\Hall;
 use App\Form\HallType;
 use App\Entity\HallImage;
 use App\Form\SearchFormType;
+use App\Service\HourCalculator;
+
+use App\Service\PaymentService;
+
 use App\Repository\HallRepository;
 use App\Repository\ImagesRepository;
-
 use App\Repository\HallImageRepository;
-
 use App\Repository\ReservationRepository;
-use App\Service\HourCalculator;
-use App\Service\PaymentService;
-use DateInterval;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -44,7 +44,6 @@ class HallController extends AbstractController
                 'halls' => $halls,
             ]);
         }
-
 
         $halls = $hr->findAll();
         return $this->render('hall/index.html.twig', [
@@ -101,8 +100,6 @@ class HallController extends AbstractController
     {
         $id = $hall->getId();
         $images = $hir->findBy([
-
-
             'hallId' => $id,
         ]);
 

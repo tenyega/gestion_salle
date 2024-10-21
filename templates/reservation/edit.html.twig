@@ -4,13 +4,22 @@
 {% endblock %}
 
 {% block body %}
-	<div class="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
-		<div class="w-full max-w-md space-y-8">
-			<h2 class="text-3xl font-extrabold text-center text-gray-900">Edit Reservation</h2>
+	
+	<main class="flex flex-col min-h-full px-4 py-12 sm:px-6 lg:px-8">
 
-			<div class="p-8 bg-white rounded-lg shadow">
+
+		<h2 class="text-3xl font-extrabold text-center text-gray-900 mb-4 ">Reservation Modification
+		</h2>
+		<div class="w-full  space-y-8 flex gap-2">
+			{# Image du Hall à gauche #}
+			<div class="w-1/2 flex  flex-col items-center justify-center ">
+				<h2 class="text-3xl font-extrabold text-center text-gray-900 mb-4">{{ reservation.hallId.name }}</h2>
+				<img src="{{ asset('img/halls/' ~ reservation.hallId.mainImg) }}" alt="{{ reservation.hallId.name }}" class="object-cover w-full h-auto rounded-lg">
+			</div>
+
+			<!-- Formulaire -->
+			<div class="p-8 bg-white rounded-lg shadow w-1/2">
 				{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
-
 
 				{# Champ Date de Début #}
 				<div class="space-y-2">
@@ -55,16 +64,11 @@
 				</div>
 				{{ form_end(form) }}
 			</div>
-
-			{# Formulaire de suppression de la réservation #}
-			{# <form method="post" action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Are you sure you want to delete this reservation?');" class="mt-4">
-							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-							<button class="block w-full px-4 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-md ali hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2">
-								Delete Reservation
-							</button>
-						</form> #}
+			<!-- Fin du formulaires -->
 
 
 		</div>
-	</div>
+
+	</main>
+
 {% endblock %}

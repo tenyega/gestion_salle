@@ -2,20 +2,20 @@
 
 namespace App\Controller;
 
-use App\Repository\ReservationRepository;
+use Stripe\Webhook;
 use App\Security\EmailVerifier;
-use App\Service\EmailNotificationService;
 use App\Service\HourCalculator;
 use App\Service\PaymentService;
-use Stripe\Webhook;
+use Symfony\Component\Mime\Address;
+use App\Repository\ReservationRepository;
+use App\Service\EmailNotificationService;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Mime\Address;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
 class PaymentController extends AbstractController
@@ -38,7 +38,7 @@ class PaymentController extends AbstractController
         ]);
     }
 
-    // // Route lorsque le paiement est réussi
+    // Route lorsque le paiement est réussi
     #[Route('/payment-success/{id}', name: 'app_payment_success', methods: ['GET'])]
     public function paymentSuccess(Request $request, PaymentService $ps, int $id): Response
     {
