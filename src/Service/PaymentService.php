@@ -29,7 +29,6 @@ class PaymentService
         // $this->stripe = $stripe; //Creating object of Stripe Class
         $this->apiKey = $this->parameter->get('STRIPE_API_SK');
         $this->domain = 'https://127.0.0.1:8000';
-        $this->user = $security->getUser();
         $this->em = $entityManagerInterface;
     }
 
