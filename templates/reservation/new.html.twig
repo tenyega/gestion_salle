@@ -14,8 +14,8 @@
 
 			{# Affichage du nom du hall sélectionné #}
 			{# <div class="text-lg font-bold text-center text-indigo-700">
-																					                                                                                                                        Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
-																					                                                                                                                    </div> #}
+																																													                                                                                                                        Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
+																																													                                                                                                                    </div> #}
 			<img src="{{asset('img/halls/'~ hallImg)}}" alt='Main Image for Hall'/>
 
 			{{ form_start(form ) }}
@@ -52,11 +52,11 @@
 				</div>
 
 				<div>
-					<!-- Ergonomy Dropdown with Checkboxes -->
-					<div x-data="{ open: false }" class="relative inline-block w-full text-left">
-						<label for="ergonomy" class="block mb-1 text-sm font-medium text-gray-700">Equipments</label>
+					{# selectedEquipments - checkbox #}
+					<div x-data="{ open: false, selectedEquipments: [] }">
+						<label for="equipements" class="block text-sm font-medium text-gray-700">Equipments</label>
 
-						<!-- Button to trigger the dropdown -->
+						<!-- Dropdown for selecting equipments -->
 						<div @click="open = !open" class="relative w-full px-3 py-2 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
 							<span class="block truncate">Choose equipments</span>
 							<span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
@@ -67,15 +67,26 @@
 						</div>
 
 						<!-- Dropdown Menu -->
-						<div x-show="open" @click.away="open = false" class="absolute z-10 w-full mt-2 origin-top-left bg-white border border-gray-200 rounded-md shadow-lg">
+						<div x-show="open" @click.away="open = false" class="absolute z-10 mt-2 overflow-auto origin-top-left bg-white border border-gray-200 rounded-md shadow-lg h-[150px]">
 							<div class="py-1">
 								{% for equipment in equipments %}
 									<label class="flex items-center px-4 py-2 space-x-3 text-sm text-gray-700 hover:bg-gray-100">
-										<input type="checkbox" name="ergonomies[]" value="{{ equipment.id }}" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+										<input type="checkbox" @click="selectedEquipments.push('{{ equipment.name }}')" value="{{ equipment.id }}" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
 										<span>{{ equipment.name }}</span>
 									</label>
 								{% endfor %}
 							</div>
+						</div>
+
+
+						{# Display selected equipments #}
+						<div class="mt-4">
+							<h3 class="text-sm font-medium text-gray-700">Chosen Equipments:</h3>
+							<ul>
+								<template x-for="equipment in selectedEquipments" :key="equipment">
+									<li x-text="equipment" class="text-gray-600"></li>
+								</template>
+							</ul>
 						</div>
 					</div>
 
@@ -95,5 +106,4 @@
 			{{ form_end(form) }}
 		</div>
 	</div>
-
 {% endblock %}
