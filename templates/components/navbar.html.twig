@@ -11,13 +11,13 @@
 			<a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{ path('app_home') }}" title="Home">{{ ux_icon('mdi:home',{'class': 'h-6 w-6'}) }}</a>
 			<a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{ path('app_contact') }}" title="Contact">{{ ux_icon('mdi:email-outline',{'class': 'h-6 w-6'}) }}</a>
 		</div>
-		<a href="{{path('app_hall_index')}}" class="p-2 shadow block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" title="Show halls">
+		<a href="{{path('app_hall_index')}}" class="block p-2 px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg shadow dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" title="Show halls">
 			{{ ux_icon('mdi:home-group',{'class': 'h-6 w-6'}) }}
 		</a>
-		<div class="bg-slate-50 flex rounded-lg border-slate-400 shadow">
+		<div class="flex rounded-lg shadow bg-slate-50 border-slate-400">
 
 			<div class="relative" x-data="{ localisationOpen: false }">
-				<button @click="localisationOpen = !localisationOpen" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+				<button @click="localisationOpen = !localisationOpen" class="flex flex-row items-center w-full px-4 py-2 mt-2 overflow-auto text-sm font-semibold text-left bg-transparent rounded-lg h- dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
 					<span class="">Location
 					</span>
 					<svg fill="currentColor" viewbox="0 0 20 20" :class="{'rotate-180': localisationOpen, 'rotate-0': !localisationOpen}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
@@ -41,7 +41,7 @@
 					</svg>
 				</button>
 				<div x-show="ergonomieOpen" @click.away="ergonomieOpen = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-50 flex-shrink-0 w-48 mt-2 origin-top-right rounded-md shadow-lg">
-					<div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+					<div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800 h-[30vh] overflow-auto">
 						{% for ergonomy in ergonomies %}
 							<a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dropdown-item dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="{{ path('app_halls_by_ergonomy', {name: ergonomy.name}) }}">
 								{{ ergonomy.name }}
@@ -61,10 +61,10 @@
 				<div x-show="equipementOpen" @click.away="equipementOpen = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-50 flex-shrink-0 w-48 mt-2 origin-top-right rounded-md shadow-lg">
 					<div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
 						<button class="dropdown-toggle">Filter by equipments</button>
-						<div class="dropdown-menu">
+						<div class="dropdown-menu h-[30vh] overflow-auto">
 							<form id="equipmentFilterForm" action="{{ path('app_halls_by_equipments') }}" method="get">
 								{% for equipment in equipments %}
-									<div class="form-check">
+									<div class="form-check ">
 										<input class="form-check-input" type="checkbox" name="equipments[]" value="{{ equipment.id }}" id="equipment{{ equipment.id }}">
 										<label class="form-check-label" for="equipment{{ equipment.id }}">
 											{{ equipment.name }}
@@ -103,4 +103,3 @@
 	</div>
 
 </nav>
-

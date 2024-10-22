@@ -14,8 +14,8 @@
 
 			{# Affichage du nom du hall sélectionné #}
 			{# <div class="text-lg font-bold text-center text-indigo-700">
-																																													                                                                                                                        Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
-																																													                                                                                                                    </div> #}
+																																																                                                                                                                        Hall: {{ reservation.hallid.name }} ({{ reservation.hallid.area }})
+																																																                                                                                                                    </div> #}
 			<img src="{{asset('img/halls/'~ hallImg)}}" alt='Main Image for Hall'/>
 
 			{{ form_start(form ) }}
@@ -68,7 +68,7 @@
 
 						<!-- Dropdown Menu -->
 						<div x-show="open" @click.away="open = false" class="absolute z-10 mt-2 overflow-auto origin-top-left bg-white border border-gray-200 rounded-md shadow-lg h-[150px]">
-							<div class="py-1">
+							<div class="py-1 overflow-auto h-[150px]">
 								{% for equipment in equipments %}
 									<label class="flex items-center px-4 py-2 space-x-3 text-sm text-gray-700 hover:bg-gray-100">
 										<input type="checkbox" @click="selectedEquipments.push('{{ equipment.name }}')" value="{{ equipment.id }}" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
