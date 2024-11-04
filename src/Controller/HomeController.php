@@ -37,13 +37,13 @@ class HomeController extends AbstractController
     }
 
 
-        
-       $halls = $hr->findAll();
-        return $this->render('home/index.html.twig', [
-            'form' => $form->createView(),
-            'halls' => $halls,
-        ]);
-    }
+
+    $halls = $hr->findAll();
+    return $this->render('home/index.html.twig', [
+      'form' => $form->createView(),
+      'halls' => $halls,
+    ]);
+  }
 
 
 
@@ -52,5 +52,4 @@ class HomeController extends AbstractController
   {
     return $this->render('home/404.html.twig', []);
   }
-
 }
