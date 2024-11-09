@@ -101,3 +101,5 @@
 
 Bingo the website worked but the images of the logo was not visible  yet at this point 
 
+-To be able to see the images the img folder should be inside the public folder not in assets so i just moved the img folder to the public and it worked 
+
